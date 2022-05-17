@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom/client';
 import { MoralisProvider } from 'react-moralis';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import Home from './home/home';
+import App from './App';
 import reportWebVitals from './reportWebVitals';
 import './styles/global.css'
 
@@ -18,7 +18,7 @@ root.render(
       <QueryClientProvider client={queryClient}>
         <BrowserRouter>
           <Routes>
-            <Route path='/' element={<Home />} />
+            <Route path='/' element={<App />} />
           </Routes>
         </BrowserRouter>
       </QueryClientProvider>

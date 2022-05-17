@@ -48,13 +48,44 @@ input:active {
     box-shadow: 0px 0px 10px 0px rgba(50, 50, 50, 0.34);
 }
 
-.bigCard{
+.bigCard {
     border-radius: 5px;
     transition: 300ms;
 
 }
-.bigCard:hover{
+
+.bigCard:hover {
     cursor: pointer;
     transition: 300ms;
     transform: scale(1.008);
+}
+
+.sideBarIcon {
+    transition: 300ms;
+    cursor: pointer;
+    color: var(--primary);
+    background-color: #f0763521;
+
+}
+
+.sideBarIconInActive {
+    transition: 300ms;
+    cursor: pointer;
+    color: var(--bgPrimary);
+
+}
+
+.sideBarIcon:hover {
+    transition: 300ms;
+    transform: scale(1.01);
+    cursor: pointer;
+
+}
+
+.sideBarIconInActive:hover {
+    color: var(--primary);
+    background-color: #f0763521;
+    transition: 300ms;
+    transform: scale(1.01);
+    cursor: pointer;
 }

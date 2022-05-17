@@ -1,21 +1,17 @@
-import React from 'react';
+import React, { useState } from 'react';
+import Sidebar from './components/sidebar';
+import Home from './home/home';
 
 const App = () => {
+  const [tabIndex, setTabIndex] = useState(1);
   return (
-    <div className="App">
-      <header className="App-header">
-        <p>
-          Ediet <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <div className=' backgroundCol relative'>
+        <div className='flex flex-row h-screen w-screen'>
+          <Sidebar tabIndex={tabIndex} setTabIndex={setTabIndex} />
+          <Home />
+        </div>
+      </div>
     </div>
   );
 }
