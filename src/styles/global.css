@@ -1,0 +1,60 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import "./colors.css";
+
+:root {
+    --primary: #F07735;
+    --bgPrimary: #231F20;
+    --gray: #9E9E9E;
+}
+
+html,
+body {
+    margin: 0;
+    overflow-x: hidden;
+}
+
+.borderRadiusComponents {
+    border-radius: 5px;
+}
+
+h1 {
+    font-size: 24px;
+    font-weight: 700;
+}
+
+.textInput {
+    border: 1px solid var(--bgPrimary);
+    border-radius: 5px;
+    transition: 300ms;
+    padding: 10px 20px 10px 20px;
+
+}
+
+input:active {
+    border: 1px solid var(--primary) !important;
+    transition: 300ms;
+}
+
+.iconColorInactive {
+    color: var(--gray);
+}
+
+.shadow {
+    -webkit-box-shadow: 0px 0px 10px 0px rgba(50, 50, 50, 0.34);
+    -moz-box-shadow: 0px 0px 10px 0px rgba(50, 50, 50, 0.34);
+    box-shadow: 0px 0px 10px 0px rgba(50, 50, 50, 0.34);
+}
+
+.bigCard{
+    border-radius: 5px;
+    transition: 300ms;
+
+}
+.bigCard:hover{
+    cursor: pointer;
+    transition: 300ms;
+    transform: scale(1.008);
+}
