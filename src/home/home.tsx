@@ -39,7 +39,6 @@ const Home = () => {
     const { authenticate, isAuthenticated, user } = useMoralis();
 
     return (
-
         <div className='h-screen w-full container mx-auto'>
             <div className='flex flex-col mx-5 gap-10'>
                 <SearchBar />
@@ -61,7 +60,6 @@ const Home = () => {
                 </div>
             </div>
         </div>
-
     )
 }
 
