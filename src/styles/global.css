@@ -3,6 +3,7 @@
 @tailwind utilities;
 
 @import "./colors.css";
+@import "./components.css";
 
 :root {
     --primary: #F07735;

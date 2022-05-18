@@ -1,0 +1,31 @@
+:root {
+    --primary: #F07735;
+    --bgPrimary: #231F20;
+    --gray: #9E9E9E;
+}
+
+.chip {
+    padding: 10px 20px 10px 20px;
+    border-radius: 9999px;
+    background-color: white;
+    transition: 300ms;
+    cursor: pointer;
+}
+
+.chipActive {
+    padding: 10px 20px 10px 20px;
+    border-radius: 9999px;
+    background-color: var(--primary);
+    color: white;
+    transition: 300ms;
+    cursor: pointer;
+}
+
+.genreSelect{
+    padding: 10px 20px 10px 20px;
+    border-radius: 9999px;
+    background-color: #f076352b;
+    transition: 300ms;
+    cursor: pointer;
+    border: none;
+}

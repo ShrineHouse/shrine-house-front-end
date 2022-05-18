@@ -1,0 +1,20 @@
+{
+    "objectId": "yz2iKKch3lBU1EthrTPd9FI6",
+    "createdAt": "2022-05-18T21:41:04.062Z",
+    "updatedAt": "2022-05-18T21:43:58.035Z",
+    "artistName": "Hendrik Meyers",
+    "beatPackName": "Urban EDM",
+    "beatPackPrice": 255,
+    "beatPackUrl": "www.soundcloud.com",
+    "beats": [
+        {
+            "beatArtist": "Hendrik Meyers",
+            "beatDownloadUrl": "www.soundcloud.com",
+            "beatPrice": 22.5,
+            "beatUrl": "www.soundcloud.com",
+            "royaltyIndex": 14.5
+        }
+    ],
+    "imageUrl": "https://static.wikia.nocookie.net/d4dj/images/6/69/URBAN_TRAIL_Groovy_Mix_Cover_Art.jpg/revision/latest/scale-to-width-down/1200?cb=20210305183526",
+    "royaltyIndex": 12.5
+}

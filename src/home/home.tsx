@@ -1,11 +1,12 @@
-import React from 'react'
-import { useMoralis } from 'react-moralis';
+import React, { useEffect } from 'react'
+import { useMoralis, useMoralisQuery } from 'react-moralis';
 import Logo from '../components/logo';
 import { AiFillCheckCircle } from 'react-icons/ai';
 import SearchBar from '../components/searchBar';
+import { useQuery } from 'react-query';
 
-
-
+import DbUser from '../interfaces/users';
+import { dataToShrineUsers, dataToUsers } from '../helpers/database';
 
 
 
@@ -36,8 +37,14 @@ const SmallArtistCard = (props: { url: string, artistName: string, verified: boo
 
 
 const Home = () => {
-    const { authenticate, isAuthenticated, user } = useMoralis();
+    const { fetch } = useMoralisQuery("users")
+    const { isLoading, error, data } = useQuery('usersData', () => fetch())
 
+
+    if (isLoading || data === undefined) return <h1>'Loading...'</h1>
+    if (error) return <div>'WOOPS ERROR...'</div>
+    const users = dataToUsers(data);
+    const shrineUsers = dataToShrineUsers(data);
     return (
         <div className='h-screen w-full container mx-auto'>
             <div className='flex flex-col mx-5 gap-10'>
@@ -45,17 +52,14 @@ const Home = () => {
                 <div className="flex flex-col gap-2">
                     <h1>Shrine Artists</h1>
                     <div className='grid grid-cols-3 gap-5'>
-                        <BigArtistCard url='https://i.scdn.co/image/ab6761610000e5ebb88bda1b1f672e1cce76342e' />
-                        <BigArtistCard url='https://pagesix.com/wp-content/uploads/sites/3/2022/05/machine-gun-kelly-billboard-music-awards-2022.jpg?quality=75&strip=all&w=618&h=410&crop=1' />
-                        <BigArtistCard url='https://www.billboard.com/wp-content/uploads/2022/05/02-PSY-cr-P-NATION-Corporation-press-2022-billboard-1548.jpg' />
+                        {shrineUsers.map((u) => <BigArtistCard url={u.image} />
+                        )}
                     </div>
                 </div>
                 <div className="flex flex-col gap-2">
                     <h1>Trending</h1>
                     <div className='grid grid-cols-5 gap-5'>
-                        <SmallArtistCard url='https://i.scdn.co/image/ab6761610000e5ebb88bda1b1f672e1cce76342e' artistName='Guy Pirelli' verified={true} />
-                        <SmallArtistCard url='https://pagesix.com/wp-content/uploads/sites/3/2022/05/machine-gun-kelly-billboard-music-awards-2022.jpg?quality=75&strip=all&w=618&h=410&crop=1' artistName='Machine Gun kelly' verified={false} />
-                        <SmallArtistCard url='https://www.billboard.com/wp-content/uploads/2022/05/02-PSY-cr-P-NATION-Corporation-press-2022-billboard-1548.jpg' artistName='Psy' verified={false} />
+                        {users.map((u) => <SmallArtistCard url={u.image} artistName={u.fullName} verified={u.verified} />)}
                     </div>
                 </div>
             </div>
