@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useMoralis, useMoralisQuery } from 'react-moralis';
 import Logo from '../components/logo';
 import { AiFillCheckCircle } from 'react-icons/ai';
@@ -40,6 +40,12 @@ const Home = () => {
     const { fetch } = useMoralisQuery("users")
     const { isLoading, error, data } = useQuery('usersData', () => fetch())
 
+    const [init, setInit] = useState(false)
+
+    useEffect(() => {
+        console.log('getReady')
+        setInit(true)
+    },[init])
 
     if (isLoading || data === undefined) return <h1>'Loading...'</h1>
     if (error) return <div>'WOOPS ERROR...'</div>

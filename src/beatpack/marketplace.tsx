@@ -34,11 +34,11 @@ const MarketPlace = () => {
     function buildList() {
         if (genreBp[0].genre === 'none') {
             {
-                return beatPack.map((u) => <BigArtistCard url={u.imageUrl} />)
+                return beatPack.map((u) => <SmallArtistCard url={u.imageUrl} artistName={`${u.artistName} - ${u.beatPackName}`} verified={false} />)
             }
         } else {
             {
-                return (genreBp as BeatPack[]).map((u) => <BigArtistCard url={u.imageUrl} />)
+                return (genreBp as BeatPack[]).map((u) => <SmallArtistCard url={u.imageUrl} artistName={`${u.artistName} - ${u.beatPackName}`} verified={false} />)
             }
         }
     }
