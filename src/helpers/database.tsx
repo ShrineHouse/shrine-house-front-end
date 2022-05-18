@@ -33,3 +33,14 @@ export function dataToBeatPackRec(beatpacks: Moralis.Object<Moralis.Attributes>[
     const max = [sort[0], sort[1], sort[2]]
     return max;
 }
+
+export function dataBeatpackFilter(beatpacks: BeatPack[], genre: string) {
+
+    const genres: BeatPack[] = []
+    beatpacks.forEach((bp) => {
+        if (bp.genre === genre) {
+            genres.push(bp)
+        }
+    })
+    return genres;
+}
