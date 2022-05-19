@@ -34,11 +34,11 @@ const MarketPlace = () => {
     function buildList() {
         if (genreBp[0].genre === 'none') {
             {
-                return beatPack.map((u) => <SmallArtistCard url={u.imageUrl} artistName={`${u.artistName} - ${u.beatPackName}`} verified={false} />)
+                return beatPack.map((u, i) => <ul key={i}><SmallArtistCard url={u.imageUrl} artistName={`${u.artistName} - ${u.beatPackName}`} verified={false} /></ul>)
             }
         } else {
             {
-                return (genreBp as BeatPack[]).map((u) => <SmallArtistCard url={u.imageUrl} artistName={`${u.artistName} - ${u.beatPackName}`} verified={false} />)
+                return (genreBp as BeatPack[]).map((u, i) => <ul key={i}><SmallArtistCard url={u.imageUrl} artistName={`${u.artistName} - ${u.beatPackName}`} verified={false} /></ul>)
             }
         }
     }
@@ -56,7 +56,6 @@ const MarketPlace = () => {
                         if (e.target.value === 'allgenres') return setGenre([{ genre: 'none' }])
                         const filteredData = dataBeatpackFilter(beatPack, e.target.value)
                         setGenre(filteredData)
-                        console.log(filteredData)
                     }} >
                         <option value="allgenres">All genres</option>
                         <option value="altrock">Alt Rock</option>
@@ -69,7 +68,7 @@ const MarketPlace = () => {
                 <div className="flex flex-col gap-2">
                     <h1>Recommended playlists</h1>
                     <div className='grid grid-cols-3 gap-5'>
-                        {shrineBeatPack.map((u) => <BigArtistCard url={u.imageUrl} />
+                        {shrineBeatPack.map((u, i) => <ul key={i}><BigArtistCard url={u.imageUrl} /></ul>
                         )}
                     </div>
                 </div>

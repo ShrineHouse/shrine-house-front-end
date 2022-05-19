@@ -2,9 +2,15 @@ import React, { useState } from 'react';
 import Sidebar from './components/sidebar';
 import Home from './home/home';
 import MarketPlace from './beatpack/marketplace';
+import { useMoralis } from 'react-moralis';
+import Profile from './profile/profile';
 
 const App = () => {
   const [tabIndex, setTabIndex] = useState(1);
+  const { isInitialized } = useMoralis();
+
+  if (!isInitialized) return<div className='h-screen w-screen text-center'>'Loading...'</div>
+  
   return (
     <div>
       <div className=' backgroundCol relative'>

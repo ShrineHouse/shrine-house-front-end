@@ -29,3 +29,22 @@
     cursor: pointer;
     border: none;
 }
+
+.primaryButton{
+    background-color: var(--primary);
+    color: white;
+    transition: 300ms;
+    padding: 10px 20px 10px 20px;
+    border-radius: 5px;
+    font-weight: 700;
+}
+.primaryButton:hover{
+    background-color: white;
+    color: var(--primary);
+    outline: var(--primary) 2px solid;
+    outline-offset: -2px;
+    transition: 300ms;
+    padding: 10px 20px 10px 20px;
+    border-radius: 5px;
+    font-weight: 700;
+}

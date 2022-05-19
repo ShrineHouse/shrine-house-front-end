@@ -22,9 +22,7 @@ const Sidebar = (props: { tabIndex: Number, setTabIndex: Function }) => {
             <div className={props.tabIndex === 2 ? "sideBarIcon  w-full flex flex-row justify-center py-5" : " w-full flex flex-row justify-center sideBarIconInActive"} onClick={() => props.setTabIndex(2)}>
                 <MdMusicNote size={40} />
             </div>
-            <div className={props.tabIndex === 3 ? "sideBarIcon w-full flex flex-row justify-center py-5" : " w-full flex flex-row justify-center sideBarIconInActive"} onClick={() => props.setTabIndex(3)}>
-                <MdPerson size={40} />
-            </div>
+
         </div>
     );
 }

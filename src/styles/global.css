@@ -27,20 +27,30 @@ h1 {
 }
 
 .textInput {
-    border: 1px solid var(--bgPrimary);
+    border: 0px;
     border-radius: 5px;
     transition: 300ms;
     padding: 10px 20px 10px 20px;
-
+    background-color: #f0763517;
+    transition: 300ms;
 }
 
-input:active {
-    border: 1px solid var(--primary) !important;
+input:focus {
+    outline: 2px solid var(--primary) !important;
+    outline-offset: -2px;
     transition: 300ms;
 }
 
 .iconColorInactive {
     color: var(--gray);
+    cursor:pointer;
+    transition: 300ms;
+
+}
+.iconColorInactive:hover {
+    color: var(--primary);
+    transition: 300ms;
+
 }
 
 .shadow {
