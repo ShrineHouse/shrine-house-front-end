@@ -1,17 +1,18 @@
 export default interface DbUser {
-    apy:         Apy;
-    type:        string;
-    balance:     number;
+    apy: Apy;
+    type: string;
+    balance: number;
     dateOfBirth: DateOfBirth;
-    email:       string;
-    fullName:    string;
-    image:       string;
-    legalName:   string;
+    email: string;
+    fullName: string;
+    image: string;
+    legalName: string;
     phoneNumber: string;
-    passphrase:  string[];
-    socials:     Socials;
-    wallet:      string;
-    verified:    boolean;
+    passphrase: string[];
+    socials: Socials;
+    wallet: string;
+    verified: boolean;
+    genre: string;
 }
 
 export interface Apy {
@@ -22,11 +23,11 @@ export interface Apy {
 
 export interface DateOfBirth {
     __type: string;
-    iso:    string;
+    iso: string;
 }
 
 export interface Socials {
     instagram: string;
-    twitter:   string;
-    spotify:   string;
+    twitter: string;
+    spotify: string;
 }

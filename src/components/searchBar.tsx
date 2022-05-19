@@ -3,7 +3,7 @@ import Logo from "./logo";
 import { MdAccountBalanceWallet, MdNotifications, MdPerson } from 'react-icons/md';
 import { useMoralis } from 'react-moralis';
 
-const SearchBar = () => {
+const SearchBar = (props: { search: Function }) => {
     const { authenticate, isAuthenticated, user, logout } = useMoralis();
 
     const login = async () => {
@@ -28,9 +28,8 @@ const SearchBar = () => {
                     </div>
                 </div>
                 <div className='py-5'>
-                    <input placeholder='Search shrine' className='textInput justify-center w-full' />
+                    <input placeholder='Search shrine' className='textInput justify-center w-full' onChange={(e)=> props.search(e.target.value)} />
                 </div>
-
                 <div className='flex flex-row items-center gap-3 justify-end p-5'>
                     <div className='iconColorInactive'>
                         <MdNotifications size={25} />

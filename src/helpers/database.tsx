@@ -1,4 +1,5 @@
 import Moralis from "moralis/types";
+import { off } from "process";
 import BeatPack from "../interfaces/beats";
 import DbUser from "../interfaces/users";
 
@@ -40,6 +41,34 @@ export function dataBeatpackFilter(beatpacks: BeatPack[], genre: string) {
     beatpacks.forEach((bp) => {
         if (bp.genre === genre) {
             genres.push(bp)
+        }
+    })
+    return genres;
+}
+
+export function searchArtists(users: DbUser[], searchResult: string) {
+    let result: DbUser[] = [];
+    console.log(searchResult)
+    users.map(u => {
+        if (u.fullName.includes(searchResult)) return result.push(u);
+    })
+    return result;
+}
+
+export function searchBeatpack(beatpacks: BeatPack[], searchResult: string) {
+    let result: BeatPack[] = [];
+    beatpacks.map(u => {
+        if (u.beatPackName.includes(searchResult)) return result.push(u);
+    })
+    return result;
+}
+
+export function artistGenreFilter(users: DbUser[], genre: string) {
+
+    const genres: DbUser[] = []
+    users.forEach((u) => {
+        if (u.genre === genre) {
+            genres.push(u)
         }
     })
     return genres;
