@@ -6,7 +6,7 @@ import Profile from '../profile/profile';
 import { useOutsideAlerter } from '../helpers/utils';
 
 const SearchBar = (props: { search: Function }) => {
-    const { authenticate, isAuthenticated, user, logout } = useMoralis();
+    const { authenticate, isAuthenticated, user, logout  } = useMoralis();
     const [dropdownActive, setDropdown] = React.useState(false)
     const login = async () => {
         if (!isAuthenticated) {
@@ -39,13 +39,9 @@ const SearchBar = (props: { search: Function }) => {
                     <div className='iconColorInactive'>
                         <MdNotifications size={25} />
                     </div>
-                    {isAuthenticated && <div className='iconColorInactive relative'>
+                    {isAuthenticated && <div className={dropdownActive? 'iconColorActive':'iconColorInactive relative'}>
                         <MdPerson size={25} onClick={() => setDropdown(!dropdownActive)} />
-                        {dropdownActive &&
-                            <div className='dropdown shadow' ref={wrapperRef}>
-                                <Profile />
-                            </div>
-                        }
+                        <Profile active={dropdownActive} wrapperRef={wrapperRef} />
                     </div>}
                     {!isAuthenticated && <div className='primaryButton'>
                         <button className='flex flex-row gap-3' onClick={login} ><MdAccountBalanceWallet size={25} /> Connect Account</button>
