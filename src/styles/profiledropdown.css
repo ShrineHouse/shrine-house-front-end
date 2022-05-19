@@ -1,0 +1,9 @@
+.dropdown{
+    width: 250px;
+    min-height: 250px;
+    background-color: white;
+    position: absolute;
+    right: 0;
+    border-radius: 10px;
+
+}

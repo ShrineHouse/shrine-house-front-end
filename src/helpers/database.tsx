@@ -50,7 +50,7 @@ export function searchArtists(users: DbUser[], searchResult: string) {
     let result: DbUser[] = [];
     console.log(searchResult)
     users.map(u => {
-        if (u.fullName.includes(searchResult)) return result.push(u);
+        if (u.fullName.toLowerCase().includes(searchResult.toLowerCase())) return result.push(u);
     })
     return result;
 }
@@ -58,13 +58,12 @@ export function searchArtists(users: DbUser[], searchResult: string) {
 export function searchBeatpack(beatpacks: BeatPack[], searchResult: string) {
     let result: BeatPack[] = [];
     beatpacks.map(u => {
-        if (u.beatPackName.includes(searchResult)) return result.push(u);
+        if (u.beatPackName.toLowerCase().includes(searchResult.toLowerCase())) return result.push(u);
     })
     return result;
 }
 
 export function artistGenreFilter(users: DbUser[], genre: string) {
-
     const genres: DbUser[] = []
     users.forEach((u) => {
         if (u.genre === genre) {

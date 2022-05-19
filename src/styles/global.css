@@ -4,6 +4,7 @@
 
 @import "./colors.css";
 @import "./components.css";
+@import "./profiledropdown.css";
 
 :root {
     --primary: #F07735;

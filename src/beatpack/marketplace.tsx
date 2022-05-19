@@ -8,13 +8,6 @@ import { BigArtistCard, SmallArtistCard } from '../components/cards';
 import BeatPack from '../interfaces/beats';
 import Chip from '../components/chip';
 
-
-
-
-
-
-
-
 const MarketPlace = () => {
     const emptyBp: BeatPack[] = [];
     const [searchedBp, setUsers] = useState(emptyBp)

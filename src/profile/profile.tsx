@@ -1,14 +1,20 @@
 import React from 'react'
+import { useMoralis } from 'react-moralis';
 import SearchBar from '../components/searchBar'
 
 const Profile = () => {
+    const { logout } = useMoralis();
+
     return (
-        <div className='h-screen w-full container mx-auto'>
-            <div className='flex flex-col mx-5 gap-10'>
-                <div className="flex flex-col gap-2 items-center">
-                    <h1>Connect to interact</h1>
-                </div>
-            </div>
+        <div className='flex flex-col gap-3 text-black cursor-default p-5'>
+            <p>General</p>
+            <p>Socials</p>
+            <p>Push Notifications</p>
+            <div className='h-10'></div>
+            <p>Apply as an artist/product</p>
+            <p>More</p>
+            <p>FAQ</p>
+            <p onClick={logout} className='cursor-pointer hover:underline'>Logout</p>
         </div>
     )
 }

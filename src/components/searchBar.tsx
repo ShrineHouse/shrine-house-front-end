@@ -2,10 +2,12 @@ import * as React from 'react';
 import Logo from "./logo";
 import { MdAccountBalanceWallet, MdNotifications, MdPerson } from 'react-icons/md';
 import { useMoralis } from 'react-moralis';
+import Profile from '../profile/profile';
+import { useOutsideAlerter } from '../helpers/utils';
 
 const SearchBar = (props: { search: Function }) => {
     const { authenticate, isAuthenticated, user, logout } = useMoralis();
-
+    const [dropdownActive, setDropdown] = React.useState(false)
     const login = async () => {
         if (!isAuthenticated) {
 
@@ -18,6 +20,9 @@ const SearchBar = (props: { search: Function }) => {
                 });
         }
     }
+    let wrapperRef = React.useRef(null);
+    useOutsideAlerter(wrapperRef, setDropdown)
+
     return (
         <div className="flex flex-col container mx-auto">
             <div className='bg-white max-h-20 mt-10 grid grid-cols-3    borderRadiusComponents relative gap-5 justify-between'>
@@ -28,14 +33,19 @@ const SearchBar = (props: { search: Function }) => {
                     </div>
                 </div>
                 <div className='py-5'>
-                    <input placeholder='Search shrine' className='textInput justify-center w-full' onChange={(e)=> props.search(e.target.value)} />
+                    <input placeholder='Search shrine' className='textInput justify-center w-full' onChange={(e) => props.search(e.target.value)} />
                 </div>
                 <div className='flex flex-row items-center gap-3 justify-end p-5'>
                     <div className='iconColorInactive'>
                         <MdNotifications size={25} />
                     </div>
-                    {isAuthenticated && <div className='iconColorInactive'>
-                        <MdPerson size={25} />
+                    {isAuthenticated && <div className='iconColorInactive relative'>
+                        <MdPerson size={25} onClick={() => setDropdown(!dropdownActive)} />
+                        {dropdownActive &&
+                            <div className='dropdown shadow' ref={wrapperRef}>
+                                <Profile />
+                            </div>
+                        }
                     </div>}
                     {!isAuthenticated && <div className='primaryButton'>
                         <button className='flex flex-row gap-3' onClick={login} ><MdAccountBalanceWallet size={25} /> Connect Account</button>
@@ -44,6 +54,10 @@ const SearchBar = (props: { search: Function }) => {
                 </div>
             </div>
         </div>);
+
+
 }
+
+
 
 export default SearchBar
