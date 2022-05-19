@@ -80,7 +80,7 @@ const MarketPlace = () => {
                         </div>
                         <div className="flex flex-col gap-2">
                             <div className='flex flex-row justify-between items-center'><h1>Trending</h1> <a className='underline'>View All Beats</a></div>
-                            <div className='grid grid-cols-5 gap-5'>
+                            <div className='grid grid-cols-2 md:grid-cols-5 gap-5'>
                                 {buildList()}
                             </div>
                         </div>

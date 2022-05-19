@@ -41,6 +41,12 @@ input:focus {
     outline-offset: -2px;
     transition: 300ms;
 }
+.iconColorActive {
+    color: var(--primary);
+    cursor:pointer;
+    transition: 300ms;
+
+}
 
 .iconColorInactive {
     color: var(--gray);

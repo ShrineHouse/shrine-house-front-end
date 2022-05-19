@@ -1,9 +1,45 @@
+:root {
+    --primary: #F07735;
+    --bgPrimary: #231F20;
+    --gray: #9E9E9E;
+}
 .dropdown{
     width: 250px;
-    min-height: 250px;
+    max-height: 450px;
     background-color: white;
     position: absolute;
     right: 0;
+    margin-top: 5px;
     border-radius: 10px;
+    transition: 300ms;
+    transition-delay: 100ms;
+    transform: translate(0%, 0%) !important;
 
+    z-index: 999 !important;
+
+}
+
+.dropdownInactive{
+    width: 250px;
+    margin-top: 5px;
+    right: 0;
+    border-radius: 10px;
+    transition: 300ms;
+    transition-delay: 100ms;
+    transform: translate(550%, 0%) !important;
+    position: absolute;
+    background-color: white;
+    z-index: 999 !important;
+
+}
+
+.profileLink{
+    color: black;
+    cursor: pointer;
+    transition: 300ms;
+}
+.profileLink:hover{
+    transition: 300ms;
+    color: var(--primary);
+    text-decoration: underline;
 }
