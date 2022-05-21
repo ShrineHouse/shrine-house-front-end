@@ -5,6 +5,7 @@ import { QueryClient, QueryClientProvider } from 'react-query';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import SignupPage from './signup/signup';
 import './styles/global.css'
 
 const root = ReactDOM.createRoot(
@@ -17,7 +18,8 @@ root.render(
       <QueryClientProvider client={queryClient}>
         <BrowserRouter>
           <Routes>
-            <Route path='/' element={<App />} />
+          <Route path='/' element={<App />} />
+          <Route path='/signup' element={<SignupPage />} />
           </Routes>
         </BrowserRouter>
       </QueryClientProvider>

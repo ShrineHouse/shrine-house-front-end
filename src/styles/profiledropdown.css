@@ -4,7 +4,7 @@
     --gray: #9E9E9E;
 }
 .dropdown{
-    width: 250px;
+    max-width: 300px;
     max-height: 450px;
     background-color: white;
     position: absolute;
@@ -20,7 +20,7 @@
 }
 
 .dropdownInactive{
-    width: 250px;
+    max-width: 300px;
     margin-top: 5px;
     right: 0;
     border-radius: 10px;

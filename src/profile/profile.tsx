@@ -2,6 +2,7 @@ import React from 'react'
 import { useMoralis } from 'react-moralis';
 import SearchBar from '../components/searchBar'
 import { MdAccountBalanceWallet } from 'react-icons/md';
+import { Link } from 'react-router-dom';
 
 const Profile = (props: { wrapperRef: React.MutableRefObject<null>, active: boolean }) => {
     const { logout, user, auth } = useMoralis();
@@ -26,7 +27,9 @@ const Profile = (props: { wrapperRef: React.MutableRefObject<null>, active: bool
                 <p className="profileLink">Socials</p>
                 <p className="profileLink">Push Notifications</p>
                 <div className='h-5'></div>
-                <p className="profileLink">Signup as an artist/producer</p>
+                <Link to='/signup'>
+                    <p className="profileLink">Signup as an artist/producer</p>
+                </Link>
                 <p className="profileLink">More</p>
                 <p className="profileLink">FAQ</p>
                 <p onClick={logout} className="profileLink">Logout</p>

@@ -5,6 +5,7 @@
 @import "./colors.css";
 @import "./components.css";
 @import "./profiledropdown.css";
+@import "./wizard.css";
 
 :root {
     --primary: #F07735;

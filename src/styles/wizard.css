@@ -1,0 +1,30 @@
+:root {
+    --primary: #F07735;
+    --bgPrimary: #231F20;
+    --gray: #9E9E9E;
+}
+
+
+.wizardWrapper{
+    min-height: 100%;
+    width: 50%;
+    background-color: white;
+
+}
+
+.wizardInfoScreen{
+    min-height: 100%;
+    width: 50%;
+  /* From https://css.glass */
+background: rgba(241, 241, 241, 0.3);
+box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+backdrop-filter: blur(6.5px);
+-webkit-backdrop-filter: blur(6.5px);
+}
+
+.wizardInfoUnderneath{
+    background: rgb(240,119,53);
+background: radial-gradient(circle,rgba(240,119,53,1) 0%, rgb(240, 151, 103) 50%);
+min-height: 100%;
+width: 50%;
+}
