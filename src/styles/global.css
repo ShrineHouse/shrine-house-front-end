@@ -6,6 +6,7 @@
 @import "./components.css";
 @import "./profiledropdown.css";
 @import "./wizard.css";
+@import "./switch.css";
 
 :root {
     --primary: #F07735;
@@ -107,4 +108,12 @@ input:focus {
     transition: 300ms;
     transform: scale(1.01);
     cursor: pointer;
+}
+
+
+.whiteHeading{
+    color: white;
+    font-size:52px;
+    line-height: 50px;
+    font-weight: 700;
 }

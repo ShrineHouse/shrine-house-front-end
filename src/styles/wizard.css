@@ -24,7 +24,26 @@ backdrop-filter: blur(6.5px);
 
 .wizardInfoUnderneath{
     background: rgb(240,119,53);
-background: radial-gradient(circle,rgba(240,119,53,1) 0%, rgb(240, 151, 103) 50%);
+background: radial-gradient(circle,rgb(241, 101, 25) 0%, rgb(240, 166, 125) 50%);
 min-height: 100%;
 width: 50%;
+}
+
+.signupText{
+    color: white;
+    font-size: 18px
+}
+
+.titleText{
+    color: black;
+    font-size: 42px;
+    font-weight: bold;
+}
+
+.inputFieldText{
+    padding: 10px 20px 10px 20px;
+    border-radius: 9999px;
+    border: 1px var(--gray) solid;
+    background-color: #fcfcfc;
+    width: 100%;
 }

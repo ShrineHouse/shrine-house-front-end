@@ -1,0 +1,26 @@
+:root {
+    --primary: #F07735;
+    --bgPrimary: #231F20;
+    --gray: #9E9E9E;
+}
+.switch{
+    border-radius: 9999px;
+    border: 1px var(--gray) solid;
+    background-color: #fcfcfc;
+    transition: 300ms;
+    min-width: 100%;
+}
+.switchActive{
+    background-color: var(--primary) ;
+    color: white;
+    transition: 300ms;
+    padding: 10px 20px 10px 20px;
+    border-radius: 9999px;
+}
+.switchInactive{
+    color: black;
+    transition: 300ms;
+    padding: 10px 20px 10px 20px;
+    border-radius: 9999px;
+    background-color: #fcfcfc;
+}

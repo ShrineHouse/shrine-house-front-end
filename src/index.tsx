@@ -11,7 +11,7 @@ import './styles/global.css'
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
-const queryClient = new QueryClient()
+export const queryClient = new QueryClient()
 root.render(
   <React.StrictMode>
     <MoralisProvider serverUrl='https://tegvbkenkckg.usemoralis.com:2053/server' appId='LDiq0dcIjNKdEgqqjQHaJgHZXptPQLrtcGtdV88P'>
