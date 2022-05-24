@@ -14,6 +14,7 @@
     "@walletconnect/web3-provider": "^1.7.8",
     "magic-sdk": "^8.1.1",
     "moralis": "^1.7.0",
+    "moralis-admin-cli": "^2.1.16",
     "react": "^18.1.0",
     "react-dom": "^18.1.0",
     "react-icons": "^4.3.1",
