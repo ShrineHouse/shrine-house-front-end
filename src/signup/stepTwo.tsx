@@ -1,23 +1,28 @@
 import * as React from 'react';
 import Logo from '../components/logo';
+import { convertBase64 } from '../helpers/database';
 import { useGetFetchQuery } from '../helpers/state';
 
 
 const StepTwo = (props: { setStep: Function, setSocialsData:Function }) => {
     const initImg = 'https://upload.wikimedia.org/wikipedia/commons/8/89/Portrait_Placeholder.png?20170328184010';
     const [image, setImage] = React.useState(initImg)
-    const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    const [file, setFile] = React.useState()
+    const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
+        const baseImage = await convertBase64(file)
         let socialsData = {
-            'image': (event.target as any)[0].value,
+            'image': baseImage,
             'spotify': (event.target as any)[1].value,
             'instagram': (event.target as any)[2].value,
             'twitter': (event.target as any)[3].value,
         }
         props.setSocialsData(socialsData)
+        props.setStep(2)
     }
     function onImageChange(e: any) {
         setImage(URL.createObjectURL(e.target.files[0]))
+        setFile(e.target.files[0])
     }
 
     function handleClick() {

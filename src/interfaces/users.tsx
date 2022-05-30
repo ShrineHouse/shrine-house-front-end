@@ -1,8 +1,8 @@
-export default interface DbUser {
+export interface DbUser {
     apy: Apy;
     type: string;
     balance: number;
-    dateOfBirth: DateOfBirth;
+    dateOfBirth: string;
     email: string;
     fullName: string;
     image: string;
@@ -31,3 +31,10 @@ export interface Socials {
     twitter: string;
     spotify: string;
 }
+
+export interface upUser{
+     email: string, artistName: string, legalName: string, birth: string, type:string, 
+}
+export interface upUserSocials{
+    image: string, instagram: string, spotify: string, twitter: string}
+

@@ -11,6 +11,7 @@ export default interface BeatPack {
     royaltyIndex: number;
     downloads: number;
     genre: string;
+    description: string;
 }
 
 export interface Beat {

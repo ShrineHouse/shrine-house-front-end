@@ -1,7 +1,7 @@
 import Moralis from "moralis/types";
 import { off } from "process";
 import BeatPack from "../interfaces/beats";
-import DbUser from "../interfaces/users";
+import { DbUser } from "../interfaces/users";
 
 export function dataToUsers(users: Moralis.Object<Moralis.Attributes>[]) {
     let convertedUsers: DbUser[] = [];
@@ -10,13 +10,10 @@ export function dataToUsers(users: Moralis.Object<Moralis.Attributes>[]) {
 }
 
 export function dataToShrineUsers(users: Moralis.Object<Moralis.Attributes>[]) {
-
     let convertedUsers: DbUser[] = [];
     users.map(u => {
         if ((u.attributes as DbUser).verified) { convertedUsers.push(u.attributes as DbUser) }
     });
-
-
     return convertedUsers;
 
 }
@@ -71,4 +68,19 @@ export function artistGenreFilter(users: DbUser[], genre: string) {
         }
     })
     return genres;
+}
+
+export function convertBase64(file: any) {
+    console.log("file")
+    console.log(file)
+    return new Promise((resolve, reject) => {
+        const fileReader = new FileReader();
+        fileReader.readAsDataURL(file)
+        fileReader.onload = () => {
+            resolve(fileReader.result);
+        }
+        fileReader.onerror = (error) => {
+            reject(error);
+        }
+    })
 }

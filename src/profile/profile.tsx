@@ -1,10 +1,7 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { useMoralis } from 'react-moralis';
-import SearchBar from '../components/searchBar'
 import { MdAccountBalanceWallet } from 'react-icons/md';
 import { Link } from 'react-router-dom';
-import { QueryCache, QueryClient, useQuery } from 'react-query';
-import { useGetFetchQuery } from '../helpers/state';
 
 const Profile = (props: { wrapperRef: React.MutableRefObject<null>, active: boolean }) => {
     const { logout, user, auth } = useMoralis();

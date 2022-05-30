@@ -7,6 +7,7 @@
 @import "./profiledropdown.css";
 @import "./wizard.css";
 @import "./switch.css";
+@import "./beatpack.css";
 
 :root {
     --primary: #F07735;

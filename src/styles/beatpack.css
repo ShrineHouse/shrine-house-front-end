@@ -1,0 +1,11 @@
+.beatPack {
+    transition: 300ms;
+    right: 0;
+    transform: translate(100%, 0);
+}
+
+.beatPackActive {
+    transition: 300ms;
+    right: 0;
+    transform: translate(0%, 0);
+}

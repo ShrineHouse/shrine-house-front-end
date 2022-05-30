@@ -7,15 +7,33 @@ import { dataBeatpackFilter, dataToBeatPack, dataToBeatPackRec, dataToShrineUser
 import { BigArtistCard, SmallArtistCard } from '../components/cards';
 import BeatPack from '../interfaces/beats';
 import Chip from '../components/chip';
+import { Link } from 'react-router-dom';
+import BeatPackPage from './beatpack';
 
 const MarketPlace = () => {
     const emptyBp: BeatPack[] = [];
+    const emptyBeatpack:BeatPack = {
+        objectId: '',
+        createdAt: '',
+        updatedAt: '',
+        artistName: '',
+        beatPackName: '',
+        beatPackPrice: 0,
+        beatPackUrl: '',
+        beats: [],
+        imageUrl: '',
+        royaltyIndex: 0,
+        downloads: 0,
+        genre: '',
+        description:'',
+    };
+
     const [searchedBp, setUsers] = useState(emptyBp)
     const [isSearching, setSearch] = useState(false)
     const { fetch } = useMoralisQuery("beats")
     const { isLoading, error, data } = useQuery('beatPacks', () => fetch())
     const [genreBp, setGenre] = useState([{ genre: 'none' }])
-
+    const [activeBp, setBp] = useState(emptyBeatpack)
     if (isLoading || data === undefined) return <h1>'Loading...'</h1>
     if (error) return <div>'WOOPS ERROR...'</div>
     let beatPack = dataToBeatPack(data);
@@ -24,11 +42,11 @@ const MarketPlace = () => {
         if (genreBp[0] === undefined) return <p>No beatpacks found</p>
         if (genreBp[0].genre === 'none') {
             {
-                return beatPack.map((u, i) => <ul key={i}><SmallArtistCard url={u.imageUrl} artistName={`${u.artistName} - ${u.beatPackName}`} verified={false} /></ul>)
+                return beatPack.map((u, i) => <ul key={i}><div onClick={()=>setBp(u)} ><SmallArtistCard url={u.imageUrl} artistName={`${u.artistName} - ${u.beatPackName}`} verified={false} /></div></ul>)
             }
         } else {
             {
-                return (genreBp as BeatPack[]).map((u, i) => <ul key={i}><SmallArtistCard url={u.imageUrl} artistName={`${u.artistName} - ${u.beatPackName}`} verified={false} /></ul>)
+                return (genreBp as BeatPack[]).map((u, i) => <ul key={i}><div onClick={()=>setBp(u)} ><SmallArtistCard url={u.imageUrl} artistName={`${u.artistName} - ${u.beatPackName}`} verified={false} /></div></ul>)
             }
         }
     }
@@ -41,8 +59,12 @@ const MarketPlace = () => {
         setUsers(search);
         if (!isSearching) return setSearch(true)
     }
+    console.log(activeBp)
     return (
         <div className='h-screen w-full container mx-auto'>
+            <div className={activeBp.objectId === '' ? 'beatPack fixed w-screen h-screen z-50 backgroundCol' : 'beatPackActive fixed w-screen h-screen z-50 backgroundCol'}>
+                <BeatPackPage bp={activeBp} back={()=> setBp(emptyBeatpack)} />
+            </div>
             <div className='flex flex-col mx-5 gap-10'>
                 <SearchBar search={search} />
                 <div className='flex flex-row justify-between items-center'>
@@ -67,14 +89,14 @@ const MarketPlace = () => {
                     <div className="flex flex-col gap-2">
                         <h1>Search results</h1>
                         <div className='grid grid-cols-3 gap-5'>
-                            {searchedBp.map((u, i) => <ul key={i}><SmallArtistCard url={u.imageUrl} artistName={`${u.artistName} - ${u.beatPackName}`} verified={false} /></ul>
+                            {searchedBp.map((u, i) => <ul key={i}><div onClick={()=>setBp(u)} ><SmallArtistCard url={u.imageUrl} artistName={`${u.artistName} - ${u.beatPackName}`} verified={false} /></div></ul>
                             )}
                         </div>
                     </div> : <div>
                         <div className="flex flex-col gap-2">
                             <h1>Recommended playlists</h1>
                             <div className='grid grid-cols-3 gap-5'>
-                                {shrineBeatPack.map((u, i) => <ul key={i}><BigArtistCard url={u.imageUrl} /></ul>
+                                {shrineBeatPack.map((u, i) => <ul key={i}><div onClick={()=>setBp(u)} ><BigArtistCard url={u.imageUrl} /></div></ul>
                                 )}
                             </div>
                         </div>

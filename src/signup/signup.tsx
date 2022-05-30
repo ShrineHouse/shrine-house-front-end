@@ -2,10 +2,11 @@ import * as React from 'react';
 import { useMoralis } from 'react-moralis';
 import { useMutation, useQuery } from 'react-query';
 import Logo from '../components/logo';
+import StepThree from './stepThree';
 import StepTwo from './stepTwo';
+import { upUser, upUserSocials } from '../interfaces/users'
 
-
-function StepOne(props: { setStep: Function, setData:Function }) {
+function StepOne(props: { setStep: Function, setData: Function }) {
     const [switchState, setSwitchState] = React.useState(false)
 
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
@@ -16,9 +17,10 @@ function StepOne(props: { setStep: Function, setData:Function }) {
             'email': (event.target as any)[2].value,
             'birth': (event.target as any)[3].value,
             'artist': (event.target as any)[4].value,
+            'type': switchState === true ? 'artist' : 'producer',
         }
         props.setData(signupData)
-  
+
         props.setStep(1)
     }
 
@@ -61,10 +63,11 @@ function StepOne(props: { setStep: Function, setData:Function }) {
 
 const SignupPage = () => {
     const { auth } = useMoralis();
-
+    const emptyUser: upUser = { artistName: '', birth: '', email: '', legalName: '', type: 'user' }
+    const emptyUserSoc: upUserSocials = { image: '', instagram: '', spotify: '', twitter: '' }
     const [step, setStep] = React.useState(0)
-    const [data, setData] = React.useState({})
-    const [dataSocials, setSocialsData] = React.useState({})
+    const [data, setData] = React.useState(emptyUser)
+    const [dataSocials, setSocialsData] = React.useState(emptyUserSoc)
 
     if (auth.state !== 'authenticated') {
         return <h1>Please connect your wallet before signing up.</h1>
@@ -76,9 +79,11 @@ const SignupPage = () => {
         <div>
             <div className='backgroundCol min-h-screen min-w-screen flex flex-row relative '>
                 <div className='wizardWrapper shadow z-20 relative'>
-                    {step === 0 && <StepOne setStep={setStep} setData = { setData } />}
+                    {step === 0 && <StepOne setStep={setStep} setData={setData} />}
 
-                    {step === 1 && <StepTwo  setStep={setStep} setSocialsData = { setSocialsData } />}
+                    {step === 1 && <StepTwo setStep={setStep} setSocialsData={setSocialsData} />}
+
+                    {step === 2 && <StepThree data={data} dataSocials={dataSocials} />}
 
                 </div>
 

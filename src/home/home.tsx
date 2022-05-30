@@ -5,7 +5,7 @@ import { useQuery } from 'react-query';
 
 import { artistGenreFilter, dataBeatpackFilter, dataToShrineUsers, dataToUsers, searchArtists } from '../helpers/database';
 import { BigArtistCard, SmallArtistCard } from '../components/cards';
-import DbUser from '../interfaces/users'
+import {DbUser} from '../interfaces/users'
 import Chip from '../components/chip';
 
 
@@ -16,7 +16,7 @@ const Home = () => {
     const emptyUser: DbUser[] = [];
     const [searchedUsers, setUsers] = useState(emptyUser)
     const [isSearching, setSearch] = useState(false)
-    const { fetch } = useMoralisQuery("users")
+    const { fetch } = useMoralisQuery("_User", query=>query.equalTo('type', 'artist').equalTo('type','producer'))
     const { isLoading, error, data } = useQuery('usersData', () => fetch())
     const [genreArtist, setGenre] = useState([{ genre: 'none' }])
 

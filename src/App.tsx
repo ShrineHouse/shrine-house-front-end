@@ -6,7 +6,7 @@ import { useMoralis } from 'react-moralis';
 import Profile from './profile/profile';
 
 const App = () => {
-  const [tabIndex, setTabIndex] = useState(1);
+  const [tabIndex, setTabIndex] = useState(2);
   const { isInitialized } = useMoralis();
 
   if (!isInitialized) return<div className='h-screen w-screen text-center'>'Loading...'</div>
