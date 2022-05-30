@@ -49,7 +49,7 @@ const Home = () => {
     return (
         <div className='h-screen w-full container mx-auto'>
             <div className='flex flex-col mx-5 gap-10'>
-                <SearchBar search={search} />
+                <SearchBar search={search} marketplace={false} />
                 <div className='flex flex-row justify-between items-center'>
                     <div className='flex flex-row gap-2'>
                         <Chip text='Trending' />

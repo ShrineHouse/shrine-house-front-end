@@ -12,6 +12,7 @@ export default interface BeatPack {
     downloads: number;
     genre: string;
     description: string;
+    ownerWallet: string;
 }
 
 export interface Beat {

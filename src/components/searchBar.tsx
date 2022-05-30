@@ -1,12 +1,13 @@
 import * as React from 'react';
 import Logo from "./logo";
-import { MdAccountBalanceWallet, MdNotifications, MdPerson } from 'react-icons/md';
+import { MdAccountBalanceWallet, MdNotifications, MdPerson, MdMusicNote } from 'react-icons/md';
 import { useMoralis } from 'react-moralis';
 import Profile from '../profile/profile';
 import { useOutsideAlerter } from '../helpers/utils';
+import { Link, Navigate } from 'react-router-dom';
 
-const SearchBar = (props: { search: Function }) => {
-    const { authenticate, isAuthenticated, user, logout  } = useMoralis();
+const SearchBar = (props: { search: Function, marketplace: boolean }) => {
+    const { authenticate, isAuthenticated, user, logout } = useMoralis();
     const [dropdownActive, setDropdown] = React.useState(false)
     const login = async () => {
         if (!isAuthenticated) {
@@ -36,15 +37,17 @@ const SearchBar = (props: { search: Function }) => {
                     <input placeholder='Search shrine' className='textInput justify-center w-full' onChange={(e) => props.search(e.target.value)} />
                 </div>
                 <div className='flex flex-row items-center gap-3 justify-end p-5'>
+                    {(props.marketplace && isAuthenticated) && <div className='primaryButton'><Link to={'/createbeatpack'} className='flex flex-row gap-2' ><MdMusicNote size={25} />Upload beatpack</Link></div>}
+
                     <div className='iconColorInactive'>
                         <MdNotifications size={25} />
                     </div>
-                    {isAuthenticated && <div className={dropdownActive? 'iconColorActive':'iconColorInactive relative'}>
+                    {isAuthenticated && <div className={dropdownActive ? 'iconColorActive' : 'iconColorInactive relative'}>
                         <MdPerson size={25} onClick={() => setDropdown(!dropdownActive)} />
                         <Profile active={dropdownActive} wrapperRef={wrapperRef} />
                     </div>}
                     {!isAuthenticated && <div className='primaryButton'>
-                        <button className='flex flex-row gap-3' onClick={login} ><MdAccountBalanceWallet size={25} /> Connect Account</button>
+                        <button className='flex flex-row gap-3' onClick={login} ><MdAccountBalanceWallet size={25} />Connect Account</button>
                     </div>}
 
                 </div>

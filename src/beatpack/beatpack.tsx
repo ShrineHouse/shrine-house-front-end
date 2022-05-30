@@ -111,7 +111,7 @@ const BeatPackPage = (props: { bp: BeatPack, back: Function }) => {
                 <div className="flex flex-col">
                     <div className='flex flex-row gap-2 items-center mb-5 cursor-pointer' onClick={() => props.back()}>
                         <ChevronLeftIcon height={50} width={50} />
-                        <Text className=' text-xl font-bold'>Back</Text>
+                        <Text className='text-xl font-bold'>Back</Text>
                     </div>
                     <Flex gap={5}>
                         <Box w={500} >
@@ -119,7 +119,7 @@ const BeatPackPage = (props: { bp: BeatPack, back: Function }) => {
                                 <Box h={300} w={300} borderRadius="lg" backgroundImage={`url(${props.bp.imageUrl})`} backgroundPosition="center"
                                     backgroundRepeat="no-repeat" className='rounded-xl'></Box>
                                 <Flex alignItems='center' >
-                                    <Text fontSize='3xl' >
+                                    <Text className='text-2xl'>
                                         {props.bp.artistName} - {props.bp.beatPackName}
                                     </Text>
                                     <Spacer />

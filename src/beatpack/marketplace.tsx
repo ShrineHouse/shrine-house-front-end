@@ -25,7 +25,8 @@ const MarketPlace = () => {
         royaltyIndex: 0,
         downloads: 0,
         genre: '',
-        description:'',
+        description: '',
+        ownerWallet:''
     };
 
     const [searchedBp, setUsers] = useState(emptyBp)
@@ -62,11 +63,11 @@ const MarketPlace = () => {
     console.log(activeBp)
     return (
         <div className='h-screen w-full container mx-auto'>
-            <div className={activeBp.objectId === '' ? 'beatPack fixed w-screen h-screen z-50 backgroundCol' : 'beatPackActive fixed w-screen h-screen z-50 backgroundCol'}>
+            <div className={activeBp.objectId === '' ? 'beatPack fixed w-screen h-screen z-50 backgroundCol' : 'beatPackActive fixed w-screen max-h-screen z-50 backgroundCol  overflow-y-scroll'}>
                 <BeatPackPage bp={activeBp} back={()=> setBp(emptyBeatpack)} />
             </div>
             <div className='flex flex-col mx-5 gap-10'>
-                <SearchBar search={search} />
+                <SearchBar search={search} marketplace={true} />
                 <div className='flex flex-row justify-between items-center'>
                     <div className='flex flex-row gap-2'>
                         <Chip text='Trending' />
