@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { useMoralisQuery } from 'react-moralis';
+import { useMoralis, useMoralisQuery } from 'react-moralis';
 import SearchBar from '../components/searchBar';
 import { useQuery } from 'react-query';
 
@@ -16,11 +16,15 @@ const Home = () => {
     const emptyUser: DbUser[] = [];
     const [searchedUsers, setUsers] = useState(emptyUser)
     const [isSearching, setSearch] = useState(false)
-    const { fetch } = useMoralisQuery("_User", query=>query.equalTo('type', 'artist').equalTo('type','producer'))
+    const { fetch } = useMoralisQuery("_User", query=>query.notEqualTo('type', 'user'))
     const { isLoading, error, data } = useQuery('usersData', () => fetch())
     const [genreArtist, setGenre] = useState([{ genre: 'none' }])
+    const {logout} = useMoralis()
 
-    if (isLoading || data === undefined) return <div className='h-screen w-screen text-center'><h1>'Loading...'</h1></div>
+    if (isLoading || data === undefined) return <div className='h-screen w-screen text-center flex flex-col'>
+        <h1>'Loading...'</h1>
+        <p onClick={()=>logout}>If you're experiencing trouble, please logout. <button onClick={logout}>LOGOUT</button></p>
+    </div>
     if (error) return <div>'WOOPS ERROR...'</div>
     const users = dataToUsers(data);
     const shrineUsers = dataToShrineUsers(data);
