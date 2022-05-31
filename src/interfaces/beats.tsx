@@ -1,7 +1,4 @@
 export default interface BeatPack {
-    objectId: string;
-    createdAt: string;
-    updatedAt: string;
     artistName: string;
     beatPackName: string;
     beatPackPrice: number;
@@ -21,4 +18,5 @@ export interface Beat {
     beatPrice: number;
     beatUrl: string;
     royaltyIndex: number;
+    beatName: string;
 }

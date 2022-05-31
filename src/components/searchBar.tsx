@@ -14,7 +14,6 @@ const SearchBar = (props: { search: Function, marketplace: boolean }) => {
 
             await authenticate()
                 .then(function (user) {
-                    console.log(user!.get("ethAddress"));
                 })
                 .catch(function (error) {
                     console.log(error);

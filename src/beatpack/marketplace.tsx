@@ -13,9 +13,6 @@ import BeatPackPage from './beatpack';
 const MarketPlace = () => {
     const emptyBp: BeatPack[] = [];
     const emptyBeatpack:BeatPack = {
-        objectId: '',
-        createdAt: '',
-        updatedAt: '',
         artistName: '',
         beatPackName: '',
         beatPackPrice: 0,
@@ -60,10 +57,9 @@ const MarketPlace = () => {
         setUsers(search);
         if (!isSearching) return setSearch(true)
     }
-    console.log(activeBp)
     return (
         <div className='h-screen w-full container mx-auto'>
-            <div className={activeBp.objectId === '' ? 'beatPack fixed w-screen h-screen z-50 backgroundCol' : 'beatPackActive fixed w-screen max-h-screen z-50 backgroundCol  overflow-y-scroll'}>
+            <div className={activeBp.beatPackName === '' ? 'beatPack fixed w-screen h-screen z-50 backgroundCol' : 'beatPackActive fixed w-screen min-h-screen max-h-screen z-50 backgroundCol  overflow-y-scroll'}>
                 <BeatPackPage bp={activeBp} back={()=> setBp(emptyBeatpack)} />
             </div>
             <div className='flex flex-col mx-5 gap-10'>

@@ -24,11 +24,16 @@ export function dataToBeatPack(beatpacks: Moralis.Object<Moralis.Attributes>[]) 
     return convertedPacks;
 }
 export function dataToBeatPackRec(beatpacks: Moralis.Object<Moralis.Attributes>[]) {
+    
     let convertedPacks: BeatPack[] = [];
     beatpacks.map(u => convertedPacks.push(u.attributes as BeatPack));
-
+    console.log('HEYZOE')
+    console.log(convertedPacks)
     const sort = convertedPacks.slice().sort((a, b) => b.downloads - a.downloads)
-    const max = [sort[0], sort[1], sort[2]]
+    let max = [sort[0], sort[1], sort[2]]
+    max = max.filter(function( element ) {
+        return element !== undefined;
+     });
     return max;
 }
 

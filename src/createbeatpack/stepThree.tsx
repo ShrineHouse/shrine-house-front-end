@@ -1,6 +1,7 @@
 import Moralis from 'moralis/types';
 import * as React from 'react';
 import { MoralisObjectSaveData, useMoralis, useNewMoralisObject } from 'react-moralis';
+import { useNavigate } from 'react-router-dom';
 import Logo from '../components/logo';
 import { useGetFetchQuery } from '../helpers/state';
 import { DbUser, upUser, upUserSocials } from '../interfaces/users';
@@ -12,6 +13,7 @@ const StepThree = (props: { data: upUser, dataSocials: upUserSocials }) => {
     const { isSaving, error, save, } = useNewMoralisObject('_Users');
     const { user } = useMoralis();
     console.log(props.data, props.dataSocials)
+    const navigate = useNavigate();
 
     async function updateUser() {
         if (user !== null) {
@@ -51,6 +53,7 @@ const StepThree = (props: { data: upUser, dataSocials: upUserSocials }) => {
             user.set('wallet', dbUser.wallet)
 
             user.save()
+            navigate('/')
         }
 
     }

@@ -3,16 +3,16 @@ import { Box, Button, Center, Flex, Input, Spacer, Stack, Text, useDisclosure, V
 import React, { useEffect, useRef, useState } from 'react';
 import JsFileDownloader from 'js-file-downloader';
 import { beatpackDetails } from '../data/beatpack';
-import BeatPack from '../interfaces/beats';
+import BeatPack, { Beat } from '../interfaces/beats';
 import { AiFillPauseCircle, AiFillPlayCircle } from 'react-icons/ai';
 
-const MusicCard = (props: any) => {
+const MusicCard = (props: { data: Beat }) => {
 
     const [trackProgress, setTrackProgress] = useState(0);
     const [isPlaying, setIsPlaying] = useState(false);
 
     // Refs
-    const audioRef = useRef(new Audio(props.url));
+    const audioRef = useRef(new Audio(props.data.beatDownloadUrl));
     const intervalRef = useRef<any>(null);
     const isReady = useRef(false);
     // Destructure for conciseness
@@ -63,13 +63,13 @@ const MusicCard = (props: any) => {
                 <Stack w='100%' className='pl-4'>
                     <Flex alignItems='center' w='100%' paddingRight="20px" paddingTop="20px">
                         <div className='flex flex-col gap-2' >
-                            <Text className='text-xl font-bold'>Guy Pirelli</Text>
-                            <Text marginTop='-10px !important' fontSize='lg'>{props.songName}</Text>
+                            <Text className='text-xl font-bold'>{props.data.beatArtist}</Text>
+                            <Text marginTop='-10px !important' fontSize='lg'>{props.data.beatName}</Text>
                         </div>
                         <Spacer />
                         <Button bg='#F07634' color='white' display='none' onClick={() => {
                             new JsFileDownloader({
-                                url: props.url
+                                url: props.data.beatDownloadUrl
                             })
                         }}>Download</Button>
                     </Flex>
@@ -133,7 +133,7 @@ const BeatPackPage = (props: { bp: BeatPack, back: Function }) => {
                         </Box>
 
                         <VStack w='100%'>
-                            {beatpackDetails.map((beatcard => <MusicCard url={beatcard.url} songName={beatcard.name} />))}
+                            {props.bp.beats.map((beatcard => <MusicCard data={beatcard} />))}
                         </VStack>
                     </Flex>
                 </div>

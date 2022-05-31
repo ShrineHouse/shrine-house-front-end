@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useMoralis, useMoralisFile } from 'react-moralis';
+import { MoralisObjectSaveData, useMoralis, useMoralisFile, useNewMoralisObject } from 'react-moralis';
 import { useMutation, useQuery } from 'react-query';
 import Logo from '../components/logo';
 import StepThree from './stepThree';
@@ -7,61 +7,62 @@ import StepTwo from './stepTwo';
 import { upUser, upUserSocials } from '../interfaces/users'
 import { convertBase64 } from '../helpers/database';
 import JSZip from 'jszip';
-import { Beat } from '../interfaces/beats';
+import BeatPack, { Beat } from '../interfaces/beats';
+import { CircularProgress } from '@chakra-ui/react';
+import { Navigate, useNavigate } from 'react-router-dom';
 
-function StepOneBp(props: { setStep: Function, setData: Function }) {
-    const [switchState, setSwitchState] = React.useState(false)
+function StepOneBp() {
+    const emptyBp: Beat[] = []
     const initImg = 'https://upload.wikimedia.org/wikipedia/commons/8/89/Portrait_Placeholder.png?20170328184010';
     const [image, setImage] = React.useState(initImg)
     const [file, setFile] = React.useState()
-    const [beatZip, setBeatZip] = React.useState('')
-    const [uploadedBeats, setUppedBeats] = React.useState({})
+    const [beatFile, seatBeatFile] = React.useState()
     const { user } = useMoralis();
+    const { isSaving, error, save } = useNewMoralisObject('beats');
+    const navigate = useNavigate()
+    const { saveFile, } = useMoralisFile();
 
-    const {
-        error,
-        isUploading,
-        moralisFile,
-        saveFile,
-    } = useMoralisFile();
-    const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    const [isUploading, setUploading] = React.useState(false)
+
+    const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+        setUploading(true)
         event.preventDefault();
-        const baseImage = convertBase64(file)
-        let beatpackData = {
-            'imageUrl': baseImage,
-            'beatPackName': (event.target as any)[1].value,
-            'beatPackPrice': (event.target as any)[2].value,
-            'beatPrice': (event.target as any)[3].value,
-            'royaltyIndex': (event.target as any)[4].value,
-            'genre': (event.target as any)[5].value,
-            'description': (event.target as any)[6].value,
+        const baseImage: any = await convertBase64(file)
+        if (user !== null) {
+            let beatpackData: BeatPack = {
+                imageUrl: baseImage,
+                beatPackName: (event.target as any)[1].value,
+                beatPackPrice: Number((event.target as any)[2].value),
+                royaltyIndex: Number((event.target as any)[4].value),
+                genre: (event.target as any)[5].value,
+                description: (event.target as any)[6].value,
+                artistName: user.attributes.fullName,
+                beatPackUrl: '',
+                beats: emptyBp,
+                downloads: 0,
+                ownerWallet: user.attributes.wallet,
+            }
+            await handleZip(beatFile, (event.target as any)[3].value, Number((event.target as any)[4].value), beatpackData)
         }
-        props.setData(beatpackData)
 
-        props.setStep(1)
+
+
     }
     function handleClick() {
         let element: HTMLElement = document.querySelector('input[type="file"]') as HTMLElement;
         element.click();
     };
-    function handleClickZip() {
-        let element: HTMLElement = document.querySelector('zip') as HTMLElement;
-        element.click();
-    };
+
     function onImageChange(e: any) {
         setImage(URL.createObjectURL(e.target.files[0]))
         setFile(e.target.files[0])
     }
 
     function onZipChange(event: any) {
-        handleZip(event.target.files[0])
+        seatBeatFile(event.target.files[0])
     }
 
-    console.log(uploadedBeats)
-    console.log(beatZip)
-
-
-    async function handleZip(file: any) {
+    async function handleZip(file: any, beatPrice: number, royaltyIndex: number, beatpackData: BeatPack) {
         var zipe = new JSZip();
         var beats: Beat[] = []
         const standardUrl = "https://ipfs.moralis.io:2053/ipfs/"
@@ -77,25 +78,48 @@ function StepOneBp(props: { setStep: Function, setData: Function }) {
         for await (var elem of keys) {
             if (elem.includes('__MACOSX/._')) {
             } else {
-                console.log(elem)
-                zip.files[elem].async('blob').then(async function (fileData) {
-                    const newFile = new File([fileData], 'Cyanide.mp3');
-                    const uploadFile = await saveFile(newFile.name, newFile, { saveIPFS: true })
+                try {
+                    console.log(elem)
+                    var fileData = await zip.files[elem].async('blob')
+                    const newFile = new File([fileData], elem);
+                    const name = newFile.name.replace(/[`~!@#$%^&*()_|+\-=?;:'",.<>\{\}\[\]\\\/]/gi, '');
+                    const uploadFile = await saveFile(name, newFile, { saveIPFS: true })
                     if ((user !== null && uploadFile !== undefined)) {
                         const dlUrl = standardUrl + uploadFile.name().replace('.txt', '')
-                        beats.push({ beatArtist: user.attributes.fullName, beatDownloadUrl: dlUrl, beatPrice: 12, beatUrl: dlUrl, royaltyIndex: 12 })
+                        beats.push({ beatArtist: user.attributes.fullName, beatDownloadUrl: dlUrl, beatPrice: beatPrice, beatUrl: dlUrl, royaltyIndex: royaltyIndex, beatName: newFile.name })
                     }
-                })
-            }
-            i++
-            if (i === keys.length) {
-                const uppedZip = await saveFile(zip.name, file, { saveIPFS: true })
-                if (uppedZip !== undefined) {
-                    const dlUrl = standardUrl + uppedZip.name().replace('.zip', '')
-                    setUppedBeats(beats);
-                    setBeatZip(dlUrl)
+                } catch (e) {
+                    console.log(e)
                 }
             }
+        }
+        const uppedZip = await saveFile(zip.name, file, { saveIPFS: true })
+        if (uppedZip !== undefined) {
+            const dlUrl = standardUrl + uppedZip.name().replace('.zip', '')
+            let uploadData: MoralisObjectSaveData = {
+                artistName: beatpackData.artistName,
+                beatPackName: beatpackData.beatPackName,
+                beatPackPrice: beatpackData.beatPackPrice,
+                description: beatpackData.description,
+                downloads: beatpackData.downloads,
+                genre: beatpackData.genre,
+                imageUrl: beatpackData.imageUrl,
+                ownerWallet: beatpackData.ownerWallet,
+                royaltyIndex: beatpackData.royaltyIndex,
+                beatPackUrl: dlUrl,
+                beats: beats,
+            }
+
+            save(uploadData, {
+                onError: (e) => {
+                    console.log(e)
+                },
+                onComplete: () => {
+                    setUploading(false)
+                    navigate('/')
+                }
+
+            })
         }
     }
 
@@ -113,21 +137,23 @@ function StepOneBp(props: { setStep: Function, setData: Function }) {
                             {image === initImg ? <p>+</p> : <p>x</p>}
                         </div>
                     </div>
-                    <input type='file' style={{ display: 'none' }} accept='image/*' onChange={onImageChange} />
+                    <input type='file' style={{ display: 'none' }} required={true} accept='image/*' onChange={onImageChange} />
                 </>
-                <input className='inputFieldText' name="legal" placeholder='Beatpack name' type='text' />
-                <input className='inputFieldText' name="name" placeholder='Beatpack price' type='number' />
-                <input className='inputFieldText' name="name" placeholder='Individual beat price' type='number' />
-                <input className='inputFieldText' placeholder='Royalty index' type='number' />
-                <input className='inputFieldText' placeholder='Genre' type='text' />
-                <textarea className='inputFieldText rounded-xl' placeholder='Description' rows={5} aria-multiline={true} />
+                <input className='inputFieldText' required={true} name="legal" placeholder='Beatpack name' type='text' />
+                <input className='inputFieldText' required={true} name="name" placeholder='Beatpack price' type='number' />
+                <input className='inputFieldText' required={true} name="name" placeholder='Individual beat price' type='number' />
+                <input className='inputFieldText' required={true} min={0} max={12} placeholder='Royalty index' type='number' />
+                <input className='inputFieldText' required={true} placeholder='Genre' type='text' />
+                <textarea className='inputFieldText rounded-xl' required={true} placeholder='Description' rows={5} aria-multiline={true} />
                 <input
                     onChange={onZipChange}
                     type="file"
                     id='zip'
                     accept=".zip,.rar,.7zip"
+                    required={true}
                 />
-                <input type='submit' className='primaryButton rounded-full' id='submit' value='Submit' />
+                {isUploading && <CircularProgress isIndeterminate />}
+                {!isUploading && <input type='submit' className='primaryButton rounded-full' id='submit' value='Submit' />}
             </form>
         </div>
     );
@@ -136,11 +162,9 @@ function StepOneBp(props: { setStep: Function, setData: Function }) {
 
 const CreateBp = () => {
     const { auth } = useMoralis();
-    const emptyUser: upUser = { artistName: '', birth: '', email: '', legalName: '', type: 'user' }
-    const emptyUserSoc: upUserSocials = { image: '', instagram: '', spotify: '', twitter: '' }
-    const [step, setStep] = React.useState(0)
-    const [data, setData] = React.useState(emptyUser)
-    const [dataSocials, setSocialsData] = React.useState(emptyUserSoc)
+
+
+
 
     if (auth.state !== 'authenticated') {
         return <h1>Please connect your wallet before signing up.</h1>
@@ -152,9 +176,7 @@ const CreateBp = () => {
         <div>
             <div className='backgroundCol min-h-screen min-w-screen flex flex-row relative '>
                 <div className='wizardWrapper shadow z-20 relative'>
-                    {step === 0 && <StepOneBp setStep={setStep} setData={setData} />}
-                    {step === 1 && <StepTwo setStep={setStep} setSocialsData={setSocialsData} />}
-                    {step === 2 && <StepThree data={data} dataSocials={dataSocials} />}
+                    <StepOneBp />
                 </div>
                 <div className='wizardInfoUnderneath shadow z-0 relative right-0'>
                 </div>
