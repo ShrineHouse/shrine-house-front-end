@@ -1,5 +1,5 @@
 import { ChevronDownIcon, ChevronRightIcon, ChevronLeftIcon, Icon, LinkIcon, } from '@chakra-ui/icons';
-import { Box, Button, Center, Flex, Input, Spacer, Stack, Text, useDisclosure, VStack } from '@chakra-ui/react';
+import { Box, Button, Center, Flex, Input, Slider, SliderFilledTrack, SliderThumb, SliderTrack, Spacer, Stack, Text, useDisclosure, VStack } from '@chakra-ui/react';
 import React, { useEffect, useRef, useState } from 'react';
 import JsFileDownloader from 'js-file-downloader';
 import { beatpackDetails } from '../data/beatpack';
@@ -53,18 +53,18 @@ const MusicCard = (props: { data: Beat }) => {
     }
 
     return (
-        <Box w='100%' className='bg-white pr-5' borderRadius={10} >
+        <Box w='100%' className='bg-white pr-5 shadow-md' borderRadius={10} >
             <Flex gap={5}>
-                <Box w={100} bg='#F07634' borderTopLeftRadius={10} borderBottomStartRadius={10}>
-                    <Center>{isPlaying && <Icon as={AiFillPauseCircle} color='white' h={100} w={100} onClick={() => { handleMusic(false) }} />}
-                        {!isPlaying && <Icon as={AiFillPlayCircle} color='white' h={100} w={100} onClick={() => { handleMusic(true) }} />}
+                <Box w={120} bg={isPlaying ? '#F07634' : '#FDEEE6'} borderTopLeftRadius={10} borderBottomStartRadius={10} className="items-center flex flex-col justify-center">
+                    <Center>{isPlaying && <Icon as={AiFillPauseCircle} color='white' h={50} w={50} onClick={() => { handleMusic(false) }} />}
+                        {!isPlaying && <Icon as={AiFillPlayCircle} color='#B6ACA7' h={50} w={50} onClick={() => { handleMusic(true) }} />}
                     </Center>
                 </Box>
-                <Stack w='100%' className='pl-4'>
-                    <Flex alignItems='center' w='100%' paddingRight="20px" paddingTop="20px">
+                <Stack w='100%' className='pl-4 py-5'>
+                    <Flex alignItems='center' w='100%' paddingRight="20px">
                         <div className='flex flex-col gap-2' >
                             <Text className='text-xl font-bold'>{props.data.beatArtist}</Text>
-                            <Text marginTop='-10px !important' fontSize='lg'>{props.data.beatName}</Text>
+                            <Text marginTop='-10px !important' fontSize='lg'>{props.data.beatName.replace('.mp3', '')}</Text>
                         </div>
                         <Spacer />
                         <Button bg='#F07634' color='white' display='none' onClick={() => {
@@ -74,7 +74,8 @@ const MusicCard = (props: { data: Beat }) => {
                         }}>Download</Button>
                     </Flex>
                     <div className='mr-5 w-full'>
-                        <input className='pr-5 w-full max-w-full' onChange={(e: any) => onScrub(e.target.value)}
+
+                        <input className='my-slider' onChange={(e: any) => onScrub(e.target.value)}
                             type='range' value={trackProgress} step='1' min='0' max={duration ? duration : `${duration}`} />
                     </div>
                 </Stack>
@@ -90,6 +91,7 @@ const MusicCard = (props: { data: Beat }) => {
 
 const BeatPackPage = (props: { bp: BeatPack, back: Function }) => {
     const { isOpen, onOpen, onClose } = useDisclosure()
+    const [activeTab, setActiveTab] = useState('beat');
 
 
 
@@ -113,7 +115,7 @@ const BeatPackPage = (props: { bp: BeatPack, back: Function }) => {
                         <ChevronLeftIcon height={50} width={50} />
                         <Text className='text-xl font-bold'>Back</Text>
                     </div>
-                    <div className='flex flex-row gap-10'>
+                    <div className='flex flex-row gap-20'>
                         <div className='min-w-80 max-w-80 min-h-full bg-white p-10 rounded-xl shadow-md flex flex-col gap-5'>
                             <div className='flex flex-col gap-3 items-center'>
                                 <div className="text-2xl font-bold text-center">Other playlists from this producer</div>
@@ -147,9 +149,12 @@ const BeatPackPage = (props: { bp: BeatPack, back: Function }) => {
                                 </div>
                                 <div className='flex flex-col gap-2'>
                                     <div className='text-4xl font-bold'>
+                                        {props.bp.beatPackName}
+                                    </div>
+                                    <div className='text-4xl font-bold primaryColor'>
                                         {props.bp.artistName}
                                     </div>
-                                    <div className='text-2xl font-bold'>
+                                    <div className='text-xl text-gray-400'>
                                         {props.bp.genre}
                                     </div>
                                 </div>
@@ -157,22 +162,25 @@ const BeatPackPage = (props: { bp: BeatPack, back: Function }) => {
                             </div>
                             <div className='flex flex-row w-full gap-10'>
                                 <div className=' underline text-3xl font-bold'>Beatpack</div>
-                                <div className='text-3xl font-bold text-gray-400'>Producer info</div>
+                                <div className='text-3xl font-bold text-gray-500'>Producer info</div>
+                            </div>
+                            <div className='flex flex-col gap-4'>
+                                <div className='flex flex-row gap-5 justify-between w-full items-center'>
+                                    <div className='flex flex-col gap-3'>
+                                        <div className='text-2xl'>{props.bp.beatPackName}</div>
+                                        <div className='text-lg'>{props.bp.description}</div>
+                                    </div>
+                                    <div>
+                                        <Button bg='#F07634' color='white' className='primaryButton' onClick={onDownload}>Purchase all tracks for ${props.bp.beatPackPrice}</Button>
+
+                                    </div>
+
+                                </div>
+                                <div className='flex flex-col gap-5'>
+                                    {props.bp.beats.map((beatcard => <MusicCard data={beatcard} />))}
+                                </div>
                             </div>
 
-                            <div className='flex flex-row gap-5 justify-between w-full items-center'>
-                                <div className='flex flex-col gap-3'>
-                                    <div className='text-2xl'>{props.bp.beatPackName}</div>
-                                    <div className='text-lg'>{props.bp.description}</div>
-                                </div>
-                                <div>
-                                    <Button bg='#F07634' color='white' className='primaryButton' onClick={onDownload}>Purchase all tracks for ${props.bp.beatPackPrice}</Button>
-
-                                </div>
-
-                            </div>
-
-                            {props.bp.beats.map((beatcard => <MusicCard data={beatcard} />))}
                         </VStack>
                     </div>
                 </div>
