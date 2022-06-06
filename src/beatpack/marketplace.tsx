@@ -58,12 +58,15 @@ const MarketPlace = () => {
         if (!isSearching) return setSearch(true)
     }
     return (
-        <div className='h-screen w-full container mx-auto'>
+        <div className='h-screen w-full container mx-auto px-5'>
             <div className={activeBp.beatPackName === '' ? 'beatPack fixed w-screen h-screen z-50 backgroundCol' : 'beatPackActive fixed w-screen min-h-screen max-h-screen z-50 backgroundCol  overflow-y-scroll'}>
                 <BeatPackPage bp={activeBp} back={()=> setBp(emptyBeatpack)} />
             </div>
-            <div className='flex flex-col mx-5 gap-10'>
+            <div className='flex flex-col mx-5 gap-10 mt-20 pt-5'>
                 <SearchBar search={search} marketplace={true} />
+                <div className=' text-5xl -mb-5'>
+                   Beat Market
+                </div>
                 <div className='flex flex-row justify-between items-center'>
                     <div className='flex flex-row gap-2'>
                         <Chip text='Trending' />
@@ -90,15 +93,16 @@ const MarketPlace = () => {
                             )}
                         </div>
                     </div> : <div>
-                        <div className="flex flex-col gap-2">
-                            <h1>Recommended playlists</h1>
+                        <div className="flex flex-col gap-5">
+                            <div className='text-4xl'>Recommended playlists</div>
                             <div className='grid grid-cols-3 gap-5'>
                                 {shrineBeatPack.map((u, i) => <ul key={i}><div onClick={()=>setBp(u)} ><BigArtistCard url={u.imageUrl} /></div></ul>
                                 )}
                             </div>
                         </div>
-                        <div className="flex flex-col gap-2">
-                            <div className='flex flex-row justify-between items-center'><h1>Trending</h1> <a className='underline'>View All Beats</a></div>
+                        <div className="flex flex-col gap-5 mt-10">
+                            <div className='text-4xl -mb-5'>Trending</div>
+                            <div className='flex flex-row justify-between items-center'><h1>Beatpacks & playlists</h1> <a className='underline'>View All Packs & Playlists</a></div>
                             <div className='grid grid-cols-2 md:grid-cols-5 gap-5'>
                                 {buildList()}
                             </div>

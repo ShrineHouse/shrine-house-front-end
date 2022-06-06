@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react'
-import { useMoralis, useMoralisQuery } from 'react-moralis';
+import { useMoralis, useMoralisCloudFunction, useMoralisQuery } from 'react-moralis';
 import SearchBar from '../components/searchBar';
 import { useQuery } from 'react-query';
 
 import { artistGenreFilter, dataBeatpackFilter, dataToShrineUsers, dataToUsers, searchArtists } from '../helpers/database';
 import { BigArtistCard, SmallArtistCard } from '../components/cards';
-import {DbUser} from '../interfaces/users'
+import { DbUser } from '../interfaces/users'
 import Chip from '../components/chip';
 
 
@@ -16,18 +16,19 @@ const Home = () => {
     const emptyUser: DbUser[] = [];
     const [searchedUsers, setUsers] = useState(emptyUser)
     const [isSearching, setSearch] = useState(false)
-    const { fetch } = useMoralisQuery("_User", query=>query.notEqualTo('type', 'user'))
+    const { fetch } = useMoralisCloudFunction('getArtists');
+
     const { isLoading, error, data } = useQuery('usersData', () => fetch())
     const [genreArtist, setGenre] = useState([{ genre: 'none' }])
-    const {logout} = useMoralis()
+    const { logout } = useMoralis()
 
     if (isLoading || data === undefined) return <div className='h-screen w-screen text-center flex flex-col'>
         <h1>'Loading...'</h1>
-        <p onClick={()=>logout}>If you're experiencing trouble, please logout. <button onClick={logout}>LOGOUT</button></p>
+        <p onClick={() => logout}>If you're experiencing trouble, please logout. <button onClick={logout}>LOGOUT</button></p>
     </div>
     if (error) return <div>'WOOPS ERROR...'</div>
-    const users = dataToUsers(data);
-    const shrineUsers = dataToShrineUsers(data);
+    const users = dataToUsers(data as any);
+    const shrineUsers = dataToShrineUsers(data as any);
 
     function search(value: string) {
         if (value === '') {
@@ -39,7 +40,7 @@ const Home = () => {
         if (!isSearching) return setSearch(true)
     }
     function buildList() {
-        if(genreArtist[0] === undefined) return <p>No artists found</p>
+        if (genreArtist[0] === undefined) return <p>No artists found</p>
         if (genreArtist[0].genre === 'none') {
             {
                 return users.map((u, i) => <ul key={i}><SmallArtistCard url={u.image} artistName={`${u.fullName}`} verified={false} /></ul>)
@@ -54,7 +55,7 @@ const Home = () => {
         <div className='h-screen w-full container mx-auto'>
             <div className='flex flex-col mx-5 gap-10'>
                 <SearchBar search={search} marketplace={false} />
-                <div className='flex flex-row justify-between items-center'>
+                <div className='flex flex-row justify-between items-center mt-20 pt-5'>
                     <div className='flex flex-row gap-2'>
                         <Chip text='Trending' />
                         <Chip text='Liked' />
@@ -90,7 +91,7 @@ const Home = () => {
                         <div className="flex flex-col gap-2">
                             <h1>Trending</h1>
                             <div className='grid grid-cols-2 md:grid-cols-5 gap-5'>
-                               {buildList()}
+                                {buildList()}
                             </div>
                         </div>
                     </div>}

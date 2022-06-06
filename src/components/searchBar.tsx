@@ -24,8 +24,8 @@ const SearchBar = (props: { search: Function, marketplace: boolean }) => {
     useOutsideAlerter(wrapperRef, setDropdown)
 
     return (
-        <div className="flex flex-col container mx-auto">
-            <div className='bg-white max-h-20 mt-10 grid grid-cols-3    borderRadiusComponents relative gap-5 justify-between'>
+        <div className="flex flex-col mx-auto absolute left-0 top-0 shadow-md">
+            <div className='bg-white max-h-20 w-screen grid grid-cols-3  borderRadiusComponents relative gap-5 justify-between'>
                 <div className='flex flex-row gap-3 max-h-20 p-5'>
                     <Logo />
                     <div className='self-center'>

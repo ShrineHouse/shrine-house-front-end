@@ -113,29 +113,68 @@ const BeatPackPage = (props: { bp: BeatPack, back: Function }) => {
                         <ChevronLeftIcon height={50} width={50} />
                         <Text className='text-xl font-bold'>Back</Text>
                     </div>
-                    <Flex gap={5}>
-                        <Box w={500} >
-                            <Stack gap={5} w={300} position='fixed'>
-                                <Box h={300} w={300} borderRadius="lg" backgroundImage={`url(${props.bp.imageUrl})`} backgroundPosition="center"
-                                    backgroundRepeat="no-repeat" className='rounded-xl'></Box>
-                                <Flex alignItems='center' >
-                                    <Text className='text-2xl'>
-                                        {props.bp.artistName} - {props.bp.beatPackName}
-                                    </Text>
-                                    <Spacer />
-                                    <LinkIcon color='#F07634' w={25} h={25} />
-                                </Flex>
-                                <Text>
-                                    {props.bp.description}
-                                </Text>
-                                <Button bg='#F07634' color='white' className='primaryButton' onClick={onDownload}>Purchase for ${props.bp.beatPackPrice}</Button>
-                            </Stack>
-                        </Box>
+                    <div className='flex flex-row gap-10'>
+                        <div className='min-w-80 max-w-80 min-h-full bg-white p-10 rounded-xl shadow-md flex flex-col gap-5'>
+                            <div className='flex flex-col gap-3 items-center'>
+                                <div className="text-2xl font-bold text-center">Other playlists from this producer</div>
+                                <div className='grid grid-cols-2 gap-5'>
 
-                        <VStack w='100%'>
+                                    <div className='flex flex-col gap-2'>
+                                        <img src={props.bp.imageUrl} className=" object-cover w-20 h-20 rounded-xl" />
+                                        <div className="text-xl font-bold"> {props.bp.beatPackName}</div>
+                                    </div>
+                                    <div className='flex flex-col gap-2'>
+                                        <img src={props.bp.imageUrl} className=" object-cover w-20 h-20 rounded-xl" />
+                                        <div className="text-xl font-bold"> {props.bp.beatPackName}</div>
+                                    </div>
+                                    <div className='flex flex-col gap-2'>
+                                        <img src={props.bp.imageUrl} className=" object-cover w-20 h-20 rounded-xl" />
+                                        <div className="text-xl font-bold"> {props.bp.beatPackName}</div>
+                                    </div>
+                                    <div className='flex flex-col gap-2'>
+                                        <img src={props.bp.imageUrl} className=" object-cover w-20 h-20 rounded-xl" />
+                                        <div className="text-xl font-bold"> {props.bp.beatPackName}</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className='w-full border-b-2 border-gray-300'></div>
+                        </div>
+
+                        <VStack w='100%' gap={10}>
+                            <div className='flex flex-row gap-5 justify-start w-full'>
+                                <div>
+                                    <img src={props.bp.imageUrl} className=" object-cover h-60 w-60 rounded-xl" />
+                                </div>
+                                <div className='flex flex-col gap-2'>
+                                    <div className='text-4xl font-bold'>
+                                        {props.bp.artistName}
+                                    </div>
+                                    <div className='text-2xl font-bold'>
+                                        {props.bp.genre}
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div className='flex flex-row w-full gap-10'>
+                                <div className=' underline text-3xl font-bold'>Beatpack</div>
+                                <div className='text-3xl font-bold text-gray-400'>Producer info</div>
+                            </div>
+
+                            <div className='flex flex-row gap-5 justify-between w-full items-center'>
+                                <div className='flex flex-col gap-3'>
+                                    <div className='text-2xl'>{props.bp.beatPackName}</div>
+                                    <div className='text-lg'>{props.bp.description}</div>
+                                </div>
+                                <div>
+                                    <Button bg='#F07634' color='white' className='primaryButton' onClick={onDownload}>Purchase all tracks for ${props.bp.beatPackPrice}</Button>
+
+                                </div>
+
+                            </div>
+
                             {props.bp.beats.map((beatcard => <MusicCard data={beatcard} />))}
                         </VStack>
-                    </Flex>
+                    </div>
                 </div>
 
             </Box>
