@@ -64,7 +64,7 @@ const MarketPlace = () => {
             </div>
             <div className='flex flex-col mx-5 gap-10 mt-20 pt-5'>
                 <SearchBar search={search} marketplace={true} />
-                <div className=' text-5xl -mb-5'>
+                <div className=' text-5xl -mb-5 font-bold'>
                    Beat Market
                 </div>
                 <div className='flex flex-row justify-between items-center'>

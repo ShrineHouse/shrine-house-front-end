@@ -32,9 +32,10 @@ export interface Socials {
     spotify: string;
 }
 
-export interface upUser{
-     email: string, artistName: string, legalName: string, birth: string, type:string, 
+export interface upUser {
+    email: string, artistName: string, legalName: string, birth: string, type: string, genre: string
 }
-export interface upUserSocials{
-    image: string, instagram: string, spotify: string, twitter: string}
+export interface upUserSocials {
+    image: string, instagram: string, spotify: string, twitter: string
+}
 

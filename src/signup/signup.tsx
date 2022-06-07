@@ -1,13 +1,17 @@
 import * as React from 'react';
-import { useMoralis } from 'react-moralis';
-import { useMutation, useQuery } from 'react-query';
+import { useMoralis, useMoralisQuery } from 'react-moralis';
+import { useQuery } from 'react-query';
 import Logo from '../components/logo';
 import StepThree from './stepThree';
 import StepTwo from './stepTwo';
 import { upUser, upUserSocials } from '../interfaces/users'
+import { getGenres } from '../helpers/database';
 
 function StepOne(props: { setStep: Function, setData: Function }) {
     const [switchState, setSwitchState] = React.useState(false)
+    const { fetch } = useMoralisQuery("genres")
+    const [genre, setGenre] = React.useState('No genre');
+    const { isLoading, error, data } = useQuery('genres', () => fetch())
 
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
@@ -17,6 +21,7 @@ function StepOne(props: { setStep: Function, setData: Function }) {
             'email': (event.target as any)[2].value,
             'birth': (event.target as any)[3].value,
             'artist': (event.target as any)[4].value,
+            'genre': genre,
             'type': switchState === true ? 'artist' : 'producer',
         }
         props.setData(signupData)
@@ -24,6 +29,15 @@ function StepOne(props: { setStep: Function, setData: Function }) {
         props.setStep(1)
     }
 
+    function buildGenres() {
+        if (data !== undefined) {
+            const de = getGenres(data)
+            console.log(de)
+            return de.map((genre) => <option>{genre}</option>)
+        }
+        return <ul>Loading genres...</ul>
+
+    }
     return (<div className='flex flex-col items-center justify-center min-h-screen gap-5 p-10 px-20'>
         <div className='h-20 w-20'>
             <Logo />
@@ -34,6 +48,15 @@ function StepOne(props: { setStep: Function, setData: Function }) {
             <input className='inputFieldText' name="name" placeholder='Artist/producer name' type='text' />
             <input className='inputFieldText' placeholder='Email' type='email' />
             <input className='inputFieldText' placeholder='Birthdate' type='date' />
+            <div >
+                <datalist id="suggestions">
+                    {buildGenres()}
+                </datalist>
+                <input autoComplete="on" className='inputFieldText' list="suggestions" placeholder='Pick a genre' required={true} onChange={(e) => {
+                    setGenre(e.target.value)
+                    console.log(e.target.value)
+                }} />
+            </div>
             <label style={{
                 'marginTop': '-20px'
             }}>
@@ -52,8 +75,6 @@ function StepOne(props: { setStep: Function, setData: Function }) {
                         Producer
                     </div>
                 </div>
-
-
             </label>
             <input type='submit' className='primaryButton rounded-full' id='submit' value='Submit' />
         </form>
@@ -63,7 +84,7 @@ function StepOne(props: { setStep: Function, setData: Function }) {
 
 const SignupPage = () => {
     const { auth } = useMoralis();
-    const emptyUser: upUser = { artistName: '', birth: '', email: '', legalName: '', type: 'user' }
+    const emptyUser: upUser = { artistName: '', birth: '', email: '', legalName: '', type: 'user', genre: 'none' }
     const emptyUserSoc: upUserSocials = { image: '', instagram: '', spotify: '', twitter: '' }
     const [step, setStep] = React.useState(0)
     const [data, setData] = React.useState(emptyUser)

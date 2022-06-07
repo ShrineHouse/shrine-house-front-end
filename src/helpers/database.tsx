@@ -89,3 +89,12 @@ export function convertBase64(file: any) {
         }
     })
 }
+
+export function getGenres(genres: Moralis.Object<Moralis.Attributes>[]) {
+    let dataGenres:string[] = [];
+    
+    genres.map((u) => dataGenres = u.attributes.genres);
+
+    return dataGenres;
+    
+}
