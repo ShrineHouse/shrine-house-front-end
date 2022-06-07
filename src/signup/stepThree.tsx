@@ -10,12 +10,13 @@ import { DbUser, upUser, upUserSocials } from '../interfaces/users';
 
 const StepThree = (props: { data: upUser, dataSocials: upUserSocials }) => {
     const { user } = useMoralis();
-    const [isSaving, setSaving] = React.useState(false)
+    const [isSaving, setSaving] = React.useState(true)
     console.log(props.data, props.dataSocials)
     const navigate = useNavigate();
 
     async function updateUser() {
         if (user !== null) {
+            setSaving(true);
             const dbUser: DbUser = {
                 apy: { apyArtist: 0, popArist: 0, totalStaked: 0 },
                 balance: 0,
@@ -23,7 +24,7 @@ const StepThree = (props: { data: upUser, dataSocials: upUserSocials }) => {
                 email: props.data.email,
                 fullName: props.data.artistName,
                 legalName: props.data.legalName,
-                genre: '',
+                genre: props.data.genre,
                 image: props.dataSocials.image,
                 passphrase: [],
                 phoneNumber: '',
@@ -52,8 +53,7 @@ const StepThree = (props: { data: upUser, dataSocials: upUserSocials }) => {
             user.set('wallet', dbUser.wallet)
 
             user.save()
-
-            navigate('/')
+            setSaving(false)
 
         }
 
@@ -69,8 +69,18 @@ const StepThree = (props: { data: upUser, dataSocials: upUserSocials }) => {
             <div className='h-20 w-20'>
                 <Logo />
             </div>
-            <div className='titleText'>Registration complete</div>
-            <Center><CircularProgress isIndeterminate /></Center>
+            <div className='flex flex-col items-center mx-auto gap-3'>
+
+                {isSaving && <div className='titleText'>We are saving your information</div>}
+
+                {isSaving && <Center><CircularProgress isIndeterminate /></Center>}
+                {!isSaving && <div className='titleText'>Info processed</div>}
+                {!isSaving && <div className='text-xl'>We successfully processed your information, welcome to Shrine House!</div>}
+                {!isSaving && <button className='primaryButton' onClick={()=>{navigate('/')}}>Return home</button>}
+
+            </div>
+
+
         </div>
 
     )
