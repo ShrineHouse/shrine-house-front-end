@@ -1,88 +1,17 @@
-import { ChevronDownIcon, ChevronRightIcon, ChevronLeftIcon, Icon, LinkIcon, } from '@chakra-ui/icons';
-import { Box, Button, Center, Flex, Input, Slider, SliderFilledTrack, SliderThumb, SliderTrack, Spacer, Stack, Text, useDisclosure, VStack } from '@chakra-ui/react';
-import React, { useEffect, useRef, useState } from 'react';
+import { ChevronLeftIcon } from '@chakra-ui/icons';
+import { Box, Text, VStack } from '@chakra-ui/react';
+import React, { useEffect, useState } from 'react';
 import JsFileDownloader from 'js-file-downloader';
-import { beatpackDetails } from '../data/beatpack';
-import BeatPack, { Beat } from '../interfaces/beats';
-import { AiFillPauseCircle, AiFillPlayCircle } from 'react-icons/ai';
+import BeatPack from '../interfaces/beats';
+import BeatPackInfo from './components/BeatpackInfo';
+import ProducerInfo from './components/ProducerInfo';
+import { useMoralisCloudFunction } from 'react-moralis';
+import { useQuery } from 'react-query';
+import { dataToUser } from '../helpers/database';
+import { DbUser, emptyUser } from '../interfaces/users';
 
-const MusicCard = (props: { data: Beat }) => {
 
-    const [trackProgress, setTrackProgress] = useState(0);
-    const [isPlaying, setIsPlaying] = useState(false);
 
-    // Refs
-    const audioRef = useRef(new Audio(props.data.beatDownloadUrl));
-    const intervalRef = useRef<any>(null);
-    const isReady = useRef(false);
-    // Destructure for conciseness
-    const { duration } = audioRef.current;
-
-    function handleMusic(bool: boolean) {
-
-        setIsPlaying(bool);
-    }
-    const startTimer = () => {
-        // Clear any timers already running
-        clearInterval(intervalRef.current);
-
-        intervalRef.current = setInterval(() => {
-
-            setTrackProgress(audioRef.current.currentTime);
-
-        }, 1000);
-    }
-
-    useEffect(() => {
-        if (isPlaying) {
-            audioRef.current.play();
-            startTimer();
-
-        } else {
-            clearInterval(intervalRef.current);
-
-            audioRef.current.pause();
-        }
-    }, [isPlaying])
-
-    const onScrub = (value: any) => {
-        // Clear any timers already running
-        clearInterval(intervalRef.current);
-        audioRef.current.currentTime = value;
-        setTrackProgress(audioRef.current.currentTime);
-    }
-
-    return (
-        <Box w='100%' className='bg-white pr-5 shadow-md' borderRadius={10} >
-            <Flex gap={5}>
-                <Box w={120} bg={isPlaying ? '#F07634' : '#FDEEE6'} borderTopLeftRadius={10} borderBottomStartRadius={10} className="items-center flex flex-col justify-center">
-                    <Center>{isPlaying && <Icon as={AiFillPauseCircle} color='white' h={50} w={50} onClick={() => { handleMusic(false) }} />}
-                        {!isPlaying && <Icon as={AiFillPlayCircle} color='#B6ACA7' h={50} w={50} onClick={() => { handleMusic(true) }} />}
-                    </Center>
-                </Box>
-                <Stack w='100%' className='pl-4 py-5'>
-                    <Flex alignItems='center' w='100%' paddingRight="20px">
-                        <div className='flex flex-col gap-2' >
-                            <Text className='text-xl font-bold'>{props.data.beatArtist}</Text>
-                            <Text marginTop='-10px !important' fontSize='lg'>{props.data.beatName.replace('.mp3', '')}</Text>
-                        </div>
-                        <Spacer />
-                        <Button bg='#F07634' color='white' display='none' onClick={() => {
-                            new JsFileDownloader({
-                                url: props.data.beatDownloadUrl
-                            })
-                        }}>Download</Button>
-                    </Flex>
-                    <div className='mr-5 w-full'>
-
-                        <input className='my-slider' onChange={(e: any) => onScrub(e.target.value)}
-                            type='range' value={trackProgress} step='1' min='0' max={duration ? duration : `${duration}`} />
-                    </div>
-                </Stack>
-            </Flex>
-        </Box>
-    );
-}
 
 
 
@@ -90,14 +19,30 @@ const MusicCard = (props: { data: Beat }) => {
 
 
 const BeatPackPage = (props: { bp: BeatPack, back: Function }) => {
-    const { isOpen, onOpen, onClose } = useDisclosure()
     const [activeTab, setActiveTab] = useState('beat');
 
+    const { fetch, data } = useMoralisCloudFunction("getUser", { wallet: props.bp.ownerWallet })
 
+
+    const [producer, setProducer] = useState(emptyUser)
+
+
+    useEffect(() => {
+        if (props.bp.artistName === '') {
+            return
+        }
+        console.log('here')
+        fetch({
+            onSuccess(results) {
+                setProducer(dataToUser(results as any))
+            },
+        })
+
+    }, [props.bp])
 
     function onDownload() {
         new JsFileDownloader({
-            url: 'https://shrine.house/wp-content/uploads/2022/04/Tiësto-The-Business-Official-Music-Video.mp3',
+            url: props.bp.beatPackUrl,
         })
             .then(function () {
                 // Called when download ended
@@ -106,6 +51,7 @@ const BeatPackPage = (props: { bp: BeatPack, back: Function }) => {
                 // Called when an error occurred
             });
     }
+
 
     return (
         <div className='container mx-auto'>
@@ -152,7 +98,7 @@ const BeatPackPage = (props: { bp: BeatPack, back: Function }) => {
                                         {props.bp.beatPackName}
                                     </div>
                                     <div className='text-4xl font-bold primaryColor'>
-                                        {props.bp.artistName}
+                                        {producer.fullName}
                                     </div>
                                     <div className='text-xl text-gray-400'>
                                         {props.bp.genre}
@@ -161,25 +107,12 @@ const BeatPackPage = (props: { bp: BeatPack, back: Function }) => {
 
                             </div>
                             <div className='flex flex-row w-full gap-10'>
-                                <div className=' underline text-3xl font-bold'>Beatpack</div>
-                                <div className='text-3xl font-bold text-gray-500'>Producer info</div>
+                                <div className={activeTab === 'beat' ? 'transition-all underline text-3xl font-bold' : 'transition-all text-3xl font-bold text-gray-500'} onClick={() => setActiveTab('beat')}>Beatpack</div>
+                                <div className={activeTab !== 'beat' ? 'transition-all underline text-3xl font-bold' : 'transition-all text-3xl font-bold text-gray-500'} onClick={() => setActiveTab('producer')}>Producer info</div>
                             </div>
-                            <div className='flex flex-col gap-4'>
-                                <div className='flex flex-row gap-5 justify-between w-full items-center'>
-                                    <div className='flex flex-col gap-3'>
-                                        <div className='text-2xl'>{props.bp.beatPackName}</div>
-                                        <div className='text-lg'>{props.bp.description}</div>
-                                    </div>
-                                    <div>
-                                        <Button bg='#F07634' color='white' className='primaryButton' onClick={onDownload}>Purchase all tracks for ${props.bp.beatPackPrice}</Button>
+                            {activeTab === 'beat' && <BeatPackInfo bp={props.bp} onDownload={onDownload} />}
+                            {activeTab === 'producer' && <ProducerInfo producer={producer} onDownload={onDownload} />}
 
-                                    </div>
-
-                                </div>
-                                <div className='flex flex-col gap-5'>
-                                    {props.bp.beats.map((beatcard => <MusicCard data={beatcard} />))}
-                                </div>
-                            </div>
 
                         </VStack>
                     </div>

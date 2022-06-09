@@ -39,3 +39,29 @@ export interface upUserSocials {
     image: string, instagram: string, spotify: string, twitter: string
 }
 
+export const emptyUser: DbUser = {
+
+    apy: {
+        apyArtist: 0,
+        popArist: 0,
+        totalStaked: 0,
+    },
+    type: 'user',
+    balance: 0,
+    dateOfBirth: 'No date',
+    email: '',
+    fullName: 'No name',
+    image: '',
+    legalName: 'No name',
+    phoneNumber: '',
+    passphrase: [],
+    socials: {
+        instagram: '',
+        twitter: '',
+        spotify: ''
+    },
+    wallet: '',
+    verified: false,
+    genre: 'No genre',
+
+}

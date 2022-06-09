@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { useMoralis, useMoralisCloudFunction, useMoralisQuery } from 'react-moralis';
+import { useMoralis, useMoralisCloudFunction  } from 'react-moralis';
 import SearchBar from '../components/searchBar';
 import { useQuery } from 'react-query';
 

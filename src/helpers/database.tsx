@@ -9,6 +9,14 @@ export function dataToUsers(users: Moralis.Object<Moralis.Attributes>[]) {
     return convertedUsers;
 }
 
+export function dataToUser(users: Moralis.Object<Moralis.Attributes>[]) {
+    console.log('users')
+    console.log(users)
+    let convertedUsers: DbUser[] = [];
+    users.map(u => convertedUsers.push(u.attributes as DbUser));
+    return convertedUsers[0];
+}
+
 export function dataToShrineUsers(users: Moralis.Object<Moralis.Attributes>[]) {
     let convertedUsers: DbUser[] = [];
     users.map(u => {
@@ -27,8 +35,6 @@ export function dataToBeatPackRec(beatpacks: Moralis.Object<Moralis.Attributes>[
     
     let convertedPacks: BeatPack[] = [];
     beatpacks.map(u => convertedPacks.push(u.attributes as BeatPack));
-    console.log('HEYZOE')
-    console.log(convertedPacks)
     const sort = convertedPacks.slice().sort((a, b) => b.downloads - a.downloads)
     let max = [sort[0], sort[1], sort[2]]
     max = max.filter(function( element ) {

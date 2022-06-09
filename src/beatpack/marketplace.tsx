@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { useMoralisQuery } from 'react-moralis';
+import { useMoralisCloudFunction, useMoralisQuery } from 'react-moralis';
 import SearchBar from '../components/searchBar';
 import { useQuery } from 'react-query';
 
@@ -28,14 +28,15 @@ const MarketPlace = () => {
 
     const [searchedBp, setUsers] = useState(emptyBp)
     const [isSearching, setSearch] = useState(false)
-    const { fetch } = useMoralisQuery("beats")
+    const { fetch } = useMoralisCloudFunction("beats")
     const { isLoading, error, data } = useQuery('beatPacks', () => fetch())
     const [genreBp, setGenre] = useState([{ genre: 'none' }])
     const [activeBp, setBp] = useState(emptyBeatpack)
     if (isLoading || data === undefined) return <h1>'Loading...'</h1>
     if (error) return <div>'WOOPS ERROR...'</div>
-    let beatPack = dataToBeatPack(data);
-    let shrineBeatPack = dataToBeatPackRec(data);
+    let beatPack = dataToBeatPack(data as any );
+    let shrineBeatPack = dataToBeatPackRec(data as any);
+    
     function buildList() {
         if (genreBp[0] === undefined) return <p>No beatpacks found</p>
         if (genreBp[0].genre === 'none') {
