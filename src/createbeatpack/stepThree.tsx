@@ -20,6 +20,7 @@ const StepThree = (props: { data: upUser, dataSocials: upUserSocials }) => {
             const dbUser: DbUser = {
                 apy: { apyArtist: 0, popArist: 0, totalStaked: 0 },
                 balance: 0,
+                orders: 0,
                 dateOfBirth: props.data.birth,
                 email: props.data.email,
                 fullName: props.data.artistName,

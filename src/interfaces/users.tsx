@@ -1,4 +1,5 @@
 export interface DbUser {
+    createdAt?: Date;
     apy: Apy;
     type: string;
     balance: number;
@@ -13,6 +14,7 @@ export interface DbUser {
     wallet: string;
     verified: boolean;
     genre: string;
+    orders: number;
 }
 
 export interface Apy {
@@ -40,7 +42,6 @@ export interface upUserSocials {
 }
 
 export const emptyUser: DbUser = {
-
     apy: {
         apyArtist: 0,
         popArist: 0,
@@ -48,6 +49,7 @@ export const emptyUser: DbUser = {
     },
     type: 'user',
     balance: 0,
+    orders:0,
     dateOfBirth: 'No date',
     email: '',
     fullName: 'No name',

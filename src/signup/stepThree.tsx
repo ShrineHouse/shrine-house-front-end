@@ -25,6 +25,7 @@ const StepThree = (props: { data: upUser, dataSocials: upUserSocials }) => {
                 fullName: props.data.artistName,
                 legalName: props.data.legalName,
                 genre: props.data.genre,
+                orders:0,
                 image: props.dataSocials.image,
                 passphrase: [],
                 phoneNumber: '',

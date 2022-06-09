@@ -8,7 +8,7 @@ function BeatPackInfo(props: { bp: BeatPack, onDownload: Function }) {
     return (<div className='flex flex-col gap-4'>
         <div className='flex flex-row gap-5 justify-between w-full items-center'>
             <div className='flex flex-col gap-3'>
-                <div className='text-2xl'>{props.bp.beatPackName}</div>
+                <div className='text-2xl font-bold'>{props.bp.beatPackName}</div>
                 <div className='text-lg'>{props.bp.description}</div>
             </div>
             <div>
@@ -18,7 +18,7 @@ function BeatPackInfo(props: { bp: BeatPack, onDownload: Function }) {
 
         </div>
         <div className='flex flex-col gap-5'>
-            {props.bp.beats.map(beatcard => <TrackCard data={beatcard} />)}
+            {props.bp.beats.map((beatcard,index) => <ul key={index}><TrackCard data={beatcard} /></ul>)}
         </div>
     </div>);
 }
