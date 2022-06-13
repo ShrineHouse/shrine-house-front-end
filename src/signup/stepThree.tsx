@@ -18,6 +18,7 @@ const StepThree = (props: { data: upUser, dataSocials: upUserSocials }) => {
         if (user !== null) {
             setSaving(true);
             const dbUser: DbUser = {
+                id: '',
                 apy: { apyArtist: 0, popArist: 0, totalStaked: 0 },
                 balance: 0,
                 dateOfBirth: props.data.birth,

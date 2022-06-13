@@ -4,6 +4,7 @@ import { MoralisProvider, useMoralis } from 'react-moralis';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import App from './App';
+import ArtistPage from './artist/artistpage';
 import CreateBp from './createbeatpack/creatBp';
 import reportWebVitals from './reportWebVitals';
 import SignupPage from './signup/signup';
@@ -22,6 +23,7 @@ root.render(
             <Route path='/' element={<App />} />
             <Route path='/signup' element={<SignupPage />} />
             <Route path='/createbeatpack' element={<CreateBp />} />
+            <Route path='/:id' element={<ArtistPage />} />
           </Routes>
         </BrowserRouter>
       </QueryClientProvider>

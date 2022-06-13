@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { useMoralis, useMoralisCloudFunction  } from 'react-moralis';
+import { useMoralis, useMoralisCloudFunction } from 'react-moralis';
 import SearchBar from '../components/searchBar';
 import { useQuery } from 'react-query';
 
@@ -7,6 +7,7 @@ import { artistGenreFilter, dataBeatpackFilter, dataToShrineUsers, dataToUsers, 
 import { BigArtistCard, SmallArtistCard } from '../components/cards';
 import { DbUser } from '../interfaces/users'
 import Chip from '../components/chip';
+import { Link } from 'react-router-dom';
 
 
 
@@ -43,11 +44,11 @@ const Home = () => {
         if (genreArtist[0] === undefined) return <p>No artists found</p>
         if (genreArtist[0].genre === 'none') {
             {
-                return users.map((u, i) => <ul key={i}><SmallArtistCard url={u.image} artistName={`${u.fullName}`} verified={false} /></ul>)
+                return users.map((u, i) => <ul key={i}><Link to={`/${u.id}`}><SmallArtistCard url={u.image} artistName={`${u.fullName}`} verified={false} /> </Link></ul>)
             }
         } else {
             {
-                return (genreArtist as DbUser[]).map((u, i) => <ul key={i}><SmallArtistCard url={u.image} artistName={`${u.fullName}`} verified={false} /></ul>)
+                return (genreArtist as DbUser[]).map((u, i) => <ul key={i}><Link to={`/${u.id}`}><SmallArtistCard url={u.image} artistName={`${u.fullName}`} verified={false} /> </Link></ul>)
             }
         }
     }
@@ -77,14 +78,15 @@ const Home = () => {
                     <div className="flex flex-col gap-2">
                         <h1>Search results</h1>
                         <div className='grid grid-cols-3 gap-5'>
-                            {searchedUsers.map((u, i) => <ul key={i}><SmallArtistCard url={u.image} artistName={u.fullName} verified={u.verified} /></ul>
+                            {searchedUsers.map((u, i) => <ul key={i}>                    <Link to={`/${u.id}`}>
+                                <SmallArtistCard url={u.image} artistName={u.fullName} verified={u.verified} /> </Link></ul>
                             )}
                         </div>
                     </div> : <div>
                         <div className="flex flex-col gap-2">
                             <h1>Shrine Artists</h1>
                             <div className='grid grid-cols-3 gap-5'>
-                                {shrineUsers.map((u, i) => <ul key={i}><BigArtistCard url={u.image} /></ul>
+                                {shrineUsers.map((u, i) => <ul key={i}><Link to={`/${u.id}`}><BigArtistCard url={u.image} /> </Link></ul>
                                 )}
                             </div>
                         </div>

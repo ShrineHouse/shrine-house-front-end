@@ -6,7 +6,7 @@ import { DbUser } from '../../interfaces/users';
 import TrackCard from './TrackCard';
 
 
-function ProducerInfo(props: { producer: DbUser, onDownload: Function }) {
+function ProducerInfo(props: { producer: DbUser }) {
     return (
         <div className='grid grid-cols-2 w-full'>
             <div className='flex flex-col gap-4 w-full justify-start'>

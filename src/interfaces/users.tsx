@@ -1,5 +1,6 @@
 export interface DbUser {
     createdAt?: Date;
+    id: string;
     apy: Apy;
     type: string;
     balance: number;
@@ -47,6 +48,7 @@ export const emptyUser: DbUser = {
         popArist: 0,
         totalStaked: 0,
     },
+    id: '',
     type: 'user',
     balance: 0,
     orders:0,

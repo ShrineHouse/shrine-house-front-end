@@ -74,7 +74,7 @@ const TrackCard = (props: { data: Beat }) => {
                     <div className='mr-5 w-full'>
 
                         <input className='my-slider' onChange={(e: any) => onScrub(e.target.value)}
-                            type='range' value={trackProgress} step='1' min='0' max={duration ? duration : `${duration}`} />
+                            type='range' value={trackProgress} step='1' min='0'  max={duration ? duration : `${duration}`} />
                     </div>
                 </Stack>
             </Flex>

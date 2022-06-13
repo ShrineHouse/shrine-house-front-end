@@ -5,7 +5,13 @@ import { DbUser } from "../interfaces/users";
 
 export function dataToUsers(users: Moralis.Object<Moralis.Attributes>[]) {
     let convertedUsers: DbUser[] = [];
-    users.map(u => convertedUsers.push(u.attributes as DbUser));
+    console.log(users)
+    users.map(u => {
+        const user: DbUser = u.attributes as any;
+        const addId: DbUser = { ...user, id: u.id };
+
+        convertedUsers.push(addId)
+    });
     return convertedUsers;
 }
 
@@ -13,14 +19,26 @@ export function dataToUser(users: Moralis.Object<Moralis.Attributes>[]) {
     console.log('users')
     console.log(users)
     let convertedUsers: DbUser[] = [];
-    users.map(u => convertedUsers.push(u.attributes as DbUser));
+    users.map(u => {
+        const user: DbUser = u.attributes as any;
+        const addId: DbUser = { ...user, id: u.id };
+
+        convertedUsers.push(addId)
+    });
     return convertedUsers[0];
 }
 
 export function dataToShrineUsers(users: Moralis.Object<Moralis.Attributes>[]) {
     let convertedUsers: DbUser[] = [];
     users.map(u => {
-        if ((u.attributes as DbUser).verified) { convertedUsers.push(u.attributes as DbUser) }
+        if ((u.attributes as DbUser).verified) {
+            users.map(u => {
+                const user: DbUser = u.attributes as any;
+                const addId: DbUser = { ...user, id: u.id };
+
+                convertedUsers.push(addId)
+            });
+        }
     });
     return convertedUsers;
 
@@ -32,14 +50,14 @@ export function dataToBeatPack(beatpacks: Moralis.Object<Moralis.Attributes>[]) 
     return convertedPacks;
 }
 export function dataToBeatPackRec(beatpacks: Moralis.Object<Moralis.Attributes>[]) {
-    
+
     let convertedPacks: BeatPack[] = [];
     beatpacks.map(u => convertedPacks.push(u.attributes as BeatPack));
     const sort = convertedPacks.slice().sort((a, b) => b.downloads - a.downloads)
     let max = [sort[0], sort[1], sort[2]]
-    max = max.filter(function( element ) {
+    max = max.filter(function (element) {
         return element !== undefined;
-     });
+    });
     return max;
 }
 
@@ -97,10 +115,10 @@ export function convertBase64(file: any) {
 }
 
 export function getGenres(genres: Moralis.Object<Moralis.Attributes>[]) {
-    let dataGenres:string[] = [];
-    
+    let dataGenres: string[] = [];
+
     genres.map((u) => dataGenres = u.attributes.genres);
 
     return dataGenres;
-    
+
 }
