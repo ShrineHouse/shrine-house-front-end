@@ -8,7 +8,9 @@ import { BigArtistCard, SmallArtistCard } from '../components/cards';
 import BeatPack from '../interfaces/beats';
 import Chip from '../components/chip';
 import { Link } from 'react-router-dom';
-import BeatPackPage from './beatpack';
+
+
+////Marketplace - Beatpacks live here
 
 const MarketPlace = () => {
     const emptyBp: BeatPack[] = [];
@@ -32,7 +34,6 @@ const MarketPlace = () => {
     const { fetch } = useMoralisCloudFunction("beats")
     const { isLoading, error, data } = useQuery('beatPacks', () => fetch())
     const [genreBp, setGenre] = useState([{ genre: 'none' }])
-    const [activeBp, setBp] = useState(emptyBeatpack)
     if (isLoading || data === undefined) return <h1>'Loading...'</h1>
     if (error) return <div>'WOOPS ERROR...'</div>
     let beatPack = dataToBeatPack(data as any);
@@ -41,13 +42,12 @@ const MarketPlace = () => {
     function buildList() {
         if (genreBp[0] === undefined) return <p>No beatpacks found</p>
         if (genreBp[0].genre === 'none') {
-            console.log(beatPack)
             {
-                return beatPack.map((u, i) => <Link to={`/beatpack/${u.objectId}`}><ul key={i}><div onClick={() => setBp(u)} ><SmallArtistCard url={u.imageUrl} artistName={`${u.artistName} - ${u.beatPackName}`} verified={false} /></div></ul></Link>)
+                return beatPack.map((u, i) => <Link to={`/beatpack/${u.objectId}`}><ul key={i}><div  ><SmallArtistCard url={u.imageUrl} artistName={`${u.artistName} - ${u.beatPackName}`} verified={false} /></div></ul></Link>)
             }
         } else {
             {
-                return (genreBp as BeatPack[]).map((u, i) => <Link to={`/beatpack/${u.objectId}`}><ul key={i}><div onClick={() => setBp(u)} ><SmallArtistCard url={u.imageUrl} artistName={`${u.artistName} - ${u.beatPackName}`} verified={false} /></div></ul></Link>)
+                return (genreBp as BeatPack[]).map((u, i) => <Link to={`/beatpack/${u.objectId}`}><ul key={i}><div  ><SmallArtistCard url={u.imageUrl} artistName={`${u.artistName} - ${u.beatPackName}`} verified={false} /></div></ul></Link>)
             }
         }
     }
@@ -74,7 +74,7 @@ const MarketPlace = () => {
                         <Chip text='Liked' />
                         <Chip text='New' />
                     </div>
-                    <select id="genres" name="genres" className='genreSelect' onClick={(e) => console.log(e.target)} onChange={(e) => {
+                    <select id="genres" name="genres" className='genreSelect' onChange={(e) => {
                         if (e.target.value === 'allgenres') return setGenre([{ genre: 'none' }])
                         const filteredData = dataBeatpackFilter(beatPack, e.target.value)
                         setGenre(filteredData)
@@ -97,7 +97,7 @@ const MarketPlace = () => {
                         <div className="flex flex-col gap-5">
                             <div className='text-4xl'>Recommended playlists</div>
                             <div className='grid grid-cols-3 gap-5'>
-                                {shrineBeatPack.map((u, i) => <Link to={`/beatpack/${u.objectId}`}> <ul key={i}><div onClick={() => setBp(u)} ><BigArtistCard url={u.imageUrl} /></div></ul></Link>
+                                {shrineBeatPack.map((u, i) => <Link to={`/beatpack/${u.objectId}`}> <ul key={i}><div  ><BigArtistCard url={u.imageUrl} /></div></ul></Link>
                                 )}
                             </div>
                         </div>

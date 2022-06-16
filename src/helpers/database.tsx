@@ -5,7 +5,6 @@ import { DbUser } from "../interfaces/users";
 
 export function dataToUsers(users: Moralis.Object<Moralis.Attributes>[]) {
     let convertedUsers: DbUser[] = [];
-    console.log(users)
     users.map(u => {
         const user: DbUser = u.attributes as any;
         const addId: DbUser = { ...user, id: u.id };
@@ -16,8 +15,6 @@ export function dataToUsers(users: Moralis.Object<Moralis.Attributes>[]) {
 }
 
 export function dataToUser(users: Moralis.Object<Moralis.Attributes>[]) {
-    console.log('users')
-    console.log(users)
     let convertedUsers: DbUser[] = [];
     users.map(u => {
         const user: DbUser = u.attributes as any;
@@ -45,8 +42,6 @@ export function dataToShrineUsers(users: Moralis.Object<Moralis.Attributes>[]) {
 }
 
 export function dataToBeatPack(beatpacks: Moralis.Object<Moralis.Attributes>[]) {
-    console.log('beatpacks')
-    console.log(beatpacks)
     let convertedPacks: BeatPack[] = [];
     beatpacks.map((u) => {
         const bp: BeatPack = u.attributes as any;
@@ -60,8 +55,6 @@ export function dataToBeatPack(beatpacks: Moralis.Object<Moralis.Attributes>[]) 
 }
 
 export function dataToBeatpackPage(beatpacks: Moralis.Object<Moralis.Attributes>[]) {
-    console.log('beatpacks')
-    console.log(beatpacks)
     let convertedPacks: BeatPack[] = [];
     beatpacks.map((u) => {
         const bp: BeatPack = u.attributes as any;
@@ -101,7 +94,6 @@ export function dataBeatpackFilter(beatpacks: BeatPack[], genre: string) {
 
 export function searchArtists(users: DbUser[], searchResult: string) {
     let result: DbUser[] = [];
-    console.log(searchResult)
     users.map(u => {
         if (u.fullName.toLowerCase().includes(searchResult.toLowerCase())) return result.push(u);
     })
@@ -127,8 +119,6 @@ export function artistGenreFilter(users: DbUser[], genre: string) {
 }
 
 export function convertBase64(file: any) {
-    console.log("file")
-    console.log(file)
     return new Promise((resolve, reject) => {
         const fileReader = new FileReader();
         fileReader.readAsDataURL(file)

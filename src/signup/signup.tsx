@@ -32,7 +32,6 @@ function StepOne(props: { setStep: Function, setData: Function }) {
     function buildGenres() {
         if (data !== undefined) {
             const de = getGenres(data)
-            console.log(de)
             return de.map((genre) => <option>{genre}</option>)
         }
         return <ul>Loading genres...</ul>
@@ -54,7 +53,6 @@ function StepOne(props: { setStep: Function, setData: Function }) {
                 </datalist>
                 <input autoComplete="on" className='inputFieldText' list="suggestions" placeholder='Pick a genre' required={true} onChange={(e) => {
                     setGenre(e.target.value)
-                    console.log(e.target.value)
                 }} />
             </div>
             <label style={{
@@ -64,7 +62,6 @@ function StepOne(props: { setStep: Function, setData: Function }) {
                     'visibility': 'hidden',
                     'height': '0px'
                 }} type="checkbox" checked={switchState} value={`${switchState}`} onChange={e => {
-                    console.log(e.target.checked);
                     setSwitchState(e.target.checked);
                 }} />
                 <div className='flex flex-row switch justify-between '>

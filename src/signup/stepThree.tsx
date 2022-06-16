@@ -11,7 +11,6 @@ import { DbUser, upUser, upUserSocials } from '../interfaces/users';
 const StepThree = (props: { data: upUser, dataSocials: upUserSocials }) => {
     const { user } = useMoralis();
     const [isSaving, setSaving] = React.useState(true)
-    console.log(props.data, props.dataSocials)
     const navigate = useNavigate();
 
     async function updateUser() {
@@ -26,7 +25,7 @@ const StepThree = (props: { data: upUser, dataSocials: upUserSocials }) => {
                 fullName: props.data.artistName,
                 legalName: props.data.legalName,
                 genre: props.data.genre,
-                orders:0,
+                orders: 0,
                 image: props.dataSocials.image,
                 passphrase: [],
                 phoneNumber: '',
@@ -78,7 +77,7 @@ const StepThree = (props: { data: upUser, dataSocials: upUserSocials }) => {
                 {isSaving && <Center><CircularProgress isIndeterminate /></Center>}
                 {!isSaving && <div className='titleText'>Info processed</div>}
                 {!isSaving && <div className='text-xl'>We successfully processed your information, welcome to Shrine House!</div>}
-                {!isSaving && <button className='primaryButton' onClick={()=>{navigate('/')}}>Return home</button>}
+                {!isSaving && <button className='primaryButton' onClick={() => { navigate('/') }}>Return home</button>}
 
             </div>
 

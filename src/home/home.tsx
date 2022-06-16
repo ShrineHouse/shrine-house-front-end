@@ -12,7 +12,7 @@ import { Link } from 'react-router-dom';
 
 
 
-
+////Home page - artists live here
 const Home = () => {
     const emptyUser: DbUser[] = [];
     const [searchedUsers, setUsers] = useState(emptyUser)
@@ -62,7 +62,7 @@ const Home = () => {
                         <Chip text='Liked' />
                         <Chip text='New' />
                     </div>
-                    <select id="genres" name="genres" className='genreSelect' onClick={(e) => console.log(e.target)} onChange={(e) => {
+                    <select id="genres" name="genres" className='genreSelect' onChange={(e) => {
                         if (e.target.value === 'allgenres') return setGenre([{ genre: 'none' }])
                         const filteredData = artistGenreFilter(users, e.target.value)
                         setGenre(filteredData)

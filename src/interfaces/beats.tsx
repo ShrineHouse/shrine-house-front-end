@@ -21,3 +21,17 @@ export interface Beat {
     royaltyIndex: number;
     beatName: string;
 }
+
+export const emptyBp: BeatPack = {
+    artistName: '',
+    beatPackName: '',
+    beatPackPrice: 0,
+    beatPackUrl: '',
+    beats: [],
+    description: '',
+    downloads: 0,
+    genre: '',
+    imageUrl: '', objectId: '',
+    ownerWallet: '',
+    royaltyIndex: 0
+};

@@ -2,7 +2,7 @@ import { ChevronLeftIcon } from '@chakra-ui/icons';
 import { Box, CircularProgress, Text, useDisclosure, VStack } from '@chakra-ui/react';
 import React, { useEffect, useState } from 'react';
 import JsFileDownloader from 'js-file-downloader';
-import BeatPack from '../interfaces/beats';
+import BeatPack, { emptyBp } from '../interfaces/beats';
 import BeatPackInfo from './components/BeatpackInfo';
 import ProducerInfo from './components/ProducerInfo';
 import { useMoralis, useMoralisCloudFunction, useTokenPrice, useWeb3Transfer } from 'react-moralis';
@@ -13,27 +13,12 @@ import { Link, useParams } from 'react-router-dom';
 
 import Modal from 'react-modal';
 
-
+///Beatpack page
 const BeatPackPage = () => {
-    const emptyBp: BeatPack = {
-        artistName: '',
-        beatPackName: '',
-        beatPackPrice: 0,
-        beatPackUrl: '',
-        beats: [],
-        description: '',
-        downloads: 0,
-        genre: '',
-        imageUrl: '', objectId: '',
-        ownerWallet: '',
-        royaltyIndex: 0
-    };
     const { Moralis } = useMoralis();
     const [modalIsOpen, setIsOpen] = useState(false);
-
     const { id } = useParams();
     const [bp, setBp] = useState(emptyBp)
-
     const getBp = useMoralisCloudFunction("getBeatpack", { id: id })
     const [activeTab, setActiveTab] = useState('beat');
     const { fetch } = useMoralisCloudFunction("getUser", { wallet: bp.ownerWallet })
@@ -45,11 +30,8 @@ const BeatPackPage = () => {
             getBp.fetch({
                 onSuccess(res) {
                     const result = res as any;
-
                     const _bp = dataToBeatpackPage(result as any);
                     setBp(_bp)
-                    console.log(_bp)
-
                 }
             })
             return
@@ -84,6 +66,8 @@ const BeatPackPage = () => {
     function closeModal() {
         setIsOpen(false);
     }
+
+    //Styles for the popup modal
     const customStyles = {
         content: {
             top: '50%',
@@ -96,12 +80,14 @@ const BeatPackPage = () => {
         },
     };
 
+    ///Create the transfer of funds for the NFT / beatpack
     const transfer = useWeb3Transfer({
         amount: Moralis.Units.ETH(matic.data === null ? 0 : bp.beatPackPrice / matic.data.usdPrice),
         receiver: bp.ownerWallet,
         type: "native",
     });
 
+    ///If the page is not loaded, show progressindicator
     if (producer.fullName === 'No name') {
         return <div className='w-screen h-screen flex flex-row items-center justify-center '>
             <div className='m-auto'>
@@ -114,7 +100,6 @@ const BeatPackPage = () => {
     return (
         <div className='container mx-auto'>
             <>
-
                 <Modal
                     isOpen={modalIsOpen}
                     onRequestClose={closeModal}
@@ -155,11 +140,15 @@ const BeatPackPage = () => {
                         <div className=' bg-gray-100 w-full h-1 mb-10'></div>
 
                         <button className='primaryButton' onClick={() => {
+
+                            //Authenticate, if complete init transfer of funds
                             Moralis.authenticate().then(() => {
                                 transfer.fetch({
                                     onError(error) {
-                                        console.log(error)
                                         alert(error.stack)
+                                    },
+                                    onSuccess(results) {
+                                        /////Do stuff here
                                     },
                                 })
                             })

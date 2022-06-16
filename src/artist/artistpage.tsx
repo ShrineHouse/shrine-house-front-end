@@ -44,7 +44,6 @@ const ArtistPage = () => {
         let trackArray: Beat[] = [];
 
         tracks.map((track: any) => trackArray.push({ beatArtist: _artist.fullName, beatDownloadUrl: track.preview_url, beatName: track.name, beatPrice: 0, beatUrl: track.preview_url, royaltyIndex: 0 }))
-        console.log(trackArray)
         if (trackArray.length < 0) {
             return;
         }

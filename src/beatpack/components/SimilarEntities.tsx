@@ -19,7 +19,6 @@ const SimilarEntities = (props: { bp: BeatPack }) => {
             if (props.bp.artistName === '') {
                 return
             }
-            console.log('here')
             getBeatsGenre.fetch({
                 onSuccess(results) {
     
@@ -28,7 +27,6 @@ const SimilarEntities = (props: { bp: BeatPack }) => {
             })
             getSimilarUser.fetch({
                 onSuccess(results) {
-                    console.log(results)
     
                     setSimilarProducers(dataToUsers(results as any))
                 },

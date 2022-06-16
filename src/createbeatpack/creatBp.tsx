@@ -1,24 +1,23 @@
 import * as React from 'react';
 import { MoralisObjectSaveData, useMoralis, useMoralisFile, useNewMoralisObject } from 'react-moralis';
-import { useMutation, useQuery } from 'react-query';
 import Logo from '../components/logo';
-import StepThree from './stepThree';
-import StepTwo from './stepTwo';
-import { upUser, upUserSocials } from '../interfaces/users'
+
 import { convertBase64 } from '../helpers/database';
 import JSZip from 'jszip';
 import BeatPack, { Beat } from '../interfaces/beats';
 import { CircularProgress } from '@chakra-ui/react';
-import { Navigate, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 function StepOneBp() {
     const emptyBp: Beat[] = []
+
+    //Just a placeholder
     const initImg = 'https://upload.wikimedia.org/wikipedia/commons/8/89/Portrait_Placeholder.png?20170328184010';
     const [image, setImage] = React.useState(initImg)
     const [file, setFile] = React.useState()
     const [beatFile, seatBeatFile] = React.useState()
     const { user } = useMoralis();
-    const { isSaving, error, save } = useNewMoralisObject('beats');
+    const { save } = useNewMoralisObject('beats');
     const navigate = useNavigate()
     const { saveFile, } = useMoralisFile();
 
@@ -41,7 +40,7 @@ function StepOneBp() {
                 beats: emptyBp,
                 downloads: 0,
                 ownerWallet: user.attributes.wallet,
-                objectId:''
+                objectId: ''
             }
             await handleZip(beatFile, (event.target as any)[3].value, Number((event.target as any)[4].value), beatpackData)
         }
@@ -70,8 +69,6 @@ function StepOneBp() {
 
         const zip = await zipe.loadAsync(file);
         const allFiles: Object = zip.files;
-        console.log(user)
-        console.log('user')
 
         const keys = Object.keys(allFiles)
         let i = 0;
@@ -80,7 +77,6 @@ function StepOneBp() {
             if (elem.includes('__MACOSX/._')) {
             } else {
                 try {
-                    console.log(elem)
                     var fileData = await zip.files[elem].async('blob')
                     const newFile = new File([fileData], elem);
                     const name = newFile.name.replace(/[`~!@#$%^&*()_|+\-=?;:'",.<>\{\}\[\]\\\/]/gi, '');
@@ -90,7 +86,6 @@ function StepOneBp() {
                         beats.push({ beatArtist: user.attributes.fullName, beatDownloadUrl: dlUrl, beatPrice: beatPrice, beatUrl: dlUrl, royaltyIndex: royaltyIndex, beatName: newFile.name })
                     }
                 } catch (e) {
-                    console.log(e)
                 }
             }
         }
@@ -112,9 +107,7 @@ function StepOneBp() {
             }
 
             save(uploadData, {
-                onError: (e) => {
-                    console.log(e)
-                },
+             
                 onComplete: () => {
                     setUploading(false)
                     navigate('/')

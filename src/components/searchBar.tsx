@@ -16,7 +16,6 @@ const SearchBar = (props: { search: Function, marketplace: boolean }) => {
                 .then(function (user) {
                 })
                 .catch(function (error) {
-                    console.log(error);
                 });
         }
 
@@ -24,7 +23,6 @@ const SearchBar = (props: { search: Function, marketplace: boolean }) => {
     let wrapperRef = React.useRef(null);
     useOutsideAlerter(wrapperRef, setDropdown)
     if (user !== null) {
-        console.log(user.attributes.type)
 
     }
     return (
