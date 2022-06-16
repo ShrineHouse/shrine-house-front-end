@@ -1,5 +1,5 @@
 import { ChevronLeftIcon } from '@chakra-ui/icons';
-import { Box, CircularProgress, Text, useDisclosure, VStack } from '@chakra-ui/react';
+import { Box, CircularProgress, VStack } from '@chakra-ui/react';
 import React, { useEffect, useState } from 'react';
 import JsFileDownloader from 'js-file-downloader';
 import BeatPack, { emptyBp } from '../interfaces/beats';
@@ -7,7 +7,7 @@ import BeatPackInfo from './components/BeatpackInfo';
 import ProducerInfo from './components/ProducerInfo';
 import { useMoralis, useMoralisCloudFunction, useTokenPrice, useWeb3Transfer } from 'react-moralis';
 import { dataToBeatpackPage, dataToUser } from '../helpers/database';
-import { emptyUser } from '../interfaces/users';
+import { DbUser, emptyUser } from '../interfaces/users';
 import SimilarEntities from './components/SimilarEntities';
 import { Link, useParams } from 'react-router-dom';
 
@@ -53,16 +53,13 @@ const BeatPackPage = () => {
             .then(function () {
                 // Called when download ended
             })
-            .catch(function (error) {
+            .catch(function (_error) {
                 // Called when an error occurred
             });
     }
     function openModal() {
         setIsOpen(true);
     }
-
-
-
     function closeModal() {
         setIsOpen(false);
     }
@@ -105,67 +102,17 @@ const BeatPackPage = () => {
                     onRequestClose={closeModal}
                     style={customStyles}
                     contentLabel="Example Modal"
-
                 >
-                    <div className='flex flex-col gap-3 modalWidth'>
-                        <h2 className='text-3xl text-center font-bold'>Complete checkout</h2>
-                        <div className=' bg-gray-100 w-full h-1 mb-10'></div>
-                        <div className="flex flex-row w-full justify-between">
-                            <div className='font-bold'>Item</div>
-                            <div className='font-bold'>Total</div>
-                        </div>
-
-                        <div className=' bg-gray-100 w-full h-1'></div>
-                        <div className='flex flex-row justify-between w-full items-center'>
-                            <div className='flex flex-row gap-5'>
-                                <img src={bp.imageUrl} className=" object-cover h-32 w-32 rounded-xl" />
-                                <div className='flex flex-col justify-center'>
-                                    <div className='font-bold primaryColor text-2xl'>{producer.fullName}</div>
-                                    <div className='font-bold text-xl'>{bp.beatPackName}</div>
-                                    <div className=' text-gray-400'>royalties: {bp.royaltyIndex}%</div>
-                                </div>
-                            </div>
-                            <div className='flex flex-col justify-center items-end'>
-                                <div className='font-bold text-2xl'>
-                                    ${bp.beatPackPrice}
-
-                                </div>
-                                <div className='text-gray-400'>
-                                    matic: {matic.data === null ? 0 : Math.round((bp.beatPackPrice / matic.data.usdPrice))}
-                                </div>
-                            </div>
-
-
-                        </div>
-                        <div className=' bg-gray-100 w-full h-1 mb-10'></div>
-
-                        <button className='primaryButton' onClick={() => {
-
-                            //Authenticate, if complete init transfer of funds
-                            Moralis.authenticate().then(() => {
-                                transfer.fetch({
-                                    onError(error) {
-                                        alert(error.stack)
-                                    },
-                                    onSuccess(results) {
-                                        /////Do stuff here
-                                    },
-                                })
-                            })
-
-                        }}>Confirm checkout</button>
-                    </div>
-
-
+                    {checkoutModal(bp, producer, matic, Moralis, transfer)}
                 </Modal>
             </>
             <Box padding={10} className='m-5'>
                 <div className="flex flex-col">
                     <Link to={'/'}>
 
-                        <div className='flex flex-row gap-2 items-center mb-5 cursor-pointer' onClick={() => { }}>
+                        <div className='flex flex-row gap-2 items-center mb-5 cursor-pointer'>
                             <ChevronLeftIcon height={50} width={50} />
-                            <Text className='text-xl font-bold'>Back</Text>
+                            <div className='text-xl font-bold'>Back</div>
                         </div>
                     </Link>
                     <div className='flex flex-row gap-20'>
@@ -207,3 +154,54 @@ const BeatPackPage = () => {
 }
 
 export default BeatPackPage;
+
+//checkout modal
+function checkoutModal(bp: BeatPack, producer: DbUser, matic: any, Moralis: any, transfer: any) {
+    return <div className='flex flex-col gap-3 modalWidth'>
+        <h2 className='text-3xl text-center font-bold'>Complete checkout</h2>
+        <div className=' bg-gray-100 w-full h-1 mb-10'></div>
+        <div className="flex flex-row w-full justify-between">
+            <div className='font-bold'>Item</div>
+            <div className='font-bold'>Total</div>
+        </div>
+
+        <div className=' bg-gray-100 w-full h-1'></div>
+        <div className='flex flex-row justify-between w-full items-center'>
+            <div className='flex flex-row gap-5'>
+                <img src={bp.imageUrl} className=" object-cover h-32 w-32 rounded-xl" />
+                <div className='flex flex-col justify-center'>
+                    <div className='font-bold primaryColor text-2xl'>{producer.fullName}</div>
+                    <div className='font-bold text-xl'>{bp.beatPackName}</div>
+                    <div className=' text-gray-400'>royalties: {bp.royaltyIndex}%</div>
+                </div>
+            </div>
+            <div className='flex flex-col justify-center items-end'>
+                <div className='font-bold text-2xl'>
+                    ${bp.beatPackPrice}
+
+                </div>
+                <div className='text-gray-400'>
+                    Matic: {matic.data === null ? 0 : Math.round((bp.beatPackPrice / matic.data.usdPrice))}
+                </div>
+            </div>
+
+        </div>
+        <div className=' bg-gray-100 w-full h-1 mb-10'></div>
+
+        <button className='primaryButton' onClick={() => {
+
+            //Authenticate, if complete init transfer of funds
+            Moralis.authenticate().then(() => {
+                transfer.fetch({
+                    onError(error: { stack: any; }) {
+                        alert(error.stack);
+                    },
+                    onSuccess(_results: any) {
+                        /////Do stuff here
+                    },
+                });
+            });
+
+        }}>Confirm checkout</button>
+    </div>;
+}
