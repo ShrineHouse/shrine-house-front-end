@@ -12,7 +12,10 @@ function BeatPackInfo(props: { bp: BeatPack, onDownload: Function }) {
                 <div className='text-lg'>{props.bp.description}</div>
             </div>
             <div>
-                <Button bg='#F07634' color='white' className='primaryButton' onClick={() => props.onDownload}>Purchase all tracks for ${props.bp.beatPackPrice}</Button>
+                <Button bg='#F07634' color='white' className='primaryButton' onClick={() => {
+                    console.log('opendialog')
+                    props.onDownload()
+                }}>Purchase all tracks for ${props.bp.beatPackPrice}</Button>
 
             </div>
 

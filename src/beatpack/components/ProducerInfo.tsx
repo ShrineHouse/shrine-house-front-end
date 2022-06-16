@@ -1,5 +1,6 @@
 import { Button } from '@chakra-ui/react';
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { numFormatter } from '../../helpers/utils';
 import BeatPack from '../../interfaces/beats';
 import { DbUser } from '../../interfaces/users';
@@ -26,7 +27,9 @@ function ProducerInfo(props: { producer: DbUser }) {
                     <div className='text-2xl font-bold'>Accepted Currencies</div>
                     <div className='text-xl'>ETH, SHRI, USDC, DAI</div>
                 </div>
-                <button className='primaryButton w-max'>Go to producer page</button>
+                <Link to={`/${props.producer.id}`}>
+                
+                <button className='primaryButton w-max'>Go to producer page</button></Link>
             </div>
             <img src={props.producer.image} className='w-auto h-full object-cover rounded-xl' />
         </div>
