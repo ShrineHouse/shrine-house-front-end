@@ -1,21 +1,23 @@
 import React, { useState } from 'react';
-import Sidebar from './components/sidebar';
+import Sidebar from '../components/general/sidebar';
 import Home from './home/home';
 import MarketPlace from './beatpack/marketplace';
 import { useMoralis, useMoralisCloudFunction } from 'react-moralis';
 import Profile from './profile/profile';
 import { useQuery } from 'react-query';
+import LoadingWidget from '../components/general/loadingwidget';
 
 const App = () => {
   const [tabIndex, setTabIndex] = useState(2);
   const { isInitialized } = useMoralis();
-  const { fetch } = useMoralisCloudFunction("beats")
+
+  ////These 4 consts load all the artists + beatpacks and will cache them.
+  const fetchBeatpacks = useMoralisCloudFunction("beats")
   const fetchArtists = useMoralisCloudFunction('getArtists');
   const getArtists = useQuery('usersData', () => fetchArtists.fetch())
+  const getBps = useQuery('beatPacks', () => fetchBeatpacks.fetch())
 
-  const getBps = useQuery('beatPacks', () => fetch())
-
-  if (!isInitialized) return <div className='h-screen w-screen text-center'>'Loading...'</div>
+  if (!isInitialized) return <LoadingWidget />
 
   return (
     <div>

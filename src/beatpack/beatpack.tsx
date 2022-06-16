@@ -3,17 +3,16 @@ import { Box, CircularProgress, VStack } from '@chakra-ui/react';
 import React, { useEffect, useState } from 'react';
 import JsFileDownloader from 'js-file-downloader';
 import BeatPack, { emptyBp } from '../interfaces/beats';
-import BeatPackInfo from './components/BeatpackInfo';
-import ProducerInfo from './components/ProducerInfo';
+import BeatPackInfo from '../../components/beatpack/BeatpackInfo';
+import ProducerInfo from '../../components/beatpack/ProducerInfo';
 import { useMoralis, useMoralisCloudFunction, useTokenPrice, useWeb3Transfer } from 'react-moralis';
 import { dataToBeatpackPage, dataToUser } from '../helpers/database';
 import { DbUser, emptyUser } from '../interfaces/users';
-import SimilarEntities from './components/SimilarEntities';
+import SimilarEntities from '../../components/beatpack/SimilarEntities';
 import { Link, useParams } from 'react-router-dom';
 
 import Modal from 'react-modal';
-import loadingWidget from '../components/loadingwidget';
-import LoadingWidget from '../components/loadingwidget';
+import LoadingWidget from '../../components/general/loadingwidget';
 
 ///Beatpack page
 const BeatPackPage = () => {

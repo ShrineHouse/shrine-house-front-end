@@ -1,15 +1,15 @@
 import React, { useState } from 'react'
 import { useMoralisCloudFunction, useMoralisQuery } from 'react-moralis';
-import SearchBar from '../components/searchBar';
 import { useQuery } from 'react-query';
 
-import { dataBeatpackFilter, dataToBeatPack, dataToBeatPackRec, dataToShrineUsers, dataToUsers, searchBeatpack } from '../helpers/database';
-import { BigArtistCard, SmallArtistCard } from '../components/cards';
+import { dataBeatpackFilter, dataToBeatPack, dataToBeatPackRec, searchBeatpack } from '../helpers/database';
+import { BigArtistCard, SmallArtistCard } from '../../components/general/cards';
 import BeatPack from '../interfaces/beats';
-import Chip from '../components/chip';
 import { Link } from 'react-router-dom';
-import LoadingWidget from '../components/loadingwidget';
 
+import LoadingWidget from '../../components/general/loadingwidget'
+import Chip from '../../components/general/chip';
+import SearchBar from '../../components/general/searchBar';
 
 ////Marketplace - Beatpacks live here
 

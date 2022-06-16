@@ -6,11 +6,11 @@ import { useMoralisCloudFunction } from 'react-moralis';
 import { dataToUser } from '../helpers/database';
 import { DbUser, emptyUser } from '../interfaces/users';
 import { Link, useParams } from 'react-router-dom';
-import ProducerInfo from '../beatpack/components/ProducerInfo';
+import ProducerInfo from '../../components/beatpack/ProducerInfo';
 
 import { spotifyFetch } from '../helpers/spotify';
 import BeatPack, { Beat } from '../interfaces/beats';
-import TrackList from './components/Tracklist';
+import TrackList from '../../components/artistpage/Tracklist';
 
 
 

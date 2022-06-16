@@ -1,7 +1,7 @@
 import { Button } from '@chakra-ui/react';
 import React from 'react'
-import TrackCard from '../../beatpack/components/TrackCard';
-import BeatPack, { Beat } from '../../interfaces/beats';
+import BeatPack, { Beat } from '../../src/interfaces/beats';
+import TrackCard from '../beatpack/TrackCard';
 
 function TrackList(props: { tracks: Beat[] }) {
     return (<div className='flex flex-col gap-4 w-full'>

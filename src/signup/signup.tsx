@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { useMoralis, useMoralisQuery } from 'react-moralis';
 import { useQuery } from 'react-query';
-import Logo from '../components/logo';
+import Logo from '../../components/general/logo';
 import StepThree from './stepThree';
 import StepTwo from './stepTwo';
 import { upUser, upUserSocials } from '../interfaces/users'

@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from 'react'
 import { useMoralis, useMoralisCloudFunction } from 'react-moralis';
-import SearchBar from '../components/searchBar';
+import SearchBar from '../../components/general/searchBar';
 import { useQuery } from 'react-query';
 
 import { artistGenreFilter, dataBeatpackFilter, dataToShrineUsers, dataToUsers, searchArtists } from '../helpers/database';
-import { BigArtistCard, SmallArtistCard } from '../components/cards';
+import { BigArtistCard, SmallArtistCard } from '../../components/general/cards';
 import { DbUser } from '../interfaces/users'
-import Chip from '../components/chip';
+import Chip from '../../components/general/chip';
 import { Link } from 'react-router-dom';
-import LoadingWidget from '../components/loadingwidget';
+import LoadingWidget from '../../components/general/loadingwidget';
 
 
 
