@@ -19,10 +19,14 @@ const SearchBar = (props: { search: Function, marketplace: boolean }) => {
                     console.log(error);
                 });
         }
+
     }
     let wrapperRef = React.useRef(null);
     useOutsideAlerter(wrapperRef, setDropdown)
+    if (user !== null) {
+        console.log(user.attributes.type)
 
+    }
     return (
         <div className="flex flex-col mx-auto absolute left-0 top-0 shadow-md">
             <div className='bg-white max-h-20 w-screen grid grid-cols-3  borderRadiusComponents relative gap-5 justify-between'>
@@ -43,7 +47,7 @@ const SearchBar = (props: { search: Function, marketplace: boolean }) => {
                     </div>
                     {isAuthenticated && <div className={dropdownActive ? 'iconColorActive' : 'iconColorInactive relative'}>
                         <MdPerson size={25} onClick={() => setDropdown(!dropdownActive)} />
-                        <Profile active={dropdownActive} wrapperRef={wrapperRef} />
+                        <Profile active={dropdownActive} wrapperRef={wrapperRef} type={user === null ? 'user' :user.attributes.type} />
                     </div>}
                     {!isAuthenticated && <div className='primaryButton'>
                         <button className='flex flex-row gap-3' onClick={login} ><MdAccountBalanceWallet size={25} />Connect Account</button>

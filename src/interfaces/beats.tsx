@@ -10,6 +10,7 @@ export default interface BeatPack {
     genre: string;
     description: string;
     ownerWallet: string;
+    objectId: string;
 }
 
 export interface Beat {

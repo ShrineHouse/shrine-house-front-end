@@ -12,7 +12,7 @@ import BeatPackPage from './beatpack';
 
 const MarketPlace = () => {
     const emptyBp: BeatPack[] = [];
-    const emptyBeatpack:BeatPack = {
+    const emptyBeatpack: BeatPack = {
         artistName: '',
         beatPackName: '',
         beatPackPrice: 0,
@@ -23,7 +23,8 @@ const MarketPlace = () => {
         downloads: 0,
         genre: '',
         description: '',
-        ownerWallet:''
+        ownerWallet: '',
+        objectId: ''
     };
 
     const [searchedBp, setUsers] = useState(emptyBp)
@@ -34,18 +35,19 @@ const MarketPlace = () => {
     const [activeBp, setBp] = useState(emptyBeatpack)
     if (isLoading || data === undefined) return <h1>'Loading...'</h1>
     if (error) return <div>'WOOPS ERROR...'</div>
-    let beatPack = dataToBeatPack(data as any );
+    let beatPack = dataToBeatPack(data as any);
     let shrineBeatPack = dataToBeatPackRec(data as any);
-    
+
     function buildList() {
         if (genreBp[0] === undefined) return <p>No beatpacks found</p>
         if (genreBp[0].genre === 'none') {
+            console.log(beatPack)
             {
-                return beatPack.map((u, i) => <ul key={i}><div onClick={()=>setBp(u)} ><SmallArtistCard url={u.imageUrl} artistName={`${u.artistName} - ${u.beatPackName}`} verified={false} /></div></ul>)
+                return beatPack.map((u, i) => <Link to={`/beatpack/${u.objectId}`}><ul key={i}><div onClick={() => setBp(u)} ><SmallArtistCard url={u.imageUrl} artistName={`${u.artistName} - ${u.beatPackName}`} verified={false} /></div></ul></Link>)
             }
         } else {
             {
-                return (genreBp as BeatPack[]).map((u, i) => <ul key={i}><div onClick={()=>setBp(u)} ><SmallArtistCard url={u.imageUrl} artistName={`${u.artistName} - ${u.beatPackName}`} verified={false} /></div></ul>)
+                return (genreBp as BeatPack[]).map((u, i) => <Link to={`/beatpack/${u.objectId}`}><ul key={i}><div onClick={() => setBp(u)} ><SmallArtistCard url={u.imageUrl} artistName={`${u.artistName} - ${u.beatPackName}`} verified={false} /></div></ul></Link>)
             }
         }
     }
@@ -60,13 +62,11 @@ const MarketPlace = () => {
     }
     return (
         <div className='h-screen w-full container mx-auto px-5'>
-            <div className={activeBp.beatPackName === '' ? 'beatPack fixed w-screen h-screen z-50 backgroundCol' : 'beatPackActive fixed w-screen min-h-screen max-h-screen z-50 backgroundCol  overflow-y-scroll'}>
-                <BeatPackPage bp={activeBp} back={()=> setBp(emptyBeatpack)} />
-            </div>
+
             <div className='flex flex-col mx-5 gap-10 mt-20 pt-5'>
                 <SearchBar search={search} marketplace={true} />
                 <div className=' text-5xl -mb-5 font-bold'>
-                   Beat Market
+                    Beat Market
                 </div>
                 <div className='flex flex-row justify-between items-center'>
                     <div className='flex flex-row gap-2'>
@@ -90,14 +90,14 @@ const MarketPlace = () => {
                     <div className="flex flex-col gap-2">
                         <h1>Search results</h1>
                         <div className='grid grid-cols-3 gap-5'>
-                            {searchedBp.map((u, i) => <ul key={i}><div onClick={()=>setBp(u)} ><SmallArtistCard url={u.imageUrl} artistName={`${u.artistName} - ${u.beatPackName}`} verified={false} /></div></ul>
+                            {searchedBp.map((u, i) => <Link to={`/beatpack/${u.objectId}`}><ul key={i}><div ><SmallArtistCard url={u.imageUrl} artistName={`${u.artistName} - ${u.beatPackName}`} verified={false} /></div></ul></Link>
                             )}
                         </div>
                     </div> : <div>
                         <div className="flex flex-col gap-5">
                             <div className='text-4xl'>Recommended playlists</div>
                             <div className='grid grid-cols-3 gap-5'>
-                                {shrineBeatPack.map((u, i) => <ul key={i}><div onClick={()=>setBp(u)} ><BigArtistCard url={u.imageUrl} /></div></ul>
+                                {shrineBeatPack.map((u, i) => <Link to={`/beatpack/${u.objectId}`}> <ul key={i}><div onClick={() => setBp(u)} ><BigArtistCard url={u.imageUrl} /></div></ul></Link>
                                 )}
                             </div>
                         </div>

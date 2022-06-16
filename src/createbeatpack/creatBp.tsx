@@ -41,6 +41,7 @@ function StepOneBp() {
                 beats: emptyBp,
                 downloads: 0,
                 ownerWallet: user.attributes.wallet,
+                objectId:''
             }
             await handleZip(beatFile, (event.target as any)[3].value, Number((event.target as any)[4].value), beatpackData)
         }

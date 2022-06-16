@@ -45,14 +45,41 @@ export function dataToShrineUsers(users: Moralis.Object<Moralis.Attributes>[]) {
 }
 
 export function dataToBeatPack(beatpacks: Moralis.Object<Moralis.Attributes>[]) {
+    console.log('beatpacks')
+    console.log(beatpacks)
     let convertedPacks: BeatPack[] = [];
-    beatpacks.map(u => convertedPacks.push(u.attributes as BeatPack));
+    beatpacks.map((u) => {
+        const bp: BeatPack = u.attributes as any;
+        const addId: BeatPack = { ...bp, objectId: u.id };
+
+        convertedPacks.push(addId)
+    }
+    )
+
     return convertedPacks;
+}
+
+export function dataToBeatpackPage(beatpacks: Moralis.Object<Moralis.Attributes>[]) {
+    console.log('beatpacks')
+    console.log(beatpacks)
+    let convertedPacks: BeatPack[] = [];
+    beatpacks.map((u) => {
+        const bp: BeatPack = u.attributes as any;
+        const addId: BeatPack = { ...bp, objectId: u.id };
+
+        convertedPacks.push(addId)
+    })
+    return convertedPacks[0];
 }
 export function dataToBeatPackRec(beatpacks: Moralis.Object<Moralis.Attributes>[]) {
 
     let convertedPacks: BeatPack[] = [];
-    beatpacks.map(u => convertedPacks.push(u.attributes as BeatPack));
+    beatpacks.map((u) => {
+        const bp: BeatPack = u.attributes as any;
+        const addId: BeatPack = { ...bp, objectId: u.id };
+
+        convertedPacks.push(addId)
+    })
     const sort = convertedPacks.slice().sort((a, b) => b.downloads - a.downloads)
     let max = [sort[0], sort[1], sort[2]]
     max = max.filter(function (element) {

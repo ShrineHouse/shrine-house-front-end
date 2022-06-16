@@ -3,10 +3,10 @@ import { useMoralis } from 'react-moralis';
 import { MdAccountBalanceWallet } from 'react-icons/md';
 import { Link } from 'react-router-dom';
 
-const Profile = (props: { wrapperRef: React.MutableRefObject<null>, active: boolean }) => {
+const Profile = (props: { wrapperRef: React.MutableRefObject<null>, active: boolean, type: string }) => {
     const { logout, user, auth } = useMoralis();
-    
-   
+
+
     return (
         <div className={props.active ? 'dropdown shadow' : 'dropdownInactive shadow'} ref={props.wrapperRef}>
 
@@ -27,9 +27,10 @@ const Profile = (props: { wrapperRef: React.MutableRefObject<null>, active: bool
                 <p className="profileLink">Socials</p>
                 <p className="profileLink">Push Notifications</p>
                 <div className='h-5'></div>
-                <Link to='/signup'>
+                {props.type === 'user' && <Link to='/signup'>
                     <p className="profileLink">Signup as an artist/producer</p>
-                </Link>
+                </Link>}
+
                 <p className="profileLink">More</p>
                 <p className="profileLink">FAQ</p>
                 <p onClick={logout} className="profileLink">Logout</p>

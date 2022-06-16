@@ -19,6 +19,7 @@ const ArtistPage = () => {
 
     const { id } = useParams();
     const [activeTab, setActiveTab] = useState('beat');
+
     const { fetch } = useMoralisCloudFunction("getArtist", { id: id })
     const [artist, setArtist] = useState(emptyUser)
     const [tracks, setTracks] = useState(emptyArray)
