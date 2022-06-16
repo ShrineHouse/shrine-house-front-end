@@ -38,13 +38,9 @@ const BeatPackPage = () => {
     const [activeTab, setActiveTab] = useState('beat');
     const { fetch } = useMoralisCloudFunction("getUser", { wallet: bp.ownerWallet })
     const [producer, setProducer] = useState(emptyUser)
-    const { data: formattedData } = useTokenPrice({ address: "0x7d1afa7b718fb893db30a3abc0cfc608aacfebb0", chain: "eth" });
+    const matic = useTokenPrice({ address: "0x7d1afa7b718fb893db30a3abc0cfc608aacfebb0", chain: "eth" });
 
-    console.log(formattedData)
     useEffect(() => {
-        console.log('di')
-
-
         if (bp.artistName === '') {
             getBp.fetch({
                 onSuccess(res) {
@@ -101,7 +97,7 @@ const BeatPackPage = () => {
     };
 
     const transfer = useWeb3Transfer({
-        amount: Moralis.Units.ETH(formattedData === null ? 0 : bp.beatPackPrice / formattedData.usdPrice),
+        amount: Moralis.Units.ETH(matic.data === null ? 0 : bp.beatPackPrice / matic.data.usdPrice),
         receiver: bp.ownerWallet,
         type: "native",
     });
@@ -109,7 +105,7 @@ const BeatPackPage = () => {
     if (producer.fullName === 'No name') {
         return <div className='w-screen h-screen flex flex-row items-center justify-center '>
             <div className='m-auto'>
-            <CircularProgress isIndeterminate />
+                <CircularProgress isIndeterminate />
 
             </div>
         </div>
@@ -150,7 +146,7 @@ const BeatPackPage = () => {
 
                                 </div>
                                 <div className='text-gray-400'>
-                                    matic: {formattedData === null ? 0 : Math.round((bp.beatPackPrice / formattedData.usdPrice))}
+                                    matic: {matic.data === null ? 0 : Math.round((bp.beatPackPrice / matic.data.usdPrice))}
                                 </div>
                             </div>
 
