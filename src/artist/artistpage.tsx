@@ -6,17 +6,17 @@ import { useMoralisCloudFunction } from 'react-moralis';
 import { dataToUser } from '../helpers/database';
 import { DbUser, emptyUser } from '../interfaces/users';
 import { Link, useParams } from 'react-router-dom';
-import ProducerInfo from '../../components/beatpack/ProducerInfo';
+import ProducerInfo from '../components/beatpack/ProducerInfo';
 
 import { spotifyFetch } from '../helpers/spotify';
 import BeatPack, { Beat } from '../interfaces/beats';
-import TrackList from '../../components/artistpage/Tracklist';
+import TrackList from '../components/artistpage/Tracklist';
+import LoadingWidget from '../components/general/loadingwidget';
 
 
 
 const ArtistPage = () => {
     let emptyArray: Beat[] = [];
-
     const { id } = useParams();
     const [activeTab, setActiveTab] = useState('beat');
 
@@ -25,16 +25,12 @@ const ArtistPage = () => {
     const [tracks, setTracks] = useState(emptyArray)
 
     useEffect(() => {
-
         fetch({
             onSuccess(results) {
                 const _artist = dataToUser(results as any);
                 getTracks(_artist)
-
             },
         })
-
-      
     }, [])
 
 
@@ -53,6 +49,7 @@ const ArtistPage = () => {
     }
 
     
+    if(artist.fullName === 'No name') return <LoadingWidget />
 
 
 

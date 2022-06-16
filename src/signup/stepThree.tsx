@@ -1,10 +1,8 @@
 import { Center, CircularProgress } from '@chakra-ui/react';
-import Moralis from 'moralis/types';
 import * as React from 'react';
-import { MoralisObjectSaveData, useMoralis, useNewMoralisObject } from 'react-moralis';
+import { useMoralis } from 'react-moralis';
 import { useNavigate } from 'react-router-dom';
-import Logo from '../../components/general/logo';
-import { useGetFetchQuery } from '../helpers/state';
+import Logo from '../components/general/logo';
 import { DbUser, upUser, upUserSocials } from '../interfaces/users';
 
 

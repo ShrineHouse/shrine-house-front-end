@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { useMoralisCloudFunction } from 'react-moralis';
-import { dataToBeatPack, dataToUsers } from '../../src/helpers/database';
-import BeatPack from '../../src/interfaces/beats';
-import { DbUser } from '../../src/interfaces/users';
+import { dataToBeatPack, dataToUsers } from '../../helpers/database';
+import BeatPack from '../../interfaces/beats';
+import { DbUser } from '../../interfaces/users';
 
 
 //Sidebar in the beatpack displaying similar producers, beatpacks

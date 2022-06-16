@@ -4,7 +4,7 @@ import { MdAccountBalanceWallet } from 'react-icons/md';
 import { Link } from 'react-router-dom';
 
 const Profile = (props: { wrapperRef: React.MutableRefObject<null>, active: boolean, type: string }) => {
-    const { logout, user, auth } = useMoralis();
+    const { logout, user } = useMoralis();
 
 
     return (

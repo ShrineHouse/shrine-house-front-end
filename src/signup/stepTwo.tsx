@@ -1,7 +1,6 @@
 import * as React from 'react';
-import Logo from '../components/logo';
+import Logo from '../components/general/logo';
 import { convertBase64 } from '../helpers/database';
-import { useGetFetchQuery } from '../helpers/state';
 
 
 const StepTwo = (props: { setStep: Function, setSocialsData:Function }) => {

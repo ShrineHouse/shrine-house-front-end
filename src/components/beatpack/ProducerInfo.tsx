@@ -1,10 +1,7 @@
-import { Button } from '@chakra-ui/react';
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { numFormatter } from '../../helpers/utils';
-import BeatPack from '../../interfaces/beats';
 import { DbUser } from '../../interfaces/users';
-import TrackCard from './TrackCard';
 
 
 function ProducerInfo(props: { producer: DbUser }) {

@@ -21,6 +21,7 @@
     "jsx": "preserve"
   },
   "include": [
-    "src"
-, "components/general/cards.tsx", "components/beatpack/BeatpackInfo.tsx", "components/artistpage/Tracklist.tsx"  ]
+    "src",
+    
+  ]
 }

@@ -1,6 +1,6 @@
 import { Button } from '@chakra-ui/react';
 import React from 'react';
-import BeatPack from '../../src/interfaces/beats';
+import BeatPack from '../../interfaces/beats';
 import TrackCard from './TrackCard';
 
 

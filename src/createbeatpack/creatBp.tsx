@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { MoralisObjectSaveData, useMoralis, useMoralisFile, useNewMoralisObject } from 'react-moralis';
-import Logo from '../components/logo';
+import Logo from '../components/general/logo';
 
 import { convertBase64 } from '../helpers/database';
 import JSZip from 'jszip';

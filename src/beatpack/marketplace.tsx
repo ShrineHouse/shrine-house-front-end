@@ -1,34 +1,20 @@
 import React, { useState } from 'react'
-import { useMoralisCloudFunction, useMoralisQuery } from 'react-moralis';
+import { useMoralisCloudFunction } from 'react-moralis';
 import { useQuery } from 'react-query';
 
 import { dataBeatpackFilter, dataToBeatPack, dataToBeatPackRec, searchBeatpack } from '../helpers/database';
-import { BigArtistCard, SmallArtistCard } from '../../components/general/cards';
+import { BigArtistCard, SmallArtistCard } from '../components/general/cards';
 import BeatPack from '../interfaces/beats';
 import { Link } from 'react-router-dom';
 
-import LoadingWidget from '../../components/general/loadingwidget'
-import Chip from '../../components/general/chip';
-import SearchBar from '../../components/general/searchBar';
+import LoadingWidget from '../components/general/loadingwidget'
+import Chip from '../components/general/chip';
+import SearchBar from '../components/general/searchBar';
 
 ////Marketplace - Beatpacks live here
 
 const MarketPlace = () => {
     const emptyBp: BeatPack[] = [];
-    const emptyBeatpack: BeatPack = {
-        artistName: '',
-        beatPackName: '',
-        beatPackPrice: 0,
-        beatPackUrl: '',
-        beats: [],
-        imageUrl: '',
-        royaltyIndex: 0,
-        downloads: 0,
-        genre: '',
-        description: '',
-        ownerWallet: '',
-        objectId: ''
-    };
 
     const [searchedBp, setUsers] = useState(emptyBp)
     const [isSearching, setSearch] = useState(false)

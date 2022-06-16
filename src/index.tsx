@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import { MoralisProvider, useMoralis } from 'react-moralis';
+import { MoralisProvider } from 'react-moralis';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import App from './App';

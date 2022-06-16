@@ -1,6 +1,5 @@
-import { Button } from '@chakra-ui/react';
 import React from 'react'
-import BeatPack, { Beat } from '../../src/interfaces/beats';
+import { Beat } from '../../interfaces/beats';
 import TrackCard from '../beatpack/TrackCard';
 
 function TrackList(props: { tracks: Beat[] }) {

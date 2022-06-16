@@ -2,9 +2,9 @@ import * as React from 'react';
 import Logo from "./logo";
 import { MdAccountBalanceWallet, MdNotifications, MdPerson, MdMusicNote } from 'react-icons/md';
 import { useMoralis } from 'react-moralis';
-import Profile from '../../src/profile/profile';
-import { useOutsideAlerter } from '../../src/helpers/utils';
-import { Link, Navigate } from 'react-router-dom';
+import Profile from '../../profile/profile';
+import { useOutsideAlerter } from '../../helpers/utils';
+import { Link } from 'react-router-dom';
 
 const SearchBar = (props: { search: Function, marketplace: boolean }) => {
     const { authenticate, isAuthenticated, user, logout } = useMoralis();

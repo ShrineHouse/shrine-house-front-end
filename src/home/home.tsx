@@ -1,14 +1,14 @@
-import React, { useEffect, useState } from 'react'
-import { useMoralis, useMoralisCloudFunction } from 'react-moralis';
-import SearchBar from '../../components/general/searchBar';
+import React, { useState } from 'react'
+import { useMoralisCloudFunction } from 'react-moralis';
+import SearchBar from '../components/general/searchBar';
 import { useQuery } from 'react-query';
 
-import { artistGenreFilter, dataBeatpackFilter, dataToShrineUsers, dataToUsers, searchArtists } from '../helpers/database';
-import { BigArtistCard, SmallArtistCard } from '../../components/general/cards';
+import { artistGenreFilter, dataToShrineUsers, dataToUsers, searchArtists } from '../helpers/database';
+import { BigArtistCard, SmallArtistCard } from '../components/general/cards';
 import { DbUser } from '../interfaces/users'
-import Chip from '../../components/general/chip';
+import Chip from '../components/general/chip';
 import { Link } from 'react-router-dom';
-import LoadingWidget from '../../components/general/loadingwidget';
+import LoadingWidget from '../components/general/loadingwidget';
 
 
 
@@ -22,9 +22,8 @@ const Home = () => {
 
     const { isLoading, error, data } = useQuery('usersData', () => fetch())
     const [genreArtist, setGenre] = useState([{ genre: 'none' }])
-    const { logout } = useMoralis()
 
-    if (isLoading || data === undefined)  return         <LoadingWidget />
+    if (isLoading || data === undefined) return <LoadingWidget />
 
     if (error) return <div>'WOOPS ERROR...'</div>
     const users = dataToUsers(data as any);

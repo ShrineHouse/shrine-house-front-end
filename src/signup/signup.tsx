@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { useMoralis, useMoralisQuery } from 'react-moralis';
 import { useQuery } from 'react-query';
-import Logo from '../../components/general/logo';
+import Logo from '../components/general/logo';
 import StepThree from './stepThree';
 import StepTwo from './stepTwo';
 import { upUser, upUserSocials } from '../interfaces/users'
@@ -11,7 +11,7 @@ function StepOne(props: { setStep: Function, setData: Function }) {
     const [switchState, setSwitchState] = React.useState(false)
     const { fetch } = useMoralisQuery("genres")
     const [genre, setGenre] = React.useState('No genre');
-    const { isLoading, error, data } = useQuery('genres', () => fetch())
+    const { data } = useQuery('genres', () => fetch())
 
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
