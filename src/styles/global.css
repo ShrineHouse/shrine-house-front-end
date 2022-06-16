@@ -122,3 +122,28 @@ input:focus {
     line-height: 50px;
     font-weight: 700;
 }
+
+
+/*ANIMATION TRANSITION*/
+.fade-enter {
+    opacity: 0;
+    transform: translate(0, 50px);
+    z-index: 1;
+  }
+  .fade-enter.fade-enter-active {
+    opacity: 1;
+    transform: translate(0, 0);
+  
+    transition: opacity 250ms ease-out, transform 300ms ease;
+  }
+  .fade-exit {
+    opacity: 1;
+    transform: translate(0, 0);
+  }
+  .fade-exit.fade-exit-active {
+    opacity: 0;
+    transform: translate(0, 50px);
+  
+    transition: opacity 250ms ease-out, transform 300ms ease;
+  }
+  

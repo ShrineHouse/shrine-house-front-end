@@ -2,15 +2,10 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { MoralisProvider } from 'react-moralis';
 import { QueryClient, QueryClientProvider } from 'react-query';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import App from './App';
-import ArtistPage from './artist/artistpage';
-import BeatPackPage from './beatpack/beatpack';
-import CreateBp from './createbeatpack/creatBp';
 import reportWebVitals from './reportWebVitals';
-import SignupPage from './signup/signup';
-import './styles/global.css'
-
+import './styles/global.css';
+import Init from './App';
+import { BrowserRouter } from 'react-router-dom';
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
@@ -19,15 +14,8 @@ root.render(
   <React.StrictMode>
     <MoralisProvider serverUrl='https://tegvbkenkckg.usemoralis.com:2053/server' appId='LDiq0dcIjNKdEgqqjQHaJgHZXptPQLrtcGtdV88P'>
       <QueryClientProvider client={queryClient}>
-        <BrowserRouter>
-          <Routes>
-            <Route path='/' element={<App />} />
-            <Route path='/signup' element={<SignupPage />} />
-            <Route path='/createbeatpack' element={<CreateBp />} />
-            <Route path='/:id' element={<ArtistPage />} />
-            <Route path='/beatpack/:id' element={<BeatPackPage />} />
-          </Routes>
-        </BrowserRouter>
+
+        <BrowserRouter>   <Init /></BrowserRouter>
       </QueryClientProvider>
     </MoralisProvider>
   </React.StrictMode>

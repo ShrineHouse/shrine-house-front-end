@@ -5,6 +5,35 @@ import MarketPlace from './beatpack/marketplace';
 import { useMoralis, useMoralisCloudFunction } from 'react-moralis';
 import { useQuery } from 'react-query';
 import LoadingWidget from './components/general/loadingwidget';
+import { BrowserRouter, Route, Routes, useLocation } from 'react-router-dom';
+import ArtistPage from './artist/artistpage';
+import BeatPackPage from './beatpack/beatpack';
+import CreateBp from './createbeatpack/creatBp';
+import SignupPage from './signup/signup';
+import './styles/global.css';
+import { TransitionGroup, CSSTransition } from 'react-transition-group';
+
+
+export default function Init() {
+  const location = useLocation()
+  return <TransitionGroup>
+    <CSSTransition
+      key={location.key}
+      classNames="fade" timeout={300}>
+
+
+      <Routes location={location}>
+        <Route path='/' element={<App />} />
+        <Route path='/signup' element={<SignupPage />} />
+        <Route path='/createbeatpack' element={<CreateBp />} />
+        <Route path='/:id' element={<ArtistPage />} />
+        <Route path='/beatpack/:id' element={<BeatPackPage />} />
+      </Routes>
+    </CSSTransition>
+  </TransitionGroup>
+
+
+}
 
 const App = () => {
   const [tabIndex, setTabIndex] = useState(2);
@@ -33,4 +62,3 @@ const App = () => {
   );
 }
 
-export default App;
