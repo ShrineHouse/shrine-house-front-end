@@ -8,6 +8,7 @@ import { BigArtistCard, SmallArtistCard } from '../components/cards';
 import BeatPack from '../interfaces/beats';
 import Chip from '../components/chip';
 import { Link } from 'react-router-dom';
+import LoadingWidget from '../components/loadingwidget';
 
 
 ////Marketplace - Beatpacks live here
@@ -34,23 +35,21 @@ const MarketPlace = () => {
     const { fetch } = useMoralisCloudFunction("beats")
     const { isLoading, error, data } = useQuery('beatPacks', () => fetch())
     const [genreBp, setGenre] = useState([{ genre: 'none' }])
-    if (isLoading || data === undefined) return <h1>'Loading...'</h1>
+    if (isLoading || data === undefined) return <LoadingWidget />
     if (error) return <div>'WOOPS ERROR...'</div>
     let beatPack = dataToBeatPack(data as any);
     let shrineBeatPack = dataToBeatPackRec(data as any);
 
+    //Build marketplace based upon genre
     function buildList() {
         if (genreBp[0] === undefined) return <p>No beatpacks found</p>
         if (genreBp[0].genre === 'none') {
-            {
-                return beatPack.map((u, i) => <Link to={`/beatpack/${u.objectId}`}><ul key={i}><div  ><SmallArtistCard url={u.imageUrl} artistName={`${u.artistName} - ${u.beatPackName}`} verified={false} /></div></ul></Link>)
-            }
+            return beatPack.map((u, i) => <Link to={`/beatpack/${u.objectId}`}><ul key={i}><div  ><SmallArtistCard url={u.imageUrl} artistName={`${u.artistName} - ${u.beatPackName}`} verified={false} /></div></ul></Link>)
         } else {
-            {
-                return (genreBp as BeatPack[]).map((u, i) => <Link to={`/beatpack/${u.objectId}`}><ul key={i}><div  ><SmallArtistCard url={u.imageUrl} artistName={`${u.artistName} - ${u.beatPackName}`} verified={false} /></div></ul></Link>)
-            }
+            return (genreBp as BeatPack[]).map((u, i) => <Link to={`/beatpack/${u.objectId}`}><ul key={i}><div  ><SmallArtistCard url={u.imageUrl} artistName={`${u.artistName} - ${u.beatPackName}`} verified={false} /></div></ul></Link>)
         }
     }
+    //BUild marketplace based up search
     function search(value: string) {
         if (value === '') {
             setSearch(false)
@@ -62,7 +61,6 @@ const MarketPlace = () => {
     }
     return (
         <div className='h-screen w-full container mx-auto px-5'>
-
             <div className='flex flex-col mx-5 gap-10 mt-20 pt-5'>
                 <SearchBar search={search} marketplace={true} />
                 <div className=' text-5xl -mb-5 font-bold'>

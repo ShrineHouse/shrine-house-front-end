@@ -8,6 +8,7 @@ import { BigArtistCard, SmallArtistCard } from '../components/cards';
 import { DbUser } from '../interfaces/users'
 import Chip from '../components/chip';
 import { Link } from 'react-router-dom';
+import LoadingWidget from '../components/loadingwidget';
 
 
 
@@ -23,14 +24,13 @@ const Home = () => {
     const [genreArtist, setGenre] = useState([{ genre: 'none' }])
     const { logout } = useMoralis()
 
-    if (isLoading || data === undefined) return <div className='h-screen w-screen text-center flex flex-col'>
-        <h1>'Loading...'</h1>
-        <p onClick={() => logout}>If you're experiencing trouble, please logout. <button onClick={logout}>LOGOUT</button></p>
-    </div>
+    if (isLoading || data === undefined)  return         <LoadingWidget />
+
     if (error) return <div>'WOOPS ERROR...'</div>
     const users = dataToUsers(data as any);
     const shrineUsers = dataToShrineUsers(data as any);
 
+    /////Build artist list based upon search
     function search(value: string) {
         if (value === '') {
             setSearch(false)
@@ -40,6 +40,7 @@ const Home = () => {
         setUsers(search);
         if (!isSearching) return setSearch(true)
     }
+    /////Build artist list with genre filters applied
     function buildList() {
         if (genreArtist[0] === undefined) return <p>No artists found</p>
         if (genreArtist[0].genre === 'none') {

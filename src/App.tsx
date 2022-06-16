@@ -2,15 +2,21 @@ import React, { useState } from 'react';
 import Sidebar from './components/sidebar';
 import Home from './home/home';
 import MarketPlace from './beatpack/marketplace';
-import { useMoralis } from 'react-moralis';
+import { useMoralis, useMoralisCloudFunction } from 'react-moralis';
 import Profile from './profile/profile';
+import { useQuery } from 'react-query';
 
 const App = () => {
   const [tabIndex, setTabIndex] = useState(2);
   const { isInitialized } = useMoralis();
+  const { fetch } = useMoralisCloudFunction("beats")
+  const fetchArtists = useMoralisCloudFunction('getArtists');
+  const getArtists = useQuery('usersData', () => fetchArtists.fetch())
 
-  if (!isInitialized) return<div className='h-screen w-screen text-center'>'Loading...'</div>
-  
+  const getBps = useQuery('beatPacks', () => fetch())
+
+  if (!isInitialized) return <div className='h-screen w-screen text-center'>'Loading...'</div>
+
   return (
     <div>
       <div className=' backgroundCol relative'>

@@ -12,6 +12,8 @@ import SimilarEntities from './components/SimilarEntities';
 import { Link, useParams } from 'react-router-dom';
 
 import Modal from 'react-modal';
+import loadingWidget from '../components/loadingwidget';
+import LoadingWidget from '../components/loadingwidget';
 
 ///Beatpack page
 const BeatPackPage = () => {
@@ -86,12 +88,7 @@ const BeatPackPage = () => {
 
     ///If the page is not loaded, show progressindicator
     if (producer.fullName === 'No name') {
-        return <div className='w-screen h-screen flex flex-row items-center justify-center '>
-            <div className='m-auto'>
-                <CircularProgress isIndeterminate />
-
-            </div>
-        </div>
+        <LoadingWidget />
     }
 
     return (
@@ -154,6 +151,8 @@ const BeatPackPage = () => {
 }
 
 export default BeatPackPage;
+
+
 
 //checkout modal
 function checkoutModal(bp: BeatPack, producer: DbUser, matic: any, Moralis: any, transfer: any) {
