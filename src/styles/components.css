@@ -52,3 +52,8 @@
 .similarCol{
     width: 450px;
 }
+
+.smallCard{
+    aspect-ratio: 1/1;
+    height: auto;
+}
