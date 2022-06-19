@@ -47,17 +47,7 @@ const BeatPackPage = () => {
 
 
 
-    function onDownload() {
-        new JsFileDownloader({
-            url: bp.beatPackUrl,
-        })
-            .then(function () {
-                // Called when download ended
-            })
-            .catch(function (_error) {
-                // Called when an error occurred
-            });
-    }
+
     function openModal() {
         setIsOpen(true);
     }
@@ -87,7 +77,7 @@ const BeatPackPage = () => {
 
     ///If the page is not loaded, show progressindicator
     if (producer.fullName === 'No name') {
-       return <LoadingWidget />
+        return <LoadingWidget />
     }
 
     return (
@@ -99,7 +89,7 @@ const BeatPackPage = () => {
                     style={customStyles}
                     contentLabel="Example Modal"
                 >
-                    {checkoutModal(bp, producer, matic, Moralis, transfer)}
+                    <CheckoutModal Moralis={Moralis} bp={bp} matic={matic} producer={producer} transfer={transfer} />
                 </Modal>
             </>
             <Box padding={10} className='m-5'>
@@ -135,7 +125,7 @@ const BeatPackPage = () => {
                                 <div className={activeTab !== 'beat' ? 'transition-all underline text-3xl font-bold' : 'transition-all text-3xl font-bold text-gray-500'} onClick={() => setActiveTab('producer')}>Producer info</div>
                             </div>
                             <div className="w-full">
-                            {activeTab === 'beat' && <BeatPackInfo bp={bp} onDownload={openModal} />}
+                                {activeTab === 'beat' && <BeatPackInfo bp={bp} onDownload={openModal} />}
 
                             </div>
                             {activeTab === 'producer' && <ProducerInfo producer={producer} />}
@@ -157,7 +147,80 @@ export default BeatPackPage;
 
 
 //checkout modal
-function checkoutModal(bp: BeatPack, producer: DbUser, matic: any, Moralis: any, transfer: any) {
+function CheckoutModal(props: { bp: BeatPack, producer: DbUser, matic: any, Moralis: any, transfer: any }) {
+
+    const [transferDone, setTransferStatus] = useState(false)
+    const { user } = useMoralis()
+    function onDownload() {
+        new JsFileDownloader({
+            url: props.bp.beatPackUrl,
+        })
+
+    }
+
+    function mintNft(event: React.FormEvent<HTMLFormElement>) {
+
+        event.preventDefault();
+
+        ////Mint the NFT here
+        if (user !== null) {
+            const artistWallet = user.attributes.wallet;
+            const producerWallet = props.producer.wallet;
+            const producerRoyalties = props.bp.royaltyIndex;
+            const artistRoyalties = (event.target as any)[0].value;
+            const nftName = (event.target as any)[1].value;
+
+            console.log(artistRoyalties)
+            console.log(nftName)
+        }
+
+
+    }
+
+    if (!transferDone && user !== null) {
+        return (
+            <div className=' modalWidth'>
+                <form onSubmit={(event) => {
+                    mintNft(event)
+                }}>
+                    <div className='flex flex-col gap-3'>
+                        <h2 className='text-3xl text-center font-bold'>Mint your NFT</h2>
+                        <div className=' bg-gray-100 w-full h-1 mb-10'></div>
+                        <div className='mx-auto'>
+                            <img src={props.bp.imageUrl} className=" object-cover h-32 w-32 rounded-xl" />
+                        </div>
+                        <div className='flex flex-col'>
+                            <label>Your royalty percentage</label>
+                            <input type='number' max={12} id='royalty' required={true} placeholder='Royalty index' className='inputFieldText' />
+                        </div>
+                        <div className='flex flex-col'>
+                            <label>NFT Name</label>
+                            <input type='text' id='nftName' required={true} placeholder='Royalty index' className='inputFieldText' value={`${props.producer.fullName} X ${user.attributes.fullName}`} />
+
+                        </div>
+                        <div className='flex flex-row justify-between w-full items-center'>
+                            <div className='flex flex-row gap-5'>
+                                <div className='flex flex-col justify-center'>
+                                    <div className='font-bold primaryColor text-2xl'>{props.producer.fullName}</div>
+                                    <div className='font-bold text-xl'>{props.bp.beatPackName}</div>
+                                    <div className=' text-gray-400'>royalties: {props.bp.royaltyIndex}%</div>
+                                </div>
+                            </div>
+                            <div className='flex flex-col justify-center items-end'>
+                                <button className='primaryButton bg-gray-500 text-white' onClick={() => {
+                                    onDownload()
+                                }}>Download beats</button>
+                            </div>
+                        </div>
+                        <div className=' bg-gray-100 w-full h-1 mb-10'></div>
+                        <input type='submit' className='primaryButton' value='Mint NFT' />
+                    </div>
+                </form>
+
+            </div>
+        )
+    }
+
     return <div className='flex flex-col gap-3 modalWidth'>
         <h2 className='text-3xl text-center font-bold'>Complete checkout</h2>
         <div className=' bg-gray-100 w-full h-1 mb-10'></div>
@@ -169,20 +232,20 @@ function checkoutModal(bp: BeatPack, producer: DbUser, matic: any, Moralis: any,
         <div className=' bg-gray-100 w-full h-1'></div>
         <div className='flex flex-row justify-between w-full items-center'>
             <div className='flex flex-row gap-5'>
-                <img src={bp.imageUrl} className=" object-cover h-32 w-32 rounded-xl" />
+                <img src={props.bp.imageUrl} className=" object-cover h-32 w-32 rounded-xl" />
                 <div className='flex flex-col justify-center'>
-                    <div className='font-bold primaryColor text-2xl'>{producer.fullName}</div>
-                    <div className='font-bold text-xl'>{bp.beatPackName}</div>
-                    <div className=' text-gray-400'>royalties: {bp.royaltyIndex}%</div>
+                    <div className='font-bold primaryColor text-2xl'>{props.producer.fullName}</div>
+                    <div className='font-bold text-xl'>{props.bp.beatPackName}</div>
+                    <div className=' text-gray-400'>royalties: {props.bp.royaltyIndex}%</div>
                 </div>
             </div>
             <div className='flex flex-col justify-center items-end'>
                 <div className='font-bold text-2xl'>
-                    ${bp.beatPackPrice}
+                    ${props.bp.beatPackPrice}
 
                 </div>
                 <div className='text-gray-400'>
-                    Matic: {matic.data === null ? 0 : Math.round((bp.beatPackPrice / matic.data.usdPrice))}
+                    Matic: {props.matic.data === null ? 0 : Math.round((props.bp.beatPackPrice / props.matic.data.usdPrice))}
                 </div>
             </div>
 
@@ -192,13 +255,16 @@ function checkoutModal(bp: BeatPack, producer: DbUser, matic: any, Moralis: any,
         <button className='primaryButton' onClick={() => {
 
             //Authenticate, if complete init transfer of funds
-            Moralis.authenticate().then(() => {
-                transfer.fetch({
+            props.Moralis.authenticate().then(() => {
+                props.transfer.fetch({
                     onError(error: { stack: any; }) {
                         alert(error.stack);
                     },
                     onSuccess(_results: any) {
                         /////Do stuff here
+
+                        ////Advance to NFT mint
+                        setTransferStatus(true)
                     },
                 });
             });

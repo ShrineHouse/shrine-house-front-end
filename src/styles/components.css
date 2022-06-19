@@ -78,3 +78,7 @@
     border-radius: 5000px;
     font-weight: 700;
 }
+
+label{
+    font-weight: bold;
+}
