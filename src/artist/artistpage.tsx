@@ -38,7 +38,8 @@ const ArtistPage = () => {
         const res = await spotifyFetch('https://api.spotify.com/v1/artists/7FngGIEGgN3Iwauw1MvO4P/top-tracks?market=IT');
         const tracks = res.data.tracks;
         let trackArray: Beat[] = [];
-
+        
+        if (_artist === undefined) return;
         tracks.map((track: any) => trackArray.push({ beatArtist: _artist.fullName, beatDownloadUrl: track.preview_url, beatName: track.name, beatPrice: 0, beatUrl: track.preview_url, royaltyIndex: 0 }))
         if (trackArray.length < 0) {
             return;

@@ -82,15 +82,16 @@ const BeatPackPage = () => {
     }
 
     return (
-        <div className={!similarLoaded? ' invisible': 'visible container mx-auto'}>
+        <div className={!similarLoaded ? ' invisible' : 'visible container mx-auto'}>
             <>
                 <Modal
                     isOpen={modalIsOpen}
                     onRequestClose={closeModal}
                     style={customStyles}
                     contentLabel="Example Modal"
+                    shouldCloseOnOverlayClick={false}
                 >
-                    <CheckoutModal Moralis={Moralis} bp={bp} matic={matic} producer={producer} transfer={transfer} />
+                    <CheckoutModal Moralis={Moralis} bp={bp} matic={matic} producer={producer} transfer={transfer} closeModal={closeModal} />
                 </Modal>
             </>
             <Box padding={10} className='m-5'>
@@ -148,7 +149,7 @@ export default BeatPackPage;
 
 
 //checkout modal
-function CheckoutModal(props: { bp: BeatPack, producer: DbUser, matic: any, Moralis: any, transfer: any }) {
+function CheckoutModal(props: { bp: BeatPack, producer: DbUser, matic: any, Moralis: any, transfer: any, closeModal: Function }) {
 
     const [transferDone, setTransferStatus] = useState(false)
     const { user } = useMoralis()
@@ -173,6 +174,7 @@ function CheckoutModal(props: { bp: BeatPack, producer: DbUser, matic: any, Mora
 
             console.log(artistRoyalties)
             console.log(nftName)
+            props.closeModal()
         }
 
 
@@ -223,6 +225,8 @@ function CheckoutModal(props: { bp: BeatPack, producer: DbUser, matic: any, Mora
     }
 
     return <div className='flex flex-col gap-3 modalWidth'>
+        <div className='top-0 right-0 text-xl absolute z-50 text-gray-600 pt-5 pr-5 cursor-pointer' onClick={()=>props.closeModal()}>close</div>
+
         <h2 className='text-3xl text-center font-bold'>Complete checkout</h2>
         <div className=' bg-gray-100 w-full h-1 mb-10'></div>
         <div className="flex flex-row w-full justify-between">
@@ -260,6 +264,7 @@ function CheckoutModal(props: { bp: BeatPack, producer: DbUser, matic: any, Mora
                 props.transfer.fetch({
                     onError(error: { stack: any; }) {
                         alert(error.stack);
+                        props.closeModal();
                     },
                     onSuccess(_results: any) {
                         /////Do stuff here
