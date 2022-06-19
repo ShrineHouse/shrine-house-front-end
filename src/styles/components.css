@@ -21,7 +21,7 @@
     cursor: pointer;
 }
 
-.genreSelect{
+.genreSelect {
     padding: 10px 20px 10px 20px;
     border-radius: 9999px;
     background-color: #f076352b;
@@ -30,7 +30,7 @@
     border: none;
 }
 
-.primaryButton{
+.primaryButton {
     background-color: var(--primary);
     color: white;
     transition: 300ms;
@@ -38,7 +38,8 @@
     border-radius: 5px;
     font-weight: 700;
 }
-.primaryButton:hover{
+
+.primaryButton:hover {
     background-color: white;
     color: var(--primary);
     outline: var(--primary) 2px solid;
@@ -49,11 +50,31 @@
     font-weight: 700;
 }
 
-.similarCol{
+.similarCol {
     width: 450px;
 }
 
-.smallCard{
+.smallCard {
     aspect-ratio: 1/1;
     height: auto;
+}
+
+.primaryButtonSubmit {
+    background-color: var(--primary);
+    color: white;
+    transition: 300ms;
+    padding: 10px 20px 10px 20px;
+    border-radius: 5000px;
+    font-weight: 700;
+}
+
+.primaryButtonSubmit:hover {
+    background-color: white;
+    color: var(--primary);
+    outline: var(--primary) 2px solid;
+    outline-offset: -2px;
+    transition: 300ms;
+    padding: 10px 20px 10px 20px;
+    border-radius: 5000px;
+    font-weight: 700;
 }

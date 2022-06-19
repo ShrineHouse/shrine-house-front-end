@@ -180,7 +180,7 @@ function StepOneBp() {
                     {isUploading && <CircularProgress isIndeterminate />}
 
                 </div>
-                {!isUploading && <input type='submit' className='primaryButton rounded-full' id='submit' value='Submit & Upload Beatpack' />}
+                {!isUploading && <input type='submit' className='primaryButtonSubmit rounded-full' id='submit' value='Submit & Upload Beatpack' />}
             </form>
         </div>
     );

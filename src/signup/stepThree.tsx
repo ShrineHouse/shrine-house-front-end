@@ -64,7 +64,7 @@ const StepThree = (props: { data: upUser, dataSocials: upUserSocials }) => {
 
     return (
 
-        <div className='flex flex-col items-center justify-center min-h-screen gap-5 p-10 px-20'>
+        <div className='flex flex-col items-center justify-center gap-5 p-10 px-20'>
             <div className='h-20 w-20'>
                 <Logo />
             </div>

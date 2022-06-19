@@ -31,11 +31,11 @@ const StepTwo = (props: { setStep: Function, setSocialsData:Function }) => {
 
     return (
 
-        <div className='flex flex-col items-center justify-center min-h-screen gap-5 p-10 px-20'>
+        <div className='flex flex-col items-center justify-center   h-full gap-5 p-10 px-20'>
             <div className='h-20 w-20'>
                 <Logo />
             </div>
-            <div className='titleText'>Complete your profile</div>
+            <div className='titleText -mt-7'>Complete your profile</div>
             <form className='formLol flex flex-col gap-5 w-full' onSubmit={handleSubmit}>
                 <>
                     <div className='mx-auto relative' onClick={handleClick}>
@@ -51,7 +51,7 @@ const StepTwo = (props: { setStep: Function, setSocialsData:Function }) => {
                 <input className='inputFieldText' name="instagramUrl" placeholder='Instagram url' type='text' />
                 <input className='inputFieldText' name="twitterUrl" placeholder='Twitter url' type='text' />
 
-                <input type='submit' className='primaryButton rounded-full' id='submit' value='Submit' />
+                <input type='submit' className='primaryButtonSubmit' id='submit' value='Create account' />
             </form>
         </div>
 

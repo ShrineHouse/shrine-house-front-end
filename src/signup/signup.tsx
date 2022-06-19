@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useMoralis, useMoralisQuery } from 'react-moralis';
+import { useMoralis, useMoralisCloudFunction } from 'react-moralis';
 import { useQuery } from 'react-query';
 import Logo from '../components/general/logo';
 import StepThree from './stepThree';
@@ -9,7 +9,7 @@ import { getGenres } from '../helpers/database';
 
 function StepOne(props: { setStep: Function, setData: Function }) {
     const [switchState, setSwitchState] = React.useState(false)
-    const { fetch } = useMoralisQuery("genres")
+    const { fetch } = useMoralisCloudFunction("getGenres")
     const [genre, setGenre] = React.useState('No genre');
     const { data } = useQuery('genres', () => fetch())
 
@@ -22,26 +22,26 @@ function StepOne(props: { setStep: Function, setData: Function }) {
             'birth': (event.target as any)[3].value,
             'artist': (event.target as any)[4].value,
             'genre': genre,
-            'type': switchState === true ? 'artist' : 'producer',
+            // 'type': switchState === true ? 'artist' : 'producer',
+            'type': 'producer'
         }
         props.setData(signupData)
-
         props.setStep(1)
     }
 
     function buildGenres() {
         if (data !== undefined) {
-            const de = getGenres(data)
+            const de = getGenres(data as any)
             return de.map((genre) => <option>{genre}</option>)
         }
         return <ul>Loading genres...</ul>
 
     }
-    return (<div className='flex flex-col items-center justify-center min-h-screen gap-5 p-10 px-20'>
+    return (<div className='flex flex-col items-center justify-center h-full gap-5 p-10 px-20'>
         <div className='h-20 w-20'>
             <Logo />
         </div>
-        <div className='titleText'>Create your account</div>
+        <div className='titleText -mt-7'>Create your account</div>
         <form className='formLol flex flex-col gap-5 w-full' onSubmit={(e) => handleSubmit(e)}>
             <input className='inputFieldText' name="legal" placeholder='Legal name' type='text' />
             <input className='inputFieldText' name="name" placeholder='Artist/producer name' type='text' />
@@ -64,16 +64,17 @@ function StepOne(props: { setStep: Function, setData: Function }) {
                 }} type="checkbox" checked={switchState} value={`${switchState}`} onChange={e => {
                     setSwitchState(e.target.checked);
                 }} />
-                <div className='flex flex-row switch justify-between '>
+                {/* 
+               <div className='flex flex-row switch justify-between '>
                     <div className={switchState ? 'switchActive' : 'switchInactive'}>
                         Artist
                     </div>
                     <div className={!switchState ? 'switchActive' : 'switchInactive'}>
                         Producer
                     </div>
-                </div>
+                </div>  */}
             </label>
-            <input type='submit' className='primaryButton rounded-full' id='submit' value='Submit' />
+            <input type='submit' className='primaryButtonSubmit rounded-full' id='submit' value='Submit' />
         </form>
     </div>);
 }
@@ -96,31 +97,40 @@ const SignupPage = () => {
     return (
         <div>
             <div className='backgroundCol min-h-screen min-w-screen flex flex-row relative '>
-                <div className='wizardWrapper shadow z-20 relative'>
-                    {step === 0 && <StepOne setStep={setStep} setData={setData} />}
+                <div className='grid grid-cols-2 gap-10 m-10 mx-auto'>
+                    <div className='wizardWrapper shadow z-20 relative '>
+                        {step === 0 && <StepOne setStep={setStep} setData={setData} />}
 
-                    {step === 1 && <StepTwo setStep={setStep} setSocialsData={setSocialsData} />}
+                        {step === 1 && <StepTwo setStep={setStep} setSocialsData={setSocialsData} />}
 
-                    {step === 2 && <StepThree data={data} dataSocials={dataSocials} />}
+                        {step === 2 && <StepThree data={data} dataSocials={dataSocials} />}
 
-                </div>
-
-                <div className='wizardInfoUnderneath shadow z-0 relative right-0'>
-                </div>
-                <div className='wizardInfoScreen shadow z-10 absolute right-0'>
-                    <div className='flex flex-col justify-center h-screen pl-10 gap-5'>
+                    </div>
+                    <div className='flex flex-col justify-center  gap-5 z-10'>
                         <div className='whiteHeading w-8/12'>
-                            Empowering artists and producers
+                            Join the Shrine
                         </div>
                         <div className='signupText'>
-                            Join us on our journey to reimagine the music industry <br />
-                            by providing a platform that delivers high-quality content
+
+                            <li>Enter your details</li>
+                            <li>Pick a genre</li>
+                            <li>Upload your profile picture</li>
+                            <li>Enter your socials</li>
+                            <li>Submit to the Shrine</li>
+
+
                         </div>
                     </div>
                 </div>
-            </div>
 
+                <div className='wizardInfoUnderneath shadow z-0 absolute w-full'>
+                    <div className='absolute wizardInfoScreen w-screen h-screen' ></div>
+                </div>
+
+            </div>
         </div >
+
+
     )
 }
 
