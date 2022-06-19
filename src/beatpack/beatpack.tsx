@@ -134,7 +134,10 @@ const BeatPackPage = () => {
                                 <div className={activeTab === 'beat' ? 'transition-all underline text-3xl font-bold' : 'transition-all text-3xl font-bold text-gray-500'} onClick={() => setActiveTab('beat')}>Beatpack</div>
                                 <div className={activeTab !== 'beat' ? 'transition-all underline text-3xl font-bold' : 'transition-all text-3xl font-bold text-gray-500'} onClick={() => setActiveTab('producer')}>Producer info</div>
                             </div>
+                            <div className="w-full">
                             {activeTab === 'beat' && <BeatPackInfo bp={bp} onDownload={openModal} />}
+
+                            </div>
                             {activeTab === 'producer' && <ProducerInfo producer={producer} />}
                         </VStack>
                     </div>

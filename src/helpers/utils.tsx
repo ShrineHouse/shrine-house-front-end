@@ -27,3 +27,9 @@ export function numFormatter(num:number) {
         return num; // if value < 1000, nothing to do
     }
 }
+
+export function removeExtension(filename:string){
+    var lastDotPosition = filename.lastIndexOf(".");
+    if (lastDotPosition === -1) return filename;
+    else return filename.substr(0, lastDotPosition);
+}

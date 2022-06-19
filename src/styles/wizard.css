@@ -5,42 +5,40 @@
 }
 
 
-.wizardWrapper{
-    min-height: 100%;
-    width: 50%;
+.wizardWrapper {
+    width: 100%;
     background-color: white;
+    border-radius: 10px;
 
 }
 
-.wizardInfoScreen{
+.wizardInfoScreen {
     min-height: 100%;
-    width: 50%;
-  /* From https://css.glass */
-background: rgba(241, 241, 241, 0.3);
-box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-backdrop-filter: blur(6.5px);
--webkit-backdrop-filter: blur(6.5px);
+    /* From https://css.glass */
+    background: rgba(241, 241, 241, 0.3);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(6.5px);
+    -webkit-backdrop-filter: blur(6.5px);
 }
 
-.wizardInfoUnderneath{
-    background: rgb(240,119,53);
-background: radial-gradient(circle,rgb(241, 101, 25) 0%, rgb(240, 166, 125) 50%);
-min-height: 100%;
-width: 50%;
+.wizardInfoUnderneath {
+    background: rgb(240, 119, 53);
+    background: radial-gradient(circle, rgb(241, 101, 25) 0%, rgb(240, 166, 125) 50%);
+    min-height: 100%;
 }
 
-.signupText{
+.signupText {
     color: white;
     font-size: 18px
 }
 
-.titleText{
+.titleText {
     color: black;
     font-size: 42px;
     font-weight: bold;
 }
 
-.inputFieldText{
+.inputFieldText {
     padding: 10px 20px 10px 20px;
     border-radius: 9999px;
     border: 1px var(--gray) solid;
