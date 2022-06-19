@@ -177,7 +177,7 @@ function CheckoutModal(props: { bp: BeatPack, producer: DbUser, matic: any, Mora
 
     }
 
-    if (!transferDone && user !== null) {
+    if (transferDone && user !== null) {
         return (
             <div className=' modalWidth'>
                 <form onSubmit={(event) => {
