@@ -6,7 +6,7 @@ import { DbUser } from '../../interfaces/users';
 
 
 //Sidebar in the beatpack displaying similar producers, beatpacks
-const SimilarEntities = (props: { bp: BeatPack }) => {
+const SimilarEntities = (props: { bp: BeatPack, setLoaded:Function }) => {
     const emptyBp: BeatPack[] = [];
     const emptySimilarUsers: DbUser[] = [];
     const [beatsGenre, setBeatsGenre] = useState(emptyBp)
@@ -25,21 +25,27 @@ const SimilarEntities = (props: { bp: BeatPack }) => {
         //Get similat beatpacks by genre
         getBeatsGenre.fetch({
             onSuccess(results) {
-                setBeatsGenre(dataToBeatPack(results as any))
+
+                setBeatsGenre(dataToBeatPack(results as any).slice(0,4))
             },
         })
         // get similar producers by fenre
         getSimilarUser.fetch({
             onSuccess(results) {
-                setSimilarProducers(dataToUsers(results as any))
+
+                setSimilarProducers(dataToUsers(results as any).slice(0,4))
             },
         })
         // Get all beatpacks this user uploaded
         getAllBeatsUser.fetch({
             onSuccess(results) {
-                setAllBeats(dataToBeatPack(results as any))
+
+                setAllBeats(dataToBeatPack(results as any).slice(0, 4))
+                props.setLoaded(true)
             },
         })
+
+    
 
     }, [props.bp])
 

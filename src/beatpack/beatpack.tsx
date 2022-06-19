@@ -24,6 +24,7 @@ const BeatPackPage = () => {
     const [activeTab, setActiveTab] = useState('beat');
     const { fetch } = useMoralisCloudFunction("getUser", { wallet: bp.ownerWallet })
     const [producer, setProducer] = useState(emptyUser)
+    const [similarLoaded, setSimilarLoaded] = useState(false)
     const matic = useTokenPrice({ address: "0x7d1afa7b718fb893db30a3abc0cfc608aacfebb0", chain: "eth" });
 
     useEffect(() => {
@@ -81,7 +82,7 @@ const BeatPackPage = () => {
     }
 
     return (
-        <div className='container mx-auto'>
+        <div className={!similarLoaded? ' invisible': 'visible container mx-auto'}>
             <>
                 <Modal
                     isOpen={modalIsOpen}
@@ -102,7 +103,7 @@ const BeatPackPage = () => {
                         </div>
                     </Link>
                     <div className='flex flex-row gap-20'>
-                        <SimilarEntities bp={bp} />
+                        <SimilarEntities bp={bp} setLoaded={setSimilarLoaded} />
                         <VStack w='100%' gap={10}>
                             <div className='flex flex-row gap-5 justify-start w-full'>
                                 <div>
