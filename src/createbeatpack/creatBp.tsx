@@ -158,9 +158,9 @@ function StepOneBp() {
                     <input type='file' style={{ display: 'none' }} required={true} accept='image/*' onChange={onImageChange} />
                 </>
                 <div className='flex flex-row gap-5'>
-                    <input className='inputFieldText' required={true} name="name" placeholder='Beatpack price' type='number' />
-                    <input className='inputFieldText' required={true} name="name" placeholder='Beat price' type='number' />
-                    <input className='inputFieldText' required={true} min={0} max={12} placeholder='Royalty index' type='number' /></div>
+                    <input className='inputFieldText' title="The pricec of the beatpack"  required={true} name="name" placeholder='Beatpack price' type='number' />
+                    <input className='inputFieldText' title="The price of an individual track"  required={true} name="name" placeholder='Beat price' type='number' />
+                    <input className='inputFieldText' title="The percentage of royalties you wish to receive"  required={true} min={0} max={12} placeholder='Royalty index' type='number' /></div>
                 <input className='inputFieldText' required={true} name="legal" placeholder='Beatpack name' type='text' />
 
                 <input className='inputFieldText' required={true} placeholder='Genre' type='text' list="properties-list" />
