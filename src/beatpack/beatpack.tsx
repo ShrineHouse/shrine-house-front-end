@@ -196,11 +196,11 @@ function CheckoutModal(props: { bp: BeatPack, producer: DbUser, matic: any, Mora
                         </div>
                         <div className='flex flex-col'>
                             <label>Your royalty percentage</label>
-                            <input type='number' max={12} id='royalty' required={true} placeholder='Royalty index' className='inputFieldText' />
+                            <input type='number' max={12} id='royalty' required={true} placeholder='Royalty split' className='inputFieldText' />
                         </div>
                         <div className='flex flex-col'>
                             <label>NFT Name</label>
-                            <input type='text' id='nftName' required={true} placeholder='Royalty index' className='inputFieldText' value={`${props.producer.fullName} X ${user.attributes.fullName}`} />
+                            <input type='text' id='nftName' required={true} placeholder='NFT Name' className='inputFieldText' value={`${props.producer.fullName} X ${user.attributes.fullName}`} />
 
                         </div>
                         <div className='flex flex-col'>

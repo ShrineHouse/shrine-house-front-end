@@ -4,7 +4,7 @@ import SearchBar from '../components/general/searchBar';
 import { useQuery } from 'react-query';
 
 import { artistGenreFilter, dataToShrineUsers, dataToUsers, searchArtists } from '../helpers/database';
-import { BigArtistCard, SmallArtistCard } from '../components/general/cards';
+import { BigArtistCard, EthBCNCard, SmallArtistCard } from '../components/general/cards';
 import { DbUser } from '../interfaces/users'
 import Chip from '../components/general/chip';
 import { Link } from 'react-router-dom';
@@ -52,6 +52,13 @@ const Home = () => {
             }
         }
     }
+
+    const ethBcnCard = [
+        <EthBCNCard url='https://ethbarcelona.com/assets/Image.png' />
+        , <EthBCNCard url='https://novobrief.com/wp-content/uploads/2022/05/FS-ECuBVsAMKLFC-810x456.jpeg' />,
+        <EthBCNCard url='https://pbs.twimg.com/card_img/1537329690641371136/EHHFVLhL?format=jpg&name=medium' />
+
+    ]
     return (
         <div className='backgroundCol w-full'>
             <div className='min-h-screen w-full container mx-auto'>
@@ -84,15 +91,18 @@ const Home = () => {
                                 )}
                             </div>
                         </div> : <div>
-                            <div className="flex flex-col gap-2">
-                                <h1>Shrine Artists</h1>
+                            <div className="flex flex-col gap-5">
+                                <div className=' text-5xl -mb-2 font-bold'>
+                                    News
+                                </div>
                                 <div className='grid grid-cols-3 gap-5'>
-                                    {shrineUsers.map((u, i) => <ul key={i}><Link to={`/${u.id}`}><BigArtistCard url={u.image} /> </Link></ul>
+                                    {ethBcnCard.map((u, i) => <ul key={i}><a target='_blank' href={`https://ethbarcelona.com/`}>{u}</a></ul>
                                     )}
                                 </div>
                             </div>
-                            <div className="flex flex-col gap-2">
-                                <h1>Trending</h1>
+                            <div className="flex flex-col gap-5 mt-10">
+                                <div className='text-4xl -mb-2'>Trending</div>
+
                                 <div className='grid grid-cols-2 md:grid-cols-5 gap-5'>
                                     {buildList()}
                                 </div>

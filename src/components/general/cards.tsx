@@ -9,6 +9,15 @@ export const BigArtistCard = (props: { url: string }) => {
     );
 }
 
+export const EthBCNCard = (props: { url: string }) => {
+    return (
+        <div className='w-full h-64 bg-white borderRadiusComponents shadow bigCard'>
+            <img src={props.url} className='relative h-full w-full object-cover borderRadiusComponents' />
+        </div>
+    );
+}
+
+
 export const SmallArtistCard = (props: { url: string, artistName: string, verified: boolean }) => {
     return (
         <div className='w-full flex flex-col gap-2'>
