@@ -35,7 +35,7 @@ const StepTwo = (props: { setStep: Function, setSocialsData:Function }) => {
             <div className='h-20 w-20'>
                 <Logo />
             </div>
-            <div className='titleText -mt-7'>Complete your profile</div>
+            <div className='titleText -mt-7 text-center'>Complete your profile</div>
             <form className='formLol flex flex-col gap-5 w-full' onSubmit={handleSubmit}>
                 <>
                     <div className='mx-auto relative' onClick={handleClick}>

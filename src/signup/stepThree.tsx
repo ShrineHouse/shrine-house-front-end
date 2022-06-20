@@ -73,7 +73,7 @@ const StepThree = (props: { data: upUser, dataSocials: upUserSocials }) => {
                 {isSaving && <div className='titleText'>We are saving your information</div>}
 
                 {isSaving && <Center><CircularProgress isIndeterminate /></Center>}
-                {!isSaving && <div className='titleText'>Info processed</div>}
+                {!isSaving && <div className='titleText text-center'>Info processed</div>}
                 {!isSaving && <div className='text-xl text-center'>We successfully processed your information, welcome to Shrine House!</div>}
                 {!isSaving && <button className='primaryButton' onClick={() => { navigate('/') }}>Return home</button>}
 

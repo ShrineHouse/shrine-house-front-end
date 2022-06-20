@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Sidebar from './components/general/sidebar';
 import Home from './home/home';
 import MarketPlace from './beatpack/marketplace';
@@ -38,6 +38,7 @@ export default function Init() {
 const App = () => {
   const [tabIndex, setTabIndex] = useState(0);
   const { isInitialized } = useMoralis();
+  const [isShown, setIsShown] = useState(false);
 
   ////These 4 consts load all the artists + beatpacks and will cache them.
   const fetchBeatpacks = useMoralisCloudFunction("beats")
@@ -45,17 +46,48 @@ const App = () => {
   const getArtists = useQuery('usersData', () => fetchArtists.fetch())
   const getBps = useQuery('beatPacks', () => fetchBeatpacks.fetch())
 
+
+
   if (!isInitialized) return <LoadingWidget />
+
+  function handleSidebar(bool: boolean) {
+    console.log(bool)
+
+    if (!bool) {
+      setTimeout(() => {
+        console.log('ENNE')
+        console.log(bool)
+
+        console.log(isShown)
+        if (isShown) {
+          setIsShown(false)
+
+        }
+      }, 2000)
+    } else {
+      setIsShown(bool)
+
+    }
+
+
+  }
 
   return (
     <div>
       <div className=' min-h-screen relative'>
         <div className='flex flex-row h-screen w-screen'>
 
-          <Sidebar tabIndex={tabIndex} setTabIndex={setTabIndex} />
-          <div className='w-24'></div>
-          {tabIndex === 0 && <Home />}
-          {tabIndex === 1 && <MarketPlace />}
+          <div onMouseEnter={() => {
+            handleSidebar(true)
+          }} onMouseLeave={() => {
+            handleSidebar(false)
+
+          }}>
+            <Sidebar className={isShown ? 'sideBarHoverEnabled' : 'sideBarHover'} tabIndex={tabIndex} setTabIndex={setTabIndex} classNameTool={isShown ? 'sideBarTool' : 'sideBarToolActive'} />
+          </div>
+          <div className={isShown ? 'sideBarHoverEnabled' : 'sideBarHover'}></div>
+          {tabIndex === 0 && <div className='px-5'><Home /></div>}
+          {tabIndex === 1 && <div className='px-5'><MarketPlace /></div>}
         </div>
       </div>
     </div>

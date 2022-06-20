@@ -86,3 +86,34 @@ label{
 .imageAspectRatioEqual{
     aspect-ratio: 1/1 !important;
 }
+
+.sideBarHover{
+    width: 30px;
+    transition: 300ms;
+    opacity: 0;
+
+}
+
+
+.sideBarHoverEnabled{
+    width: 96px !important;
+    transition: 300ms;
+    opacity: 1;
+}
+
+.sideBarToolActive{
+    width: 30px;
+    opacity: 1;
+    transition: 300ms;
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+    margin-top: 20% !important;
+
+}
+
+.sideBarTool{
+    width: 96px;
+    opacity: 0;
+    transition: 300ms;
+
+}
