@@ -46,6 +46,8 @@ const MarketPlace = () => {
         if (!isSearching) return setSearch(true)
     }
     return (
+        <div className='backgroundCol w-full'>
+
         <div className='h-screen w-full container mx-auto px-5'>
             <div className='flex flex-col mx-5 gap-10 mt-20 pt-5'>
                 <SearchBar search={search} marketplace={true} />
@@ -95,6 +97,7 @@ const MarketPlace = () => {
                     </div>}
 
             </div>
+        </div>
         </div>
     )
 }

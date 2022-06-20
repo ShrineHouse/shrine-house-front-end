@@ -41,7 +41,7 @@ function StepOne(props: { setStep: Function, setData: Function }) {
         <div className='h-20 w-20'>
             <Logo />
         </div>
-        <div className='titleText -mt-7'>Create your account</div>
+        <div className='titleText -mt-7 text-center'>Create your account</div>
         <form className='formLol flex flex-col gap-5 w-full' onSubmit={(e) => handleSubmit(e)}>
             <input className='inputFieldText' name="legal" placeholder='Legal name' type='text' />
             <input className='inputFieldText' name="name" placeholder='Artist/producer name' type='text' />

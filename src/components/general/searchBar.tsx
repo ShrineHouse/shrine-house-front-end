@@ -26,7 +26,7 @@ const SearchBar = (props: { search: Function, marketplace: boolean }) => {
 
     }
     return (
-        <div className="flex flex-col mx-auto absolute left-0 top-0 shadow-md">
+        <div className="flex flex-col mx-auto absolute left-0 top-0 shadow-md z-30">
             <div className='bg-white max-h-20 w-screen grid grid-cols-3  borderRadiusComponents relative gap-5 justify-between'>
                 <div className='flex flex-row gap-3 max-h-20 p-5'>
                     <Logo />
@@ -38,8 +38,9 @@ const SearchBar = (props: { search: Function, marketplace: boolean }) => {
                     <input placeholder='Search shrine' className='textInput justify-center w-full' onChange={(e) => props.search(e.target.value)} />
                 </div>
                 <div className='flex flex-row items-center gap-3 justify-end p-5'>
-                    {(props.marketplace && isAuthenticated) && <div className='primaryButton'><Link to={'/createbeatpack'} className='flex flex-row gap-2' ><MdMusicNote size={25} />Upload beatpack</Link></div>}
-
+                    {(user !== null && props.marketplace) &&<>
+                    {(user.attributes.fullName !==undefined) && <div className='primaryButton'><Link to={'/createbeatpack'} className='flex flex-row gap-2' ><MdMusicNote size={25} />Upload beatpack</Link></div>}
+                    </>}
                     <div className='iconColorInactive'>
                         <MdNotifications size={25} />
                     </div>
@@ -48,7 +49,7 @@ const SearchBar = (props: { search: Function, marketplace: boolean }) => {
                         <Profile active={dropdownActive} wrapperRef={wrapperRef} type={user === null ? 'user' :user.attributes.type} />
                     </div>}
                     {!isAuthenticated && <div className='primaryButton'>
-                        <button className='flex flex-row gap-3' onClick={login} ><MdAccountBalanceWallet size={25} />Connect Account</button>
+                        <button className='flex flex-row gap-3' onClick={login} ><MdAccountBalanceWallet size={25} />Sign in</button>
                     </div>}
 
                 </div>

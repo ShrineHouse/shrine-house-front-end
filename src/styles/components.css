@@ -82,3 +82,7 @@
 label{
     font-weight: bold;
 }
+
+.imageAspectRatioEqual{
+    aspect-ratio: 1/1 !important;
+}

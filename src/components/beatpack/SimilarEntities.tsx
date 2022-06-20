@@ -6,7 +6,7 @@ import { DbUser } from '../../interfaces/users';
 
 
 //Sidebar in the beatpack displaying similar producers, beatpacks
-const SimilarEntities = (props: { bp: BeatPack, setLoaded:Function }) => {
+const SimilarEntities = (props: { bp: BeatPack, setLoaded: Function }) => {
     const emptyBp: BeatPack[] = [];
     const emptySimilarUsers: DbUser[] = [];
     const [beatsGenre, setBeatsGenre] = useState(emptyBp)
@@ -26,14 +26,14 @@ const SimilarEntities = (props: { bp: BeatPack, setLoaded:Function }) => {
         getBeatsGenre.fetch({
             onSuccess(results) {
 
-                setBeatsGenre(dataToBeatPack(results as any).slice(0,4))
+                setBeatsGenre(dataToBeatPack(results as any).slice(0, 4))
             },
         })
         // get similar producers by fenre
         getSimilarUser.fetch({
             onSuccess(results) {
 
-                setSimilarProducers(dataToUsers(results as any).slice(0,4))
+                setSimilarProducers(dataToUsers(results as any).slice(0, 4))
             },
         })
         // Get all beatpacks this user uploaded
@@ -45,7 +45,7 @@ const SimilarEntities = (props: { bp: BeatPack, setLoaded:Function }) => {
             },
         })
 
-    
+
 
     }, [props.bp])
 
@@ -55,8 +55,8 @@ const SimilarEntities = (props: { bp: BeatPack, setLoaded:Function }) => {
             <div className='grid grid-cols-2 gap-5 w-full'>
                 {allBeats.map((u, index) => <ul key={index}>
                     <div className='flex flex-col gap-2'>
-                        <img src={u.imageUrl} className=" object-cover w-full h-auto  rounded-xl" />
-                        <div className="text-xl font-bold"> {u.beatPackName}</div>
+                        <img src={u.imageUrl} className="imageAspectRatioEqual object-cover w-full h-auto  rounded-xl" />
+                        <div className="text-sm "> {u.beatPackName}</div>
                     </div>
                 </ul>)}
             </div>
@@ -67,8 +67,8 @@ const SimilarEntities = (props: { bp: BeatPack, setLoaded:Function }) => {
             <div className='grid grid-cols-2 gap-5 w-full'>
                 {similarProducers.map((u, index) => <ul key={index}>
                     <div className='flex flex-col gap-2'>
-                        <img src={u.image} className=" object-cover w-full h-auto rounded-xl" />
-                        <div className="text-xl font-bold"> {u.fullName}</div>
+                        <img src={u.image} className=" object-cover imageAspectRatioEqual w-full h-auto rounded-xl" />
+                        <div className="text-sm "> {u.fullName}</div>
                     </div>
                 </ul>)}
             </div>
@@ -79,8 +79,8 @@ const SimilarEntities = (props: { bp: BeatPack, setLoaded:Function }) => {
             <div className='grid grid-cols-2 gap-5 w-full'>
                 {beatsGenre.map((u, index) => <ul key={index}>
                     <div className='flex flex-col gap-2'>
-                        <img src={u.imageUrl} className=" object-cover w-full h-auto  rounded-xl" />
-                        <div className="text-xl font-bold"> {u.beatPackName}</div>
+                        <img src={u.imageUrl} className="imageAspectRatioEqual object-cover w-full h-auto  rounded-xl" />
+                        <div className="text-sm "> {u.beatPackName}</div>
                     </div>
                 </ul>)}
             </div>

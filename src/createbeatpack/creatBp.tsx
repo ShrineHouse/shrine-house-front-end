@@ -8,6 +8,7 @@ import BeatPack, { Beat } from '../interfaces/beats';
 import { CircularProgress } from '@chakra-ui/react';
 import { useNavigate } from 'react-router-dom';
 import { removeExtension } from '../helpers/utils';
+import { v4 as uuidv4 } from 'uuid';
 
 function StepOneBp() {
     const emptyBp: Beat[] = []
@@ -20,11 +21,10 @@ function StepOneBp() {
     const { user } = useMoralis();
     const { save } = useNewMoralisObject('beats');
     const navigate = useNavigate()
-    const { saveFile, } = useMoralisFile();
+    const { saveFile } = useMoralisFile();
     const { fetch } = useMoralisCloudFunction("getGenres")
 
     const [isUploading, setUploading] = React.useState(false)
-
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         setUploading(true)
         event.preventDefault();
@@ -32,7 +32,7 @@ function StepOneBp() {
 
         if (user !== null) {
             console.log(event.target)
-            console.log(user.attributes.fullNam)
+            console.log(user.attributes.fullName)
             let beatpackData: BeatPack = {
                 imageUrl: baseImage,
                 beatPackName: (event.target as any)[4].value,
@@ -64,6 +64,13 @@ function StepOneBp() {
     }
 
     function onZipChange(event: any) {
+        console.log(event.target.files[0].size)
+
+        if(event.target.files[0].size >= 52428800){
+            alert('File size too big, max. allowed is 50mb')
+            event.target.value = '';
+            return;
+        }
         seatBeatFile(event.target.files[0])
     }
 
@@ -93,17 +100,38 @@ function StepOneBp() {
                     name = removeExtension(name)
                     name = name.replace(/[`~!@#$%^&*()_|+\-=?;:'",.<>\{\}\[\]\\\/]/gi, '');
                     console.log('name:', name)
-                    const uploadFile = await saveFile(name, newFile, { saveIPFS: true })
+                    const uploadFile = await saveFile(uuidv4(), newFile, { saveIPFS: true })
                     if ((user !== null && uploadFile !== undefined)) {
                         const dlUrl = standardUrl + uploadFile.name().replace('.txt', '')
                         beats.push({ beatArtist: user.attributes.fullName, beatDownloadUrl: dlUrl, beatPrice: beatPrice, beatUrl: dlUrl, royaltyIndex: royaltyIndex, beatName: name })
                     }
                 } catch (e) {
+                    console.log('upload error')
+                    console.log(e)
                 }
             }
         }
-        const uppedZip = await saveFile(zip.name, file, { saveIPFS: true })
+
+        console.log('GOING TO UPLOAD ZIP FILE')
+        let zipName = beatpackData.beatPackName.replace(/[`~!@#$%^&*()_|+\-=?;:'",.<>\{\}\[\]\\\/]/gi, '');
+
+        console.log(zipName)
+        const uppedZip = await saveFile(uuidv4(), file, {
+            saveIPFS: true, onError(error) {
+                console.log('IPFS ERROR')
+                console.log(error)
+                setUploading(false)
+                alert('Your beatpack could not be uploaded')
+            }, onSuccess(result) {
+                console.log('succes')
+                console.log(result)
+                
+            }, onComplete() {
+                console.log('COMPLETE')
+            }
+        });
         if (uppedZip !== undefined) {
+            console.log('UPPEDZIP')
             const dlUrl = standardUrl + uppedZip.name().replace('.zip', '')
             let uploadData: MoralisObjectSaveData = {
                 artistName: beatpackData.artistName,
@@ -122,6 +150,11 @@ function StepOneBp() {
             console.log(uploadData)
 
             save(uploadData, {
+                onError(error) {
+                    console.log(error)
+                    setUploading(false)
+                    alert('Your beatpack could not be uploaded')
+                },
 
                 onComplete: () => {
                     setUploading(false)
@@ -146,7 +179,7 @@ function StepOneBp() {
             <div className='h-20 w-20'>
                 <Logo />
             </div>
-            <div className='titleText -mt-7'>Create your beatpack</div>
+            <div className='titleText -mt-7'>Adding to the Shrine?</div>
             <form className='formLol flex flex-col gap-5 w-full' onSubmit={(e) => handleSubmit(e)}>
                 <>
                     <div className='mx-auto relative' onClick={handleClick}>
@@ -181,6 +214,7 @@ function StepOneBp() {
 
                 </div>
                 {!isUploading && <input type='submit' className='primaryButtonSubmit rounded-full' id='submit' value='Submit & Upload Beatpack' />}
+
             </form>
         </div>
     );
@@ -209,17 +243,16 @@ const CreateBp = () => {
                     </div>
                     <div className='flex flex-col justify-center  gap-5 z-10'>
                         <div className='whiteHeading w-8/12'>
-                            Upload Magic
+                            You choose
                         </div>
                         <div className='signupText'>
 
-                            <li>Give your beatpack a price</li>
-                            <li>Set the price for your individual beats</li>
-                            <li>Pick your royalty index and receive a percentage of the sale</li>
-                            <li>Name your beatpack</li>
-                            <li>Pick a genre</li>
-                            <li>Describe your beatpack</li>
-                            <li>Upload a .zip file containing your beats</li>
+                            <li>Price your tracks as a package and individually</li>
+                            <li>Producers deserve Publishing Royalties—tell them how much</li>
+                            <li>Every baby deserves a name</li>
+                            <li>Choose a genre that best describes your work… because genre still matters apparently</li>
+                            <li>Help the artist understand your vision by giving them 2-3 sentences describing the vibes</li>
+                            <li>Upload a .zip file containing your beats (max. 50mb)</li>
 
                         </div>
                     </div>

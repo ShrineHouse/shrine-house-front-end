@@ -36,7 +36,7 @@ export default function Init() {
 }
 
 const App = () => {
-  const [tabIndex, setTabIndex] = useState(2);
+  const [tabIndex, setTabIndex] = useState(1);
   const { isInitialized } = useMoralis();
 
   ////These 4 consts load all the artists + beatpacks and will cache them.
@@ -49,13 +49,13 @@ const App = () => {
 
   return (
     <div>
-      <div className=' backgroundCol relative'>
+      <div className=' min-h-screen relative'>
         <div className='flex flex-row h-screen w-screen'>
 
           <Sidebar tabIndex={tabIndex} setTabIndex={setTabIndex} />
-
-          {tabIndex === 1 && <Home />}
-          {tabIndex === 2 && <MarketPlace />}
+<div className='w-24'></div>
+          {tabIndex === 0 && <Home />}
+          {tabIndex === 1 && <MarketPlace />}
         </div>
       </div>
     </div>

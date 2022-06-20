@@ -53,53 +53,56 @@ const Home = () => {
         }
     }
     return (
-        <div className='h-screen w-full container mx-auto'>
-            <div className='flex flex-col mx-5 gap-10'>
-                <SearchBar search={search} marketplace={false} />
-                <div className='flex flex-row justify-between items-center mt-20 pt-5'>
-                    <div className='flex flex-row gap-2'>
-                        <Chip text='Trending' />
-                        <Chip text='Liked' />
-                        <Chip text='New' />
-                    </div>
-                    <select id="genres" name="genres" className='genreSelect' onChange={(e) => {
-                        if (e.target.value === 'allgenres') return setGenre([{ genre: 'none' }])
-                        const filteredData = artistGenreFilter(users, e.target.value)
-                        setGenre(filteredData)
-                    }} >
-                        <option value="allgenres">All genres</option>
-                        <option value="altrock">Alt Rock</option>
-                        <option value="rap">Rap</option>
-                        <option value="trap">Trap</option>
-                        <option value="edm">EDM</option>
-                    </select>
-                </div>
-                {isSearching !== false ?
-                    <div className="flex flex-col gap-2">
-                        <h1>Search results</h1>
-                        <div className='grid grid-cols-3 gap-5'>
-                            {searchedUsers.map((u, i) => <ul key={i}>                    <Link to={`/${u.id}`}>
-                                <SmallArtistCard url={u.image} artistName={u.fullName} verified={u.verified} /> </Link></ul>
-                            )}
+        <div className='backgroundCol w-full'>
+            <div className='min-h-screen w-full container mx-auto'>
+                <div className='flex flex-col mx-5 gap-10'>
+                    <SearchBar search={search} marketplace={false} />
+                    <div className='flex flex-row justify-between items-center mt-20 pt-5'>
+                        <div className='flex flex-row gap-2'>
+                            <Chip text='Trending' />
+                            <Chip text='Liked' />
+                            <Chip text='New' />
                         </div>
-                    </div> : <div>
+                        <select id="genres" name="genres" className='genreSelect' onChange={(e) => {
+                            if (e.target.value === 'allgenres') return setGenre([{ genre: 'none' }])
+                            const filteredData = artistGenreFilter(users, e.target.value)
+                            setGenre(filteredData)
+                        }} >
+                            <option value="allgenres">All genres</option>
+                            <option value="altrock">Alt Rock</option>
+                            <option value="rap">Rap</option>
+                            <option value="trap">Trap</option>
+                            <option value="edm">EDM</option>
+                        </select>
+                    </div>
+                    {isSearching !== false ?
                         <div className="flex flex-col gap-2">
-                            <h1>Shrine Artists</h1>
+                            <h1>Search results</h1>
                             <div className='grid grid-cols-3 gap-5'>
-                                {shrineUsers.map((u, i) => <ul key={i}><Link to={`/${u.id}`}><BigArtistCard url={u.image} /> </Link></ul>
+                                {searchedUsers.map((u, i) => <ul key={i}>                    <Link to={`/${u.id}`}>
+                                    <SmallArtistCard url={u.image} artistName={u.fullName} verified={u.verified} /> </Link></ul>
                                 )}
                             </div>
-                        </div>
-                        <div className="flex flex-col gap-2">
-                            <h1>Trending</h1>
-                            <div className='grid grid-cols-2 md:grid-cols-5 gap-5'>
-                                {buildList()}
+                        </div> : <div>
+                            <div className="flex flex-col gap-2">
+                                <h1>Shrine Artists</h1>
+                                <div className='grid grid-cols-3 gap-5'>
+                                    {shrineUsers.map((u, i) => <ul key={i}><Link to={`/${u.id}`}><BigArtistCard url={u.image} /> </Link></ul>
+                                    )}
+                                </div>
                             </div>
-                        </div>
-                    </div>}
+                            <div className="flex flex-col gap-2">
+                                <h1>Trending</h1>
+                                <div className='grid grid-cols-2 md:grid-cols-5 gap-5'>
+                                    {buildList()}
+                                </div>
+                            </div>
+                        </div>}
 
+                </div>
             </div>
         </div>
+
     )
 }
 
