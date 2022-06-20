@@ -256,7 +256,7 @@ function CheckoutModal(props: {
     }
   }
 
-  if (!transferDone && user !== null) {
+    if (transferDone && user !== null) {
     return (
       <div className=" modalWidth">
         <form
@@ -278,6 +278,7 @@ function CheckoutModal(props: {
               <input
                 type="number"
                 max={12}
+                min={0}
                 id="royalty"
                 required={true}
                 placeholder="Royalty split"
@@ -397,20 +398,8 @@ function CheckoutModal(props: {
         className="primaryButton"
         onClick={() => {
           //Authenticate, if complete init transfer of funds
-          props.Moralis.authenticate().then(() => {
-            props.transfer.fetch({
-              onError(error: { stack: any }) {
-                alert(error.stack);
-                props.closeModal();
-              },
-              onSuccess(_results: any) {
-                /////Do stuff here
-
-                ////Advance to NFT mint
-                setTransferStatus(true);
-              },
-            });
-          });
+          
+          setTransferStatus(true);
         }}
       >
         Confirm checkout
