@@ -171,6 +171,8 @@ function CheckoutModal(props: { bp: BeatPack, producer: DbUser, matic: any, Mora
             const producerRoyalties = props.bp.royaltyIndex;
             const artistRoyalties = (event.target as any)[0].value;
             const nftName = (event.target as any)[1].value;
+            const nftPrice = (event.target as any)[2].value;
+            const nftEditions = (event.target as any)[3].value;
 
             console.log(artistRoyalties)
             console.log(nftName)
@@ -200,6 +202,14 @@ function CheckoutModal(props: { bp: BeatPack, producer: DbUser, matic: any, Mora
                             <label>NFT Name</label>
                             <input type='text' id='nftName' required={true} placeholder='Royalty index' className='inputFieldText' value={`${props.producer.fullName} X ${user.attributes.fullName}`} />
 
+                        </div>
+                        <div className='flex flex-col'>
+                            <label>NFT price</label>
+                            <input type='number' id='nftprice' required={true} placeholder='Price in USD' className='inputFieldText'  />
+                        </div>
+                        <div className='flex flex-col'>
+                            <label>NFT editions</label>
+                            <input type='number' id='nfteditions' required={true} placeholder='Amount of editions' className='inputFieldText'  />
                         </div>
                         <div className='flex flex-row justify-between w-full items-center'>
                             <div className='flex flex-row gap-5'>
