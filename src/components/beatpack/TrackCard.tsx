@@ -5,7 +5,7 @@ import { AiFillPauseCircle, AiFillPlayCircle } from 'react-icons/ai';
 import { Beat } from '../../interfaces/beats';
 
 
-const TrackCard = (props: { data: Beat }) => {
+const TrackCard = (props: { data: Beat, playingIndex: number, index: number, setPlaying: Function }) => {
 
     const [trackProgress, setTrackProgress] = useState(0);
     const [isPlaying, setIsPlaying] = useState(false);
@@ -17,9 +17,22 @@ const TrackCard = (props: { data: Beat }) => {
     const { duration } = audioRef.current;
 
     function handleMusic(bool: boolean) {
-
         setIsPlaying(bool);
+        if (bool) {
+            props.setPlaying(props.index)
+        }
     }
+
+    useEffect(() => {
+
+        if (props.playingIndex !== props.index) {
+            setIsPlaying(false);
+            audioRef.current.pause();
+        }
+    }, [props.playingIndex])
+
+
+
     const startTimer = () => {
         // Clear any timers already running
         clearInterval(intervalRef.current);
@@ -74,7 +87,7 @@ const TrackCard = (props: { data: Beat }) => {
                     <div className='mr-5 w-full'>
 
                         <input className='my-slider' onChange={(e: any) => onScrub(e.target.value)}
-                            type='range' value={trackProgress} step='1' min='0'  max={duration ? duration : `${duration}`} />
+                            type='range' value={trackProgress} step='1' min='0' max={duration ? duration : `${duration}`} />
                     </div>
                 </Stack>
             </Flex>

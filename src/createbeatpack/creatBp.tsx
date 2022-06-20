@@ -31,8 +31,6 @@ function StepOneBp() {
         const baseImage: any = await convertBase64(file)
 
         if (user !== null) {
-            console.log(event.target)
-            console.log(user.attributes.fullName)
             let beatpackData: BeatPack = {
                 imageUrl: baseImage,
                 beatPackName: (event.target as any)[4].value,
@@ -64,9 +62,8 @@ function StepOneBp() {
     }
 
     function onZipChange(event: any) {
-        console.log(event.target.files[0].size)
 
-        if(event.target.files[0].size >= 52428800){
+        if (event.target.files[0].size >= 52428800) {
             alert('File size too big, max. allowed is 50mb')
             event.target.value = '';
             return;
@@ -87,51 +84,34 @@ function StepOneBp() {
 
         for await (var elem of keys) {
             if (elem.includes('__MACOSX/._') || elem.includes('__MACOSX')) {
-                console.log("mac device")
             } else if (elem.includes('.mp3') || elem.includes('.wav')) {
-                console.log("valid song")
-                console.log(elem)
 
                 try {
                     var fileData = await zip.files[elem].async('blob')
                     const newFile = new File([fileData], elem);
-                    console.log('newfile:', newFile.name)
                     let name = newFile.name.substring(newFile.name.indexOf("/") + 1);
                     name = removeExtension(name)
                     name = name.replace(/[`~!@#$%^&*()_|+\-=?;:'",.<>\{\}\[\]\\\/]/gi, '');
-                    console.log('name:', name)
                     const uploadFile = await saveFile(uuidv4(), newFile, { saveIPFS: true })
                     if ((user !== null && uploadFile !== undefined)) {
                         const dlUrl = standardUrl + uploadFile.name().replace('.txt', '')
                         beats.push({ beatArtist: user.attributes.fullName, beatDownloadUrl: dlUrl, beatPrice: beatPrice, beatUrl: dlUrl, royaltyIndex: royaltyIndex, beatName: name })
                     }
                 } catch (e) {
-                    console.log('upload error')
-                    console.log(e)
+                    alert(e)
                 }
             }
         }
 
-        console.log('GOING TO UPLOAD ZIP FILE')
         let zipName = beatpackData.beatPackName.replace(/[`~!@#$%^&*()_|+\-=?;:'",.<>\{\}\[\]\\\/]/gi, '');
 
-        console.log(zipName)
         const uppedZip = await saveFile(uuidv4(), file, {
             saveIPFS: true, onError(error) {
-                console.log('IPFS ERROR')
-                console.log(error)
                 setUploading(false)
                 alert('Your beatpack could not be uploaded')
-            }, onSuccess(result) {
-                console.log('succes')
-                console.log(result)
-                
-            }, onComplete() {
-                console.log('COMPLETE')
             }
         });
         if (uppedZip !== undefined) {
-            console.log('UPPEDZIP')
             const dlUrl = standardUrl + uppedZip.name().replace('.zip', '')
             let uploadData: MoralisObjectSaveData = {
                 artistName: beatpackData.artistName,
@@ -147,11 +127,9 @@ function StepOneBp() {
                 beats: beats,
             }
 
-            console.log(uploadData)
 
             save(uploadData, {
                 onError(error) {
-                    console.log(error)
                     setUploading(false)
                     alert('Your beatpack could not be uploaded')
                 },

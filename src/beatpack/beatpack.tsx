@@ -174,8 +174,6 @@ function CheckoutModal(props: { bp: BeatPack, producer: DbUser, matic: any, Mora
             const nftPrice = (event.target as any)[2].value;
             const nftEditions = (event.target as any)[3].value;
 
-            console.log(artistRoyalties)
-            console.log(nftName)
             props.closeModal()
         }
 

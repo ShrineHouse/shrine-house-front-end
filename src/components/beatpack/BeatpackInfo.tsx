@@ -1,10 +1,11 @@
 import { Button } from '@chakra-ui/react';
-import React, { createContext, useContext } from 'react';
+import React, { createContext, useContext, useState } from 'react';
 import BeatPack from '../../interfaces/beats';
 import TrackCard from './TrackCard';
 
 
 function BeatPackInfo(props: { bp: BeatPack, onDownload: Function }) {
+    const [playingIndex, setPlayingIndex] = useState(0)
     return (<div className='flex flex-col gap-4'>
         <div className='flex flex-row gap-5 justify-between w-full items-center'>
             <div className='flex flex-col gap-3'>
@@ -20,7 +21,7 @@ function BeatPackInfo(props: { bp: BeatPack, onDownload: Function }) {
 
         </div>
         <div className='flex flex-col gap-5'>
-            {props.bp.beats.map((beatcard,index) => <ul key={index}><TrackCard data={beatcard} /></ul>)}
+            {props.bp.beats.map((beatcard, index) => <ul key={index}><TrackCard playingIndex={playingIndex} index={index} data={beatcard} setPlaying={setPlayingIndex} /></ul>)}
         </div>
     </div>);
 }
