@@ -29,7 +29,6 @@ const NftDisplay = () => {
     /////Build artist list with genre filters applied
     function buildList() {
         ///BUILD NFT LIST HERE
-        ///Just pass the image and the NFT name, that's good for now.
         return muses.map((u, i) => <Link to={`/muse/${u.id}`}><ul key={i}><MuseCard muse={u} /></ul> </Link>)
     }
 
