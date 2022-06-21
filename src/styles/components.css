@@ -117,3 +117,7 @@ label{
     transition: 300ms;
 
 }
+
+.modalHeight{
+    height: 600px;
+}

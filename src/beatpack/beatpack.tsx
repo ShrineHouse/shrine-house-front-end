@@ -259,7 +259,7 @@ function CheckoutModal(props: {
 
     if (transferDone && user !== null) {
     return (
-      <div className=" modalWidth">
+      <div className=" modalWidth modalHeight my-5">
         <form
           onSubmit={(event) => {
             mintNft(event);
@@ -344,7 +344,7 @@ function CheckoutModal(props: {
               </div>
             </div>
             <div className=" bg-gray-100 w-full h-1 mb-10"></div>
-            <input type="submit" className="primaryButton" value="Mint NFT" />
+            <input type="submit" className="primaryButton mb-10" value="Mint NFT" />
           </div>
         </form>
       </div>
