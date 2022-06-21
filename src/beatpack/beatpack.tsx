@@ -281,7 +281,7 @@ function CheckoutModal(props: {
         }
       }
 
-
+      ///This saves it to the DB
       save(uploadData, {
         onError(error) {
           alert('Your beatpack could not be uploaded')
@@ -289,13 +289,11 @@ function CheckoutModal(props: {
 
         onComplete: () => {
           console.log('ready')
+          props.closeModal();
         }
 
       })
-      console.log('mintNft', mintNft);
-      console.log(artistRoyalties);
-      console.log(nftName);
-      //props.closeModal();
+
     }
   }
 
