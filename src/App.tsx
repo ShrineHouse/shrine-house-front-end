@@ -13,6 +13,7 @@ import SignupPage from './signup/signup';
 import './styles/global.css';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
 import NftDisplay from './nft-display-page/nftdisplay';
+import MusePage from './muse/muse';
 
 
 export default function Init() {
@@ -29,6 +30,7 @@ export default function Init() {
         <Route path='/createbeatpack' element={<CreateBp />} />
         <Route path='/:id' element={<ArtistPage />} />
         <Route path='/beatpack/:id' element={<BeatPackPage />} />
+        <Route path='/muse/:id' element={<MusePage />} />
       </Routes>
     </CSSTransition>
   </TransitionGroup>
@@ -37,15 +39,17 @@ export default function Init() {
 }
 
 const App = () => {
-  const [tabIndex, setTabIndex] = useState(0);
+  const [tabIndex, setTabIndex] = useState(1);
   const { isInitialized } = useMoralis();
   const [isShown, setIsShown] = useState(false);
 
   ////These 4 consts load all the artists + beatpacks and will cache them.
   const fetchBeatpacks = useMoralisCloudFunction("beats")
   const fetchArtists = useMoralisCloudFunction('getArtists');
+  const getchMuses = useMoralisCloudFunction('getMuses');
   const getArtists = useQuery('usersData', () => fetchArtists.fetch())
   const getBps = useQuery('beatPacks', () => fetchBeatpacks.fetch())
+  const getMuses = useQuery('muses', () => getchMuses.fetch())
 
 
 

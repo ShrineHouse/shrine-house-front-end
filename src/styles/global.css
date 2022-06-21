@@ -76,7 +76,7 @@ input:focus {
 }
 
 .bigCard {
-    border-radius: 5px;
+    border-radius: 12px;
     transition: 300ms;
 
 }

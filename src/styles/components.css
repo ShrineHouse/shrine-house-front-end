@@ -121,3 +121,10 @@ label{
 .modalHeight{
     height: 600px;
 }
+
+.divider{
+    height: 1px;
+    width: 100%;
+    background-color: rgb(238, 236, 234);
+
+}

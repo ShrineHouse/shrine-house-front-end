@@ -6,8 +6,10 @@ import BeatPack, { emptyBp } from "../interfaces/beats";
 import BeatPackInfo from "../components/beatpack/BeatpackInfo";
 import ProducerInfo from "../components/beatpack/ProducerInfo";
 import {
+  MoralisObjectSaveData,
   useMoralis,
   useMoralisCloudFunction,
+  useNewMoralisObject,
   useTokenPrice,
   useWeb3Transfer,
 } from "react-moralis";
@@ -188,6 +190,7 @@ function CheckoutModal(props: {
   const [transferDone, setTransferStatus] = useState(false);
   const { user } = useMoralis();
   const [nameValue, setNameValue] = useState(`${props.producer.fullName} X ${(user as any).attributes.fullName}`)
+  const { save } = useNewMoralisObject('muses');
 
   function onDownload() {
     new JsFileDownloader({
@@ -252,6 +255,43 @@ function CheckoutModal(props: {
         nftPrice,
         nftEditions
       );
+
+
+
+      let uploadData: MoralisObjectSaveData = {
+        minter: user.attributes.fullName,
+        producer: props.producer.fullName,
+        minterWallet: artistWallet,
+        producerWallet: producerWallet,
+        ////NFTADDRESS SHOULD BE HERE
+        nftAddress: "0x000",
+        image: props.bp.imageUrl,
+        nftName: nftName,
+        minterImage: user.attributes.image,
+        claimed: 0,
+        nftData: {
+          nftName: nftName,
+          ticker: ticker,
+          URI: URI,
+          producerRoyalties: producerRoyalties,
+          artistRoyalties: artistRoyalties,
+          artistWallet: artistWallet,
+          nftPrice: nftPrice,
+          nftEditions: nftEditions
+        }
+      }
+
+
+      save(uploadData, {
+        onError(error) {
+          alert('Your beatpack could not be uploaded')
+        },
+
+        onComplete: () => {
+          console.log('ready')
+        }
+
+      })
       console.log('mintNft', mintNft);
       console.log(artistRoyalties);
       console.log(nftName);

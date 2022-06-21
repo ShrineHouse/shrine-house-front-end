@@ -1,5 +1,6 @@
 import Moralis from "moralis/types";
 import BeatPack from "../interfaces/beats";
+import { Muse } from "../interfaces/muse";
 import { DbUser } from "../interfaces/users";
 
 export function dataToUsers(users: Moralis.Object<Moralis.Attributes>[]) {
@@ -11,6 +12,27 @@ export function dataToUsers(users: Moralis.Object<Moralis.Attributes>[]) {
         convertedUsers.push(addId)
     });
     return convertedUsers;
+}
+
+export function dataToMuses(muses: Moralis.Object<Moralis.Attributes>[]) {
+    let convertedMuses: Muse[] = [];
+    muses.map(u => {
+        const user: Muse = u.attributes as any;
+        const addId: Muse = { ...user, id: u.id, createdAt: u.createdAt };
+        convertedMuses.push(addId)
+
+    });
+    return convertedMuses;
+}
+export function dataToMuse(muses: Moralis.Object<Moralis.Attributes>[]) {
+    let convertedMuses: Muse[] = [];
+    muses.map(u => {
+        const user: Muse = u.attributes as any;
+        const addId: Muse = { ...user, id: u.id, createdAt: u.createdAt };
+        convertedMuses.push(addId)
+
+    });
+    return convertedMuses[0];
 }
 
 export function dataToUser(users: Moralis.Object<Moralis.Attributes>[]) {
