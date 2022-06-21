@@ -39,7 +39,7 @@ export default function Init() {
 }
 
 const App = () => {
-  const [tabIndex, setTabIndex] = useState(1);
+  const [tabIndex, setTabIndex] = useState(0);
   const { isInitialized } = useMoralis();
   const [isShown, setIsShown] = useState(false);
 
@@ -56,44 +56,36 @@ const App = () => {
   if (!isInitialized) return <LoadingWidget />
 
   function handleSidebar(bool: boolean) {
-    console.log(bool)
 
     if (!bool) {
       setTimeout(() => {
-        console.log('ENNE')
-        console.log(bool)
-
-        console.log(isShown)
         if (isShown) {
           setIsShown(false)
-
         }
       }, 2000)
     } else {
       setIsShown(bool)
-
     }
-
-
   }
 
   return (
     <div>
       <div className=' min-h-screen relative'>
         <div className='flex flex-row h-screen w-screen'>
-
           <div onMouseEnter={() => {
             handleSidebar(true)
           }} onMouseLeave={() => {
             handleSidebar(false)
-
           }}>
             <Sidebar className={isShown ? 'sideBarHoverEnabled' : 'sideBarHover'} tabIndex={tabIndex} setTabIndex={setTabIndex} classNameTool={isShown ? 'sideBarTool' : 'sideBarToolActive'} />
           </div>
           <div className={isShown ? 'sideBarHoverEnabled' : 'sideBarHover'}></div>
-          {tabIndex === 0 && <div className='px-5'><Home /></div>}
-          {tabIndex === 1 && <div className='px-5'><NftDisplay /></div>}
-          {tabIndex === 2 && <div className='px-5'><MarketPlace /></div>}
+          <div className='w-full flex flex-row justify-center'>
+            {tabIndex === 0 && <div className='px-5'><Home /></div>}
+            {tabIndex === 1 && <div className='px-5'><NftDisplay /></div>}
+            {tabIndex === 2 && <div className='px-5'><MarketPlace /></div>}
+          </div>
+
         </div>
       </div>
     </div>

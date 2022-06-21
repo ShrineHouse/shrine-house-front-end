@@ -61,7 +61,7 @@ const Home = () => {
     ]
     return (
         <div className='backgroundCol w-full'>
-            <div className='min-h-screen w-full container mx-auto'>
+            <div className='min-h-screen  container mx-auto'>
                 <div className='flex flex-col mx-5 gap-10'>
                     <SearchBar search={search} marketplace={false} />
                     <div className='flex flex-row justify-between items-center mt-20 pt-5'>

@@ -245,7 +245,7 @@ function CheckoutModal(props: {
       const URI = `ipfs://QmQdPYTY8yArgVmMJK319e75rsi91bwtUF5JsSF9CLnEYe/`;
 
 
-      const mintNft = await myAsync(
+      await myAsync(
         nftName,
         ticker,
         URI,
@@ -254,52 +254,56 @@ function CheckoutModal(props: {
         artistWallet,
         nftPrice,
         nftEditions
-      );
+      ).then(() => {
 
-
-
-      let uploadData: MoralisObjectSaveData = {
-        minter: user.attributes.fullName,
-        producer: props.producer.fullName,
-        minterWallet: artistWallet,
-        producerWallet: producerWallet,
-        ////NFTADDRESS SHOULD BE HERE
-        nftAddress: "0x000",
-        image: props.bp.imageUrl,
-        nftName: nftName,
-        minterImage: user.attributes.image,
-        claimed: 0,
-        nftData: {
+        let uploadData: MoralisObjectSaveData = {
+          minter: user.attributes.fullName,
+          producer: props.producer.fullName,
+          minterWallet: artistWallet,
+          producerWallet: producerWallet,
+          ////NFTADDRESS SHOULD BE HERE
+          nftAddress: "0x000",
+          image: props.bp.imageUrl,
           nftName: nftName,
-          ticker: ticker,
-          URI: URI,
-          producerRoyalties: producerRoyalties,
-          artistRoyalties: artistRoyalties,
-          artistWallet: artistWallet,
-          nftPrice: nftPrice,
-          nftEditions: nftEditions
-        }
-      }
-
-      ///This saves it to the DB
-      save(uploadData, {
-        onError(error) {
-          alert('Your beatpack could not be uploaded')
-        },
-
-        onComplete: () => {
-          console.log('ready')
-          props.closeModal();
+          minterImage: user.attributes.image,
+          claimed: 0,
+          nftData: {
+            nftName: nftName,
+            ticker: ticker,
+            URI: URI,
+            producerRoyalties: producerRoyalties,
+            artistRoyalties: artistRoyalties,
+            artistWallet: artistWallet,
+            nftPrice: nftPrice,
+            nftEditions: nftEditions
+          }
         }
 
+        ///This saves it to the DB
+        save(uploadData, {
+          onError(error) {
+            alert('Your beatpack could not be uploaded')
+          },
+
+          onComplete: () => {
+            console.log('ready')
+            props.closeModal();
+          }
+
+        })
       })
-
     }
   }
 
   if (transferDone && user !== null) {
     return (
       <div className=" modalWidth modalHeight my-5">
+        <div
+          className="top-0 right-0 text-xl absolute z-50 text-gray-600 pt-5 pr-5 cursor-pointer"
+          onClick={() => props.closeModal()}
+        >
+          close
+        </div>
         <form
           onSubmit={(event) => {
             mintNft(event);
@@ -307,7 +311,7 @@ function CheckoutModal(props: {
         >
           <div className="flex flex-col gap-3">
             <h2 className="text-3xl text-center font-bold">Mint your NFT</h2>
-            <div className=" bg-gray-100 w-full h-1 mb-10"></div>
+            <div className="divider  mb-10"></div>
             <div className="mx-auto">
               <img
                 src={props.bp.imageUrl}
@@ -383,7 +387,7 @@ function CheckoutModal(props: {
                 </div>
               </div>
             </div>
-            <div className=" bg-gray-100 w-full h-1 mb-10"></div>
+            <div className="divider mb-10"></div>
             <input type="submit" className="primaryButton mb-10" value="Mint NFT" />
           </div>
         </form>
