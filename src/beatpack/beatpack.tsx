@@ -187,6 +187,7 @@ function CheckoutModal(props: {
 }) {
   const [transferDone, setTransferStatus] = useState(false);
   const { user } = useMoralis();
+  const [nameValue, setNameValue] = useState(`${props.producer.fullName} X ${(user as any).attributes.fullName}`)
   function onDownload() {
     new JsFileDownloader({
       url: props.bp.beatPackUrl,
@@ -223,7 +224,7 @@ function CheckoutModal(props: {
     }
   };
 
-  function mintNft(event: React.FormEvent<HTMLFormElement>) {
+  async function mintNft(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
 
     ////Mint the NFT here
@@ -238,21 +239,21 @@ function CheckoutModal(props: {
       const ticker = "Shrine";
       const URI = `ipfs://QmQdPYTY8yArgVmMJK319e75rsi91bwtUF5JsSF9CLnEYe/`;
 
-      console.log(
-        myAsync(
-          nftName,
-          ticker,
-          URI,
-          producerRoyalties,
-          artistRoyalties,
-          artistWallet,
-          nftPrice,
-          nftEditions
-        )
+     
+      const mintNft = await myAsync(
+        nftName,
+        ticker,
+        URI,
+        producerRoyalties,
+        artistRoyalties,
+        artistWallet,
+        nftPrice,
+        nftEditions
       );
+      console.log('mintNft',mintNft);
       console.log(artistRoyalties);
       console.log(nftName);
-      props.closeModal();
+      //props.closeModal();
     }
   }
 
@@ -293,7 +294,8 @@ function CheckoutModal(props: {
                 required={true}
                 placeholder="NFT Name"
                 className="inputFieldText"
-                value={`${props.producer.fullName} X ${user.attributes.fullName}`}
+                onChange={(e) => setNameValue(e.target.value)}
+                value={nameValue}
               />
             </div>
             <div className="flex flex-col">

@@ -26,11 +26,20 @@ const TrackCard = (props: { data: Beat, playingIndex: number, index: number, set
     useEffect(() => {
 
         if (props.playingIndex !== props.index) {
+            if(props.playingIndex === 99999999){
+                audioRef.current.remove()
+            }
             setIsPlaying(false);
             audioRef.current.pause();
         }
     }, [props.playingIndex])
 
+    useEffect(() => {
+        return () => {
+            audioRef.current.pause()
+            console.log("in cleanup")
+        }
+    }, [])
 
 
     const startTimer = () => {
