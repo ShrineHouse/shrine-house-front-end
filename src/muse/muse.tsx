@@ -21,7 +21,7 @@ export default function MusePage() {
 
     return (
         <div>
-            <div className='absolute'>
+            <div className='absolute z-50'>
                 <Link to={"/"}>
                     <div className="flex flex-row gap-2 items-center mb-5 cursor-pointer">
                         <ChevronLeftIcon height={50} width={50} />
