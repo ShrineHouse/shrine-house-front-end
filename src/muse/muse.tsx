@@ -6,6 +6,7 @@ import { Link, useParams } from 'react-router-dom';
 import { MuseCard } from '../components/general/cards';
 import LoadingWidget from '../components/general/loadingwidget';
 import { dataToMuse } from '../helpers/database';
+import { BiLink } from 'react-icons/bi'
 
 export default function MusePage() {
     const { id } = useParams();
@@ -57,7 +58,7 @@ export default function MusePage() {
                             </div>
                             <div className='divider my-5'></div>
 
-                            <div className='flex flex-col text-gray-400 mb-10'>
+                            <div className='flex flex-col text-gray-400 '>
                                 <div className='text-gray-400"'>Secondary Market</div>
                                 <div className='flex flex-col'>
                                     <div>Your resale value will be <span className='text-black font-bold'>{100 - muse.nftData.artistRoyalties - muse.nftData.producerRoyalties - 2}%</span></div>
@@ -65,6 +66,11 @@ export default function MusePage() {
                                     <li className='pl-5'>Creators will receive <span>{muse.nftData.artistRoyalties + muse.nftData.producerRoyalties}%</span> of resale revenue</li>
                                     <li className='pl-5'>Shrine House will receive 2% of resale revenue</li>
                                 </div>
+                            </div>
+
+                            <div className='flex flex-col text-gray-400 mb-10 mt-5'>
+                                <div className='text-gray-400"'><a href={muse.nftAddress} target='_blank'><div className='flex flex-row items-center gap-2'>Contract <BiLink size={18} /></div></a></div>
+
                             </div>
 
                             <button className='primaryButton'>Purchase NFT</button>
