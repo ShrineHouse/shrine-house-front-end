@@ -188,9 +188,11 @@ function CheckoutModal(props: {
   const [transferDone, setTransferStatus] = useState(false);
   const { user } = useMoralis();
   const [nameValue, setNameValue] = useState(`${props.producer.fullName} X ${(user as any).attributes.fullName}`)
+
   function onDownload() {
     new JsFileDownloader({
       url: props.bp.beatPackUrl,
+      filename: `${props.bp.beatPackName}.zip`
     });
   }
 
@@ -239,7 +241,7 @@ function CheckoutModal(props: {
       const ticker = "Shrine";
       const URI = `ipfs://QmQdPYTY8yArgVmMJK319e75rsi91bwtUF5JsSF9CLnEYe/`;
 
-     
+
       const mintNft = await myAsync(
         nftName,
         ticker,
@@ -250,14 +252,14 @@ function CheckoutModal(props: {
         nftPrice,
         nftEditions
       );
-      console.log('mintNft',mintNft);
+      console.log('mintNft', mintNft);
       console.log(artistRoyalties);
       console.log(nftName);
       //props.closeModal();
     }
   }
 
-    if (transferDone && user !== null) {
+  if (transferDone && user !== null) {
     return (
       <div className=" modalWidth modalHeight my-5">
         <form
@@ -333,14 +335,14 @@ function CheckoutModal(props: {
                 </div>
               </div>
               <div className="flex flex-col justify-center items-end">
-                <button
-                  className="primaryButton bg-gray-500 text-white"
+                <div
+                  className="primaryButton bg-gray-500 text-white cursor-pointer"
                   onClick={() => {
                     onDownload();
                   }}
                 >
                   Download beats
-                </button>
+                </div>
               </div>
             </div>
             <div className=" bg-gray-100 w-full h-1 mb-10"></div>
@@ -400,7 +402,7 @@ function CheckoutModal(props: {
         className="primaryButton"
         onClick={() => {
           //Authenticate, if complete init transfer of funds
-          
+
           setTransferStatus(true);
         }}
       >

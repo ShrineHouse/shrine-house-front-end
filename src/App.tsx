@@ -12,6 +12,7 @@ import CreateBp from './createbeatpack/creatBp';
 import SignupPage from './signup/signup';
 import './styles/global.css';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
+import NftDisplay from './nft-display-page/nftdisplay';
 
 
 export default function Init() {
@@ -87,7 +88,8 @@ const App = () => {
           </div>
           <div className={isShown ? 'sideBarHoverEnabled' : 'sideBarHover'}></div>
           {tabIndex === 0 && <div className='px-5'><Home /></div>}
-          {tabIndex === 1 && <div className='px-5'><MarketPlace /></div>}
+          {tabIndex === 1 && <div className='px-5'><NftDisplay /></div>}
+          {tabIndex === 2 && <div className='px-5'><MarketPlace /></div>}
         </div>
       </div>
     </div>
