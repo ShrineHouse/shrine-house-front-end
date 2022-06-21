@@ -21,6 +21,7 @@ import web3, { getWallets } from "../helpers/web3";
 import factory from "../Eth/factory";
 import Modal from "react-modal";
 import LoadingWidget from "../components/general/loadingwidget";
+import { v4 as uuidv4 } from 'uuid';
 
 ///Beatpack page
 const BeatPackPage = () => {
@@ -244,6 +245,8 @@ function CheckoutModal(props: {
       const ticker = "Shrine";
       const URI = `ipfs://QmQdPYTY8yArgVmMJK319e75rsi91bwtUF5JsSF9CLnEYe/`;
 
+      ///ADD THIS VALUE TO THE CONTRACT
+      const nftUUID = uuidv4();
 
       await myAsync(
         nftName,
@@ -267,6 +270,7 @@ function CheckoutModal(props: {
           nftName: nftName,
           minterImage: user.attributes.image,
           claimed: 0,
+          nftUUID: nftUUID,
           nftData: {
             nftName: nftName,
             ticker: ticker,
