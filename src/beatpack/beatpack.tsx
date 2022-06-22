@@ -1,5 +1,5 @@
 import { ChevronLeftIcon } from "@chakra-ui/icons";
-import { Box, VStack } from "@chakra-ui/react";
+import { Box, CircularProgress, VStack } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import JsFileDownloader from "js-file-downloader";
 import BeatPack, { emptyBp } from "../interfaces/beats";
@@ -193,6 +193,7 @@ function CheckoutModal(props: {
   const [nameValue, setNameValue] = useState(`${props.producer.fullName} X ${(user as any).attributes.fullName}`)
   const { save } = useNewMoralisObject('muses');
   const [minted, setMinted] = useState(false);
+  const [loading, setLoading] = useState(false);
   function onDownload() {
     new JsFileDownloader({
       url: props.bp.beatPackUrl,
@@ -212,6 +213,7 @@ function CheckoutModal(props: {
   ): Promise<any> => {
     if (user !== null) {
       console.log(user.attributes.wallet);
+      setLoading(true)
       let response = await factory.methods
         .createBeatpack(
           name,
@@ -287,11 +289,13 @@ function CheckoutModal(props: {
         save(uploadData, {
           onError(error) {
             alert('Your beatpack could not be uploaded')
+            setLoading(false)
           },
 
           onComplete: () => {
             console.log('ready')
             setMinted(true)
+            setLoading(false)
 
           }
 
@@ -412,7 +416,8 @@ function CheckoutModal(props: {
               </div>
             </div>
             <div className="divider mb-10"></div>
-            <input type="submit" className="primaryButton mb-10" value="Mint NFT" />
+            {loading && <div className="mx-auto"><CircularProgress isIndeterminate /></div>}
+            {!loading && <input type="submit" className="primaryButton mb-10" value="Mint NFT" />}
           </div>
         </form>
       </div>
