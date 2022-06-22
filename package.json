@@ -1,7 +1,10 @@
 {
-  "name": "shrine-app",
+  "name": "shrine-house-dapp",
   "version": "0.1.0",
   "private": true,
+  "author": "Shrine House",
+  "homepage": "https://shrine.house",
+  "description": "The Shrine House dapp can be used to purchase beats, mint NFTS and sell them on the Muse Marketplace.",
   "dependencies": {
     "@chakra-ui/icons": "^2.0.1",
     "@chakra-ui/react": "^2.1.2",
