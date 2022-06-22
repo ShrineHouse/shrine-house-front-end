@@ -22,7 +22,7 @@ import factory from "../Eth/factory";
 import Modal from "react-modal";
 import LoadingWidget from "../components/general/loadingwidget";
 import { v4 as uuidv4 } from 'uuid';
-
+import { AiOutlineCheckCircle } from 'react-icons/ai'
 ///Beatpack page
 const BeatPackPage = () => {
   const { Moralis } = useMoralis();
@@ -192,7 +192,7 @@ function CheckoutModal(props: {
   const { user } = useMoralis();
   const [nameValue, setNameValue] = useState(`${props.producer.fullName} X ${(user as any).attributes.fullName}`)
   const { save } = useNewMoralisObject('muses');
-
+  const [minted, setMinted] = useState(false);
   function onDownload() {
     new JsFileDownloader({
       url: props.bp.beatPackUrl,
@@ -291,12 +291,33 @@ function CheckoutModal(props: {
 
           onComplete: () => {
             console.log('ready')
-            props.closeModal();
+            setMinted(true)
+
           }
 
         })
       })
     }
+  }
+  if (minted) {
+    return (
+
+      <div className=" modalWidth my-5 px-5">
+
+        <div className="flex flex-col justify-center items-center gap-5">
+          <AiOutlineCheckCircle size={84} color='green' />
+          <h2 className="text-3xl text-center font-bold">Mint Succesful</h2>
+          <h2 className="text-xl text-center -mt-2 ">Your NFT has succesfully been minted. Head over to the Muse Feed to view your NFT.</h2>
+          <button className="primaryButton" onClick={() => {
+            props.closeModal()
+            setMinted(false)
+
+          }}
+          >Close</button>
+        </div>
+      </div>
+
+    )
   }
 
   if (transferDone && user !== null) {
