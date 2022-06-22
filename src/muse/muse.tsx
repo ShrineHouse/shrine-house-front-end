@@ -19,7 +19,7 @@ export default function MusePage() {
     console.log(data)
     if (error) return <div>'WOOPS ERROR...'</div>
     const muse = dataToMuse(data as any);
-
+const museRoyalties = Number(muse.nftData.artistRoyalties) + Number(muse.nftData.producerRoyalties);
     return (
         <div>
             <div className='absolute z-50'>
@@ -63,7 +63,7 @@ export default function MusePage() {
                                 <div className='flex flex-col'>
                                     <div>Your resale value will be <span className='text-black font-bold'>{100 - muse.nftData.artistRoyalties - muse.nftData.producerRoyalties - 2}%</span></div>
                                     <div className='divider my-2'></div>
-                                    <li className='pl-5'>Creators will receive <span>{muse.nftData.artistRoyalties + muse.nftData.producerRoyalties}%</span> of resale revenue</li>
+                                    <li className='pl-5'>Creators will receive <span>{museRoyalties}%</span> of resale revenue</li>
                                     <li className='pl-5'>Shrine House will receive 2% of resale revenue</li>
                                 </div>
                             </div>

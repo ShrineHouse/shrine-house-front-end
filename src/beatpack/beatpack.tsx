@@ -311,7 +311,6 @@ function CheckoutModal(props: {
           <button className="primaryButton" onClick={() => {
             props.closeModal()
             setMinted(false)
-
           }}
           >Close</button>
         </div>
