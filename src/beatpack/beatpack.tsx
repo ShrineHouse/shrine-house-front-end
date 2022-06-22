@@ -212,7 +212,6 @@ function CheckoutModal(props: {
     maxSupply: string
   ): Promise<any> => {
     if (user !== null) {
-      console.log(user.attributes.wallet);
       setLoading(true)
       let response = await factory.methods
         .createBeatpack(
@@ -293,7 +292,6 @@ function CheckoutModal(props: {
           },
 
           onComplete: () => {
-            console.log('ready')
             setMinted(true)
             setLoading(false)
 

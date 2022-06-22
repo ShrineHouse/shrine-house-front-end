@@ -13,10 +13,8 @@ export default function MusePage() {
 
     const getchMuse = useMoralisCloudFunction('getMuse', { id: id });
     const { data, isLoading, error } = useQuery('muse', () => getchMuse.fetch())
-    console.log(data)
 
     if (isLoading || data === undefined) return <LoadingWidget />
-    console.log(data)
     if (error) return <div>'WOOPS ERROR...'</div>
     const muse = dataToMuse(data as any);
 const museRoyalties = Number(muse.nftData.artistRoyalties) + Number(muse.nftData.producerRoyalties);

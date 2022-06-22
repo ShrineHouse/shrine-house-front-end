@@ -37,7 +37,6 @@ const TrackCard = (props: { data: Beat, playingIndex: number, index: number, set
     useEffect(() => {
         return () => {
             audioRef.current.pause()
-            console.log("in cleanup")
         }
     }, [])
 

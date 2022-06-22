@@ -20,7 +20,6 @@ const NftDisplay = () => {
     const { data, isLoading, error } = useQuery('muses', () => getchMuses.fetch())
 
     if (isLoading || data === undefined) return <LoadingWidget />
-    console.log(data)
     if (error) return <div>'WOOPS ERROR...'</div>
     const muses = dataToMuses(data as any);
     /////Build artist list based upon search
