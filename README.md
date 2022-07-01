@@ -7,6 +7,7 @@
 </p>
 
 > The Shrine House dapp can be used to purchase beats, mint NFTS and sell them on the Muse Marketplace.
+> This repo contains the whole Shrine House experience. Located inside of the main directory is the "nft.sol" contract that is being utilised by the dapp.
 
 ### 🏠 [Homepage](https://shrine.house)
 
