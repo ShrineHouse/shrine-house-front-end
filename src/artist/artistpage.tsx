@@ -69,7 +69,7 @@ const ArtistPage = () => {
                         <VStack w='100%' gap={10}>
                             <div className='flex flex-row gap-5 justify-start w-full'>
                                 <div>
-                                    <img src={artist.image} className=" object-cover h-60 w-60 rounded-xl" />
+                                    <img src={artist.image} className=" object-coverh-32 w-32 md:h-60 md:w-60 rounded-xl" />
                                 </div>
                                 <div className='flex flex-col gap-2'>
                                     <div className='text-4xl font-bold primaryColor'>
@@ -81,8 +81,8 @@ const ArtistPage = () => {
                                 </div>
                             </div>
                             <div className='flex flex-row w-full gap-10'>
-                                <div className={activeTab === 'beat' ? 'transition-all underline text-3xl font-bold' : 'transition-all text-3xl font-bold text-gray-500'} onClick={() => setActiveTab('beat')}>Tracks</div>
-                                <div className={activeTab !== 'beat' ? 'transition-all underline text-3xl font-bold' : 'transition-all text-3xl font-bold text-gray-500'} onClick={() => setActiveTab('producer')}>Producer info</div>
+                                <div className={activeTab === 'beat' ? 'transition-all underline text-2xl md:text-3xl  font-bold' : 'transition-all text-2xl md:text-3xl  font-bold text-gray-500'} onClick={() => setActiveTab('beat')}>Tracks</div>
+                                <div className={activeTab !== 'beat' ? 'transition-all underline text-2xl md:text-3xl  font-bold' : 'transition-all text-2xl md:text-3xl  font-bold text-gray-500'} onClick={() => setActiveTab('producer')}>Producer info</div>
                             </div>
                             {activeTab === 'beat' && <TrackList tracks={tracks} />}
                             {activeTab === 'producer' && <ProducerInfo producer={artist} />}

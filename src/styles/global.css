@@ -81,6 +81,13 @@ input:focus {
 
 }
 
+@media (max-width: 767.98px){
+    .bigCard {
+     aspect-ratio: 1/1;
+    
+    }
+}
+
 .bigCard:hover {
     cursor: pointer;
     transition: 300ms;

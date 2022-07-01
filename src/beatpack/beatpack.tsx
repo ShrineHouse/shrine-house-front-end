@@ -124,13 +124,16 @@ const BeatPackPage = () => {
             </div>
           </Link>
           <div className="flex flex-row gap-20">
+            <div className="hidden lg:block">
             <SimilarEntities bp={bp} setLoaded={setSimilarLoaded} />
+
+            </div>
             <VStack w="100%" gap={10}>
               <div className="flex flex-row gap-5 justify-start w-full">
                 <div>
                   <img
                     src={bp.imageUrl}
-                    className=" object-cover h-60 w-60 rounded-xl"
+                    className=" object-cover h-32 w-32 md:h-60 md:w-60 rounded-xl"
                   />
                 </div>
                 <div className="flex flex-col gap-2">
@@ -145,8 +148,8 @@ const BeatPackPage = () => {
                 <div
                   className={
                     activeTab === "beat"
-                      ? "transition-all underline text-3xl font-bold"
-                      : "transition-all text-3xl font-bold text-gray-500"
+                      ? "transition-all underline text-2xl md:text-3xl font-bold"
+                      : "transition-all text-2xl md:text-3xl font-bold text-gray-500"
                   }
                   onClick={() => setActiveTab("beat")}
                 >
@@ -155,8 +158,8 @@ const BeatPackPage = () => {
                 <div
                   className={
                     activeTab !== "beat"
-                      ? "transition-all underline text-3xl font-bold"
-                      : "transition-all text-3xl font-bold text-gray-500"
+                      ? "transition-all underline text-2xl md:text-3xl font-bold"
+                      : "transition-all text-2xl md:text-3xl font-bold text-gray-500"
                   }
                   onClick={() => setActiveTab("producer")}
                 >

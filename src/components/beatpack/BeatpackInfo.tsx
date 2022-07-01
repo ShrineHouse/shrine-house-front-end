@@ -12,7 +12,7 @@ function BeatPackInfo(props: { bp: BeatPack, onDownload: Function }) {
     const navigate = useNavigate();
 
     return (<div className='flex flex-col gap-4'>
-        <div className='flex flex-row gap-5 justify-between w-full items-center'>
+        <div className='flex flex-col md:flex-row gap-5 justify-between w-full md:items-center'>
             <div className='flex flex-col gap-3'>
                 <div className='text-2xl font-bold'>{props.bp.beatPackName}</div>
                 <div className='text-lg'>{props.bp.description}</div>

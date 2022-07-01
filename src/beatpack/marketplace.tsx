@@ -48,56 +48,63 @@ const MarketPlace = () => {
     return (
         <div className='backgroundCol w-full'>
 
-        <div className='h-screen w-full container mx-auto px-5'>
-            <div className='flex flex-col mx-5 gap-10 mt-20 pt-5'>
-                <SearchBar search={search} marketplace={true} />
-                <div className=' text-5xl -mb-5 font-bold'>
-                    Beat Market
-                </div>
-                <div className='flex flex-row justify-between items-center'>
-                    <div className='flex flex-row gap-2'>
-                        <Chip text='Trending' />
-                        <Chip text='Liked' />
-                        <Chip text='New' />
+            <div className='h-screen w-full container mx-auto px-5'>
+                <div className='flex flex-col mx-5 gap-10 mt-20 pt-5'>
+                    <SearchBar search={search} marketplace={true} />
+                    <div className=' text-4xl -mb-5 font-bold'>
+                        Beat Market
                     </div>
-                    <select id="genres" name="genres" className='genreSelect' onChange={(e) => {
-                        if (e.target.value === 'allgenres') return setGenre([{ genre: 'none' }])
-                        const filteredData = dataBeatpackFilter(beatPack, e.target.value)
-                        setGenre(filteredData)
-                    }} >
-                        <option value="allgenres">All genres</option>
-                        <option value="altrock">Alt Rock</option>
-                        <option value="rap">Rap</option>
-                        <option value="trap">Trap</option>
-                        <option value="edm">EDM</option>
-                    </select>
-                </div>
-                {isSearching !== false ?
-                    <div className="flex flex-col gap-2">
-                        <h1>Search results</h1>
-                        <div className='grid grid-cols-3 gap-5'>
-                            {searchedBp.map((u, i) => <Link to={`/beatpack/${u.objectId}`}><ul key={i}><div ><SmallArtistCard url={u.imageUrl} artistName={`${u.artistName} - ${u.beatPackName}`} verified={false} /></div></ul></Link>
-                            )}
+                    <div className='flex flex-row justify-between items-center'>
+                        <div className='flex flex-row gap-2'>
+                            <Chip text='Trending' />
+                            <Chip text='Liked' />
+                            <Chip text='New' />
                         </div>
-                    </div> : <div>
-                        <div className="flex flex-col gap-5">
-                            <div className='text-4xl'>Recommended playlists</div>
-                            <div className='grid grid-cols-3 gap-5'>
-                                {shrineBeatPack.map((u, i) => <Link to={`/beatpack/${u.objectId}`}> <ul key={i}><div  ><BigArtistCard url={u.imageUrl} /></div></ul></Link>
+                        <select id="genres" name="genres" className='genreSelect hidden md:block' onChange={(e) => {
+                            if (e.target.value === 'allgenres') return setGenre([{ genre: 'none' }])
+                            const filteredData = dataBeatpackFilter(beatPack, e.target.value)
+                            setGenre(filteredData)
+                        }} >
+                            <option value="allgenres">All genres</option>
+                            <option value="altrock">Alt Rock</option>
+                            <option value="rap">Rap</option>
+                            <option value="trap">Trap</option>
+                            <option value="edm">EDM</option>
+                        </select>
+                    </div>
+                    {isSearching !== false ?
+                        <div className="flex flex-col gap-2">
+                            <h1>Search results</h1>
+                            <div className='grid grid-cols-2  lg:grid-cols-3 gap-5'>
+                                {searchedBp.map((u, i) => <Link to={`/beatpack/${u.objectId}`}><ul key={i}><div ><SmallArtistCard url={u.imageUrl} artistName={`${u.artistName} - ${u.beatPackName}`} verified={false} /></div></ul></Link>
                                 )}
                             </div>
-                        </div>
-                        <div className="flex flex-col gap-5 mt-10">
-                            <div className='text-4xl -mb-5'>Trending</div>
-                            <div className='flex flex-row justify-between items-center'><h1>Beatpacks & playlists</h1> <a className='underline'>View All Packs & Playlists</a></div>
-                            <div className='grid grid-cols-2 md:grid-cols-5 gap-5'>
-                                {buildList()}
-                            </div>
-                        </div>
-                    </div>}
+                        </div> : <div>
+                            <div className=" flex-col gap-5 hidden md:flex">
+                                <div className='text-4xl'>Recommended</div>
+                                <div className='grid grid-cols-3 gap-5'>
+                                    {shrineBeatPack.map((u, i) => {
+                                        if (window.innerWidth > 800) { <Link to={`/beatpack/${u.objectId}`}> <ul key={i}><div  ><BigArtistCard url={u.imageUrl} /></div></ul></Link> } else {
+                                            if (i > 1) return
+                                            return <Link to={`/beatpack/${u.objectId}`}> <ul key={i}><div  ><BigArtistCard url={u.imageUrl} /></div></ul></Link>
 
+                                        }
+
+                                    }
+                                    )}
+                                </div>
+                            </div>
+                            <div className="flex flex-col gap-5 md:mt-10">
+                                <div className='text-4xl -mb-5'>Trending</div>
+                                <div className='flex flex-row justify-between items-center text-lg'><div>Beatpacks</div> <a className='underline text-right md:text-left'>View All Packs</a></div>
+                                <div className='grid grid-cols-2 md:grid-cols-5 gap-5'>
+                                    {buildList()}
+                                </div>
+                            </div>
+                        </div>}
+
+                </div>
             </div>
-        </div>
         </div>
     )
 }

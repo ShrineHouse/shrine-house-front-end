@@ -41,11 +41,11 @@ const NftDisplay = () => {
                     <div className="flex flex-col gap-5 mt-20 pt-5">
                         <div className='text-4xl  font-bold'>Muse Feed</div>
                         <div className='flex flex-row gap-5'>
-                            <Chip text='Freshly Minted' />
-                            <Chip text='Price Drop' />
+                            <Chip text='Fresh' />
+                            <Chip text='Sale' />
                             <Chip text='Growing' />
                         </div>
-                        <div className='grid grid-cols-2 md:grid-cols-4 gap-5'>
+                        <div className='flex flex-col md:grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5 pb-20'>
                             {buildList()}
                         </div>
                     </div>

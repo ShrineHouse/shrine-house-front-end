@@ -17,7 +17,7 @@ export default function MusePage() {
     if (isLoading || data === undefined) return <LoadingWidget />
     if (error) return <div>'WOOPS ERROR...'</div>
     const muse = dataToMuse(data as any);
-const museRoyalties = Number(muse.nftData.artistRoyalties) + Number(muse.nftData.producerRoyalties);
+    const museRoyalties = Number(muse.nftData.artistRoyalties) + Number(muse.nftData.producerRoyalties);
     return (
         <div>
             <div className='absolute z-50'>
@@ -29,9 +29,9 @@ const museRoyalties = Number(muse.nftData.artistRoyalties) + Number(muse.nftData
                 </Link>
 
             </div>
-            <div className="flex flex-row justify-between min-h-screen">
-                <div className='h-full fixed '>
-                    <div className='fixed w-2/6 h-screen  flex flex-col  justify-center items-center'>
+            <div className="flex flex-col md:flex-row justify-between min-h-screen">
+                <div className='hidden md:block h-full md:fixed '>
+                    <div className='fixed md:w-2/6 md:h-screen  flex flex-col  justify-center items-center'>
                         <div className='relative'>
                             <div className='w-72'>
                                 <MuseCard muse={muse} />
@@ -40,12 +40,17 @@ const museRoyalties = Number(muse.nftData.artistRoyalties) + Number(muse.nftData
                     </div>
                 </div>
 
-                <div className='h-full w-2/6 ' />
+                <div className='hidden md:block h-full w-2/6 ' />
 
-                <div className='w-4/6 bg-white py-10  rounded-xl min-h-screen m-0 table'>
+                <div className='w-screen md:w-4/6 bg-white py-10  rounded-xl min-h-screen m-0 table'>
+
                     <div className='w-4/6 align-middle table-cell'>
                         <div className='mx-auto w-4/6'>
-                            <div className='text-4xl font-bold mb-5'>Your purchase</div>
+                            <div className='text-4xl font-bold mb-5 mt-5 md:mt-0'>Your purchase</div>
+                            <div className='md:hidden mb-5 '>
+                                <MuseCard muse={muse} />
+
+                            </div>
                             <div className="flex flex-row w-full justify-between mb-2 px-3">
                                 <div className="text-gray-400">Price</div>
                                 <div className="text-gray-400">${muse.nftData.nftPrice}</div>

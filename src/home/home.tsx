@@ -56,21 +56,20 @@ const Home = () => {
     const ethBcnCard = [
         <EthBCNCard url='https://ethbarcelona.com/assets/Image.png' />
         , <EthBCNCard url='https://novobrief.com/wp-content/uploads/2022/05/FS-ECuBVsAMKLFC-810x456.jpeg' />,
-        <EthBCNCard url='https://pbs.twimg.com/card_img/1537329690641371136/EHHFVLhL?format=jpg&name=medium' />
-
+        <EthBCNCard url='https://ethbarcelona.com/assets/Image.png' />
     ]
     return (
         <div className='backgroundCol w-full'>
             <div className='min-h-screen  container mx-auto'>
                 <div className='flex flex-col mx-5 gap-10'>
                     <SearchBar search={search} marketplace={false} />
-                    <div className='flex flex-row justify-between items-center mt-20 pt-5'>
+                    <div className='flex max-w-full flex-row justify-between items-center mt-20 pt-5'>
                         <div className='flex flex-row gap-2'>
                             <Chip text='Trending' />
                             <Chip text='Liked' />
                             <Chip text='New' />
                         </div>
-                        <select id="genres" name="genres" className='genreSelect' onChange={(e) => {
+                        <select id="genres" name="genres" className='genreSelect hidden md:block' onChange={(e) => {
                             if (e.target.value === 'allgenres') return setGenre([{ genre: 'none' }])
                             const filteredData = artistGenreFilter(users, e.target.value)
                             setGenre(filteredData)
@@ -95,15 +94,21 @@ const Home = () => {
                                 <div className=' text-5xl -mb-2 font-bold'>
                                     News
                                 </div>
-                                <div className='grid grid-cols-3 gap-5'>
-                                    {ethBcnCard.map((u, i) => <ul key={i}><a target='_blank' href={`https://ethbarcelona.com/`}>{u}</a></ul>
+                                <div className='grid grid-cols-2 md:grid-cols-3 gap-5 '>
+                                    {ethBcnCard.map((u, i) => {
+                                        if (window.innerWidth > 800) { return <ul key={i}><a target='_blank' href={`https://ethbarcelona.com/`}>{u}</a></ul> } else {
+                                            if (i > 1) return
+                                            return <ul key={i}><a target='_blank' href={`https://ethbarcelona.com/`}>{u}</a></ul>
+
+                                        }
+                                    }
                                     )}
                                 </div>
                             </div>
                             <div className="flex flex-col gap-5 mt-10">
                                 <div className='text-4xl -mb-2'>Trending</div>
 
-                                <div className='grid grid-cols-2 md:grid-cols-5 gap-5'>
+                                <div className='grid grid-cols-2 md:grid-cols-5 gap-5 pb-20'>
                                     {buildList()}
                                 </div>
                             </div>

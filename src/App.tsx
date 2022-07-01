@@ -14,6 +14,7 @@ import './styles/global.css';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
 import NftDisplay from './nft-display-page/nftdisplay';
 import MusePage from './muse/muse';
+import BottomBar from './components/general/BottomBar';
 
 
 export default function Init() {
@@ -77,9 +78,19 @@ const App = () => {
           }} onMouseLeave={() => {
             handleSidebar(false)
           }}>
-            <Sidebar className={isShown ? 'sideBarHoverEnabled' : 'sideBarHover'} tabIndex={tabIndex} setTabIndex={setTabIndex} classNameTool={isShown ? 'sideBarTool' : 'sideBarToolActive'} />
+            <div className='lg:block hidden'>
+              <Sidebar className={isShown ? 'sideBarHoverEnabled' : 'sideBarHover'} tabIndex={tabIndex} setTabIndex={setTabIndex} classNameTool={isShown ? 'sideBarTool' : 'sideBarToolActive'} />
+
+            </div>
+            <div className='block lg:hidden'>
+              <BottomBar  tabIndex={tabIndex} setTabIndex={setTabIndex} />
+
+            </div>
           </div>
-          <div className={isShown ? 'sideBarHoverEnabled' : 'sideBarHover'}></div>
+          <div className='lg:block hidden'>
+            <div className={isShown ? 'sideBarHoverEnabled' : 'sideBarHover'}></div>
+
+          </div>
           <div className='w-full flex flex-row justify-center'>
             {tabIndex === 0 && <div className='px-5'><Home /></div>}
             {tabIndex === 1 && <div className='px-5'><NftDisplay /></div>}
