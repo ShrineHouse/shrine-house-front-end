@@ -14,8 +14,9 @@ root.render(
   <React.StrictMode>
     <MoralisProvider serverUrl='https://tegvbkenkckg.usemoralis.com:2053/server' appId='LDiq0dcIjNKdEgqqjQHaJgHZXptPQLrtcGtdV88P'>
       <QueryClientProvider client={queryClient}>
-
-        <BrowserRouter>   <Init /></BrowserRouter>
+        <BrowserRouter>
+        <Init />
+        </BrowserRouter>
       </QueryClientProvider>
     </MoralisProvider>
   </React.StrictMode>

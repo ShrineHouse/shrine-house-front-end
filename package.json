@@ -48,7 +48,7 @@
     "build": "craco build",
     "test": "craco test",
     "eject": "react-scripts eject",
-    "deploy": "craco build && cd build && moralis-admin-cli deploy --moralisApiKey NvZzqWXbTwh42cb --moralisApiSecret 7atpFvh2ZB7ax6r -d tegvbkenkckg.moralis.io"
+    "deploy": "craco build && cd build && moralis-admin-cli deploy --moralisApiKey 1gvZNg3ijTw0jbp --moralisApiSecret ExbSPPbQRRFf4ls    -d tegvbkenkckg.moralis.io"
   },
   "eslintConfig": {
     "extends": [

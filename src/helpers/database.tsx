@@ -8,7 +8,6 @@ export function dataToUsers(users: Moralis.Object<Moralis.Attributes>[]) {
     users.map(u => {
         const user: DbUser = u.attributes as any;
         const addId: DbUser = { ...user, id: u.id };
-
         convertedUsers.push(addId)
     });
     return convertedUsers;
