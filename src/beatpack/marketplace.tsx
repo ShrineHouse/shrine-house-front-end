@@ -47,11 +47,13 @@ const MarketPlace = () => {
     }
     return (
         <div className='backgroundCol w-full'>
-            <div className='min-h-screen w-full  container mx-auto'>
+            <div className='md:min-h-screen w-full  container mx-auto'>
 
                 <div className='flex flex-col mx-5 gap-10'>
                     <SearchBar search={search} marketplace={true} />
-                    <div className=' text-4xl -mb-5 font-bold  mt-20 pt-5'>
+                    <div className=' h-24 w-full'></div>
+
+                    <div className=' text-4xl -mb-5 font-bold '>
                         Beat Market
                     </div>
                     <div className='flex flex-row justify-between items-center'>
@@ -100,9 +102,10 @@ const MarketPlace = () => {
                             <div className="flex flex-col gap-5 md:mt-10">
                                 <div className='text-4xl -mb-5'>Trending</div>
                                 <div className='flex flex-row justify-between items-center text-lg'><div>Beatpacks</div> <a className='underline text-right md:text-left'>View All Packs</a></div>
-                                <div className='grid grid-cols-2 md:grid-cols-5 gap-5 mb-10'>
+                                <div className='flex flex-col md:grid md:grid-cols-5 gap-5 '>
                                     {buildList()}
                                 </div>
+                                <div className='h-20 w-full' />
                             </div>
                         </div>}
 

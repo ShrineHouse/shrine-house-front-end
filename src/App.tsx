@@ -67,8 +67,8 @@ const App = () => {
   if (ud.data === undefined && bp.data === undefined && muse.data === undefined) { return <LoadingWidget /> } else {
     return (
       <div>
-        <div className=' min-h-screen relative'>
-          <div className='flex flex-row h-screen w-screen'>
+        <div className=' md:min-h-screen relative'>
+          <div className='flex flex-row md:h-screen w-screen'>
             <div onMouseEnter={() => {
               handleSidebar(true)
             }} onMouseLeave={() => {
@@ -87,10 +87,10 @@ const App = () => {
               <div className={isShown ? 'sideBarHoverEnabled' : 'sideBarHover'}></div>
 
             </div>
-            <div className='w-full flex flex-row justify-center'>
-              {tabIndex === 0 && <div className='px-5'><Home /></div>}
-              {tabIndex === 1 && <div className='px-5'><NftDisplay /></div>}
-              {tabIndex === 2 && <div className='px-5 w-full'><MarketPlace /></div>}
+            <div className='w-full flex flex-row md:justify-center h-full'>
+              {tabIndex === 0 && <div className='px-5 h-full'><Home /></div>}
+              {tabIndex === 1 && <div className='px-5 w-full h-full'><NftDisplay /></div>}
+              {tabIndex === 2 && <div className='px-5 w-full h-full'><MarketPlace /></div>}
             </div>
 
           </div>

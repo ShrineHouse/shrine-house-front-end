@@ -60,10 +60,11 @@ const Home = () => {
     ]
     return (
         <div className='backgroundCol w-full'>
-            <div className='min-h-screen  container mx-auto'>
+            <div className='md:min-h-screen  container mx-auto'>
                 <div className='flex flex-col mx-5 gap-10'>
                     <SearchBar search={search} marketplace={false} />
-                    <div className='flex max-w-full flex-row justify-between items-center mt-20 pt-5'>
+                    <div className=' h-24 w-full'></div>
+                    <div className='flex max-w-full flex-row justify-between items-center'>
                         <div className='flex flex-row gap-2'>
                             <Chip text='Trending' />
                             <Chip text='Liked' />
@@ -107,10 +108,10 @@ const Home = () => {
                             </div>
                             <div className="flex flex-col gap-5 mt-10">
                                 <div className='text-4xl -mb-2'>Trending</div>
-
-                                <div className='grid grid-cols-2 md:grid-cols-5 gap-5 pb-20'>
+                                <div className='flex flex-col md:grid md:grid-cols-5 gap-5 h-full'>
                                     {buildList()}
                                 </div>
+                                <div className='h-20 w-full' />
                             </div>
                         </div>}
 

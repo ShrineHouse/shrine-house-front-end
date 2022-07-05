@@ -26,7 +26,7 @@ const SearchBar = (props: { search: Function, marketplace: boolean }) => {
 
     }
     return (
-        <div className="flex flex-col mx-auto absolute left-0 top-0 shadow-md z-30">
+        <div className="flex flex-col mx-auto fixed  left-0 top-0 shadow-md z-30">
             <div className='bg-white max-h-20 w-screen flex flex-row justify-between lg:grid lg:grid-cols-3  borderRadiusComponents relative gap-5 px-5 lg:px-0'>
                 <div className='lg:flex flex-row gap-3 max-h-20 p-5 hidden'>
                     <div className=' w-11'>

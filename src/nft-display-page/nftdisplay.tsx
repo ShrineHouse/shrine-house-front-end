@@ -35,19 +35,22 @@ const NftDisplay = () => {
 
     return (
         <div className='backgroundCol w-full'>
-            <div className='min-h-screen w-full container mx-auto'>
+            <div className='md:min-h-screen w-full  container mx-auto'>
                 <div className='flex flex-col mx-5 gap-10'>
                     <SearchBar search={search} marketplace={false} />
-                    <div className="flex flex-col gap-5 mt-20 pt-5">
+                    <div className=' h-24 w-full'></div>
+                    <div className="flex flex-col gap-5">
                         <div className='text-4xl  font-bold'>Muse Feed</div>
                         <div className='flex flex-row gap-5'>
                             <Chip text='Fresh' />
                             <Chip text='Sale' />
                             <Chip text='Growing' />
                         </div>
-                        <div className='flex flex-col md:grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5 pb-20'>
+                        <div className='flex flex-col md:grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5'>
                             {buildList()}
                         </div>
+                        <div className='h-20 w-full' />
+
                     </div>
 
                 </div>
