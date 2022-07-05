@@ -47,7 +47,7 @@ export default function MusePage() {
                     <div className='w-4/6 align-middle table-cell'>
                         <div className='mx-auto w-4/6'>
                             <div className='text-4xl font-bold mb-5 mt-5 md:mt-0'>Your purchase</div>
-                            <div className='md:hidden mb-5 '>
+                            <div className='md:hidden mb-5'>
                                 <MuseCard muse={muse} />
 
                             </div>

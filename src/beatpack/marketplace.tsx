@@ -97,7 +97,7 @@ const MarketPlace = () => {
                             <div className="flex flex-col gap-5 md:mt-10">
                                 <div className='text-4xl -mb-5'>Trending</div>
                                 <div className='flex flex-row justify-between items-center text-lg'><div>Beatpacks</div> <a className='underline text-right md:text-left'>View All Packs</a></div>
-                                <div className='grid grid-cols-2 md:grid-cols-5 gap-5'>
+                                <div className='grid grid-cols-2 md:grid-cols-5 gap-5 mb-10'>
                                     {buildList()}
                                 </div>
                             </div>

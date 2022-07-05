@@ -23,9 +23,7 @@ export const EthBCNCard = (props: { url: string }) => {
 export const SmallArtistCard = (props: { url: string, artistName: string, verified: boolean }) => {
     return (
         <div className='w-full flex flex-col gap-2'>
-
-            <div className='w-full  bg-white borderRadiusComponents shadow bigCard '>
-                <img src={props.url} className='relative h-full w-full object-cover borderRadiusComponents smallCard' />
+            <div className='w-full  bg-white borderRadiusComponents shadow bigCard  ' style={{'backgroundImage':`url("${props.url}")`, 'backgroundSize':'cover', 'backgroundPosition':'center'}}>
             </div>
 
             <div className='flex flex-row justify-between'> <p>{props.artistName}</p> {props.verified && <div className="primaryColor"><AiFillCheckCircle size={24} /></div>} </div>
@@ -37,13 +35,13 @@ export const SmallArtistCard = (props: { url: string, artistName: string, verifi
 export const MuseCard = (props: { muse: Muse }) => {
     const muse = props.muse;
     const currentDate = Date.now();
-    const day = currentDate-(1000*60*60*24);
+    const day = currentDate - (1000 * 60 * 60 * 24);
 
-    const isNew = muse.createdAt.getTime() >day;
+    const isNew = muse.createdAt.getTime() > day;
     return (
         <div className='w-full flex flex-col shadow rounded-xl cursor-pointer '>
 
-            <div className='w-full  bg-white  rounded-tr-xl rounded-tl-xl  bigCard '>
+            <div className='w-full  bg-white  rounded-tr-xl rounded-tl-xl  bigCard h-64 md:h-full '>
                 <img src={muse.image} className='relative h-full w-full object-cover rounded-tr-xl rounded-tl-xl  smallCard' />
             </div>
 

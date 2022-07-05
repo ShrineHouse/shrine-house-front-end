@@ -5,7 +5,7 @@ import MarketPlace from './beatpack/marketplace';
 import { useMoralis, useMoralisCloudFunction } from 'react-moralis';
 import { useQuery } from 'react-query';
 import LoadingWidget from './components/general/loadingwidget';
-import { BrowserRouter, Route, Routes, useLocation } from 'react-router-dom';
+import { Route, Routes, useLocation } from 'react-router-dom';
 import ArtistPage from './artist/artistpage';
 import BeatPackPage from './beatpack/beatpack';
 import CreateBp from './createbeatpack/creatBp';
@@ -41,20 +41,69 @@ export default function Init() {
 
 const App = () => {
   const [tabIndex, setTabIndex] = useState(0);
-  const { isInitialized } = useMoralis();
   const [isShown, setIsShown] = useState(false);
 
   ////These 4 consts load all the artists + beatpacks and will cache them.
   const fetchBeatpacks = useMoralisCloudFunction("beats")
   const fetchArtists = useMoralisCloudFunction('getArtists');
   const getchMuses = useMoralisCloudFunction('getMuses');
-  const getArtists = useQuery('usersData', () => fetchArtists.fetch())
-  const getBps = useQuery('beatPacks', () => fetchBeatpacks.fetch())
-  const getMuses = useQuery('muses', () => getchMuses.fetch())
+  const ud = useQuery('usersData', () => fetchArtists.fetch())
+  const bp = useQuery('beatPacks', () => fetchBeatpacks.fetch())
+  const muse = useQuery('muses', () => getchMuses.fetch())
 
 
 
-  if (!isInitialized) return <LoadingWidget />
+
+  useEffect(()=>{
+    fetchBeatpacks.fetch({onSuccess(results) {
+      console.log('succes', results)
+    },})
+    fetchArtists.fetch({onSuccess(results) {
+      console.log('succes artist', results)
+    },})
+    getchMuses.fetch({onSuccess(results) {
+      console.log('succes muse', results)
+    },})
+  },[])
+
+
+    return (
+
+
+      <div>
+        <div className=' min-h-screen relative'>
+          <div className='flex flex-row h-screen w-screen'>
+            <div onMouseEnter={() => {
+              handleSidebar(true)
+            }} onMouseLeave={() => {
+              handleSidebar(false)
+            }}>
+              <div className='lg:block hidden'>
+                <Sidebar className={isShown ? 'sideBarHoverEnabled' : 'sideBarHover'} tabIndex={tabIndex} setTabIndex={setTabIndex} classNameTool={isShown ? 'sideBarTool' : 'sideBarToolActive'} />
+
+              </div>
+              <div className='block lg:hidden'>
+                <BottomBar tabIndex={tabIndex} setTabIndex={setTabIndex} />
+
+              </div>
+            </div>
+            <div className='lg:block hidden'>
+              <div className={isShown ? 'sideBarHoverEnabled' : 'sideBarHover'}></div>
+
+            </div>
+            <div className='w-full flex flex-row justify-center'>
+              {tabIndex === 0 && <div className='px-5'><Home /></div>}
+              {tabIndex === 1 && <div className='px-5'><NftDisplay /></div>}
+              {tabIndex === 2 && <div className='px-5'><MarketPlace /></div>}
+            </div>
+
+          </div>
+        </div>
+      </div>
+    );
+
+  
+
 
   function handleSidebar(bool: boolean) {
 
@@ -69,37 +118,6 @@ const App = () => {
     }
   }
 
-  return (
-    <div>
-      <div className=' min-h-screen relative'>
-        <div className='flex flex-row h-screen w-screen'>
-          <div onMouseEnter={() => {
-            handleSidebar(true)
-          }} onMouseLeave={() => {
-            handleSidebar(false)
-          }}>
-            <div className='lg:block hidden'>
-              <Sidebar className={isShown ? 'sideBarHoverEnabled' : 'sideBarHover'} tabIndex={tabIndex} setTabIndex={setTabIndex} classNameTool={isShown ? 'sideBarTool' : 'sideBarToolActive'} />
 
-            </div>
-            <div className='block lg:hidden'>
-              <BottomBar  tabIndex={tabIndex} setTabIndex={setTabIndex} />
-
-            </div>
-          </div>
-          <div className='lg:block hidden'>
-            <div className={isShown ? 'sideBarHoverEnabled' : 'sideBarHover'}></div>
-
-          </div>
-          <div className='w-full flex flex-row justify-center'>
-            {tabIndex === 0 && <div className='px-5'><Home /></div>}
-            {tabIndex === 1 && <div className='px-5'><NftDisplay /></div>}
-            {tabIndex === 2 && <div className='px-5'><MarketPlace /></div>}
-          </div>
-
-        </div>
-      </div>
-    </div>
-  );
 }
 
