@@ -47,11 +47,11 @@ const MarketPlace = () => {
     }
     return (
         <div className='backgroundCol w-full'>
+            <div className='min-h-screen w-full  container mx-auto'>
 
-            <div className='h-screen w-full container mx-auto px-5'>
-                <div className='flex flex-col mx-5 gap-10 mt-20 pt-5'>
+                <div className='flex flex-col mx-5 gap-10'>
                     <SearchBar search={search} marketplace={true} />
-                    <div className=' text-4xl -mb-5 font-bold'>
+                    <div className=' text-4xl -mb-5 font-bold  mt-20 pt-5'>
                         Beat Market
                     </div>
                     <div className='flex flex-row justify-between items-center'>
@@ -84,8 +84,11 @@ const MarketPlace = () => {
                                 <div className='text-4xl'>Recommended</div>
                                 <div className='grid grid-cols-3 gap-5'>
                                     {shrineBeatPack.map((u, i) => {
-                                        if (window.innerWidth > 800) { <Link to={`/beatpack/${u.objectId}`}> <ul key={i}><div  ><BigArtistCard url={u.imageUrl} /></div></ul></Link> } else {
+                                        if (window.innerWidth > 800) {
+                                            return <Link to={`/beatpack/${u.objectId}`}> <ul key={i}><div  ><BigArtistCard url={u.imageUrl} /></div></ul></Link>
+                                        } else {
                                             if (i > 1) return
+
                                             return <Link to={`/beatpack/${u.objectId}`}> <ul key={i}><div  ><BigArtistCard url={u.imageUrl} /></div></ul></Link>
 
                                         }
@@ -111,3 +114,4 @@ const MarketPlace = () => {
 
 
 export default MarketPlace
+

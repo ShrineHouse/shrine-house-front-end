@@ -51,25 +51,21 @@ const App = () => {
   const bp = useQuery('beatPacks', () => fetchBeatpacks.fetch())
   const muse = useQuery('muses', () => getchMuses.fetch())
 
+  useEffect(() => {
+
+    if (ud.data === undefined && bp.data === undefined && muse.data === undefined) {
+
+      ud.refetch()
+      bp.refetch()
+      muse.refetch()
+    }
+  }, [ud])
 
 
 
-  useEffect(()=>{
-    fetchBeatpacks.fetch({onSuccess(results) {
-      console.log('succes', results)
-    },})
-    fetchArtists.fetch({onSuccess(results) {
-      console.log('succes artist', results)
-    },})
-    getchMuses.fetch({onSuccess(results) {
-      console.log('succes muse', results)
-    },})
-  },[])
 
-
+  if (ud.data === undefined && bp.data === undefined && muse.data === undefined) { return <LoadingWidget /> } else {
     return (
-
-
       <div>
         <div className=' min-h-screen relative'>
           <div className='flex flex-row h-screen w-screen'>
@@ -94,7 +90,7 @@ const App = () => {
             <div className='w-full flex flex-row justify-center'>
               {tabIndex === 0 && <div className='px-5'><Home /></div>}
               {tabIndex === 1 && <div className='px-5'><NftDisplay /></div>}
-              {tabIndex === 2 && <div className='px-5'><MarketPlace /></div>}
+              {tabIndex === 2 && <div className='px-5 w-full'><MarketPlace /></div>}
             </div>
 
           </div>
@@ -102,7 +98,7 @@ const App = () => {
       </div>
     );
 
-  
+  }
 
 
   function handleSidebar(bool: boolean) {

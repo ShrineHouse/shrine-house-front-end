@@ -23,9 +23,8 @@ export const EthBCNCard = (props: { url: string }) => {
 export const SmallArtistCard = (props: { url: string, artistName: string, verified: boolean }) => {
     return (
         <div className='w-full flex flex-col gap-2'>
-            <div className='w-full  bg-white borderRadiusComponents shadow bigCard  ' style={{'backgroundImage':`url("${props.url}")`, 'backgroundSize':'cover', 'backgroundPosition':'center'}}>
+            <div className='w-full  bg-white borderRadiusComponents shadow bigCard smallCard' style={{'backgroundImage':`url("${props.url}")`, 'backgroundSize':'cover', 'backgroundPosition':'center'}}>
             </div>
-
             <div className='flex flex-row justify-between'> <p>{props.artistName}</p> {props.verified && <div className="primaryColor"><AiFillCheckCircle size={24} /></div>} </div>
         </div>
 

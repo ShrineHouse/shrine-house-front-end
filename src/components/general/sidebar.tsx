@@ -19,7 +19,7 @@ const Sidebar = (props: { tabIndex: Number, setTabIndex: Function, className: st
                 <div className={props.tabIndex === 1 ? "sideBarIcon  w-full flex flex-row justify-center py-5 px-7" : " w-full flex flex-row justify-center sideBarIconInActive px-7"} onClick={() => props.setTabIndex(1)}>
                     <NftLogo />
                 </div>
-                <div className={props.tabIndex === 2 ? "sideBarIcon  w-full flex flex-row justify-center py-5 mb-20 px-7" : " w-full flex flex-row justify-center sideBarIconInActive mb-20 px-7"} onClick={() => props.setTabIndex(2)}>
+                <div className={props.tabIndex === 2 ? "sideBarIcon  w-full flex flex-row justify-center py-5 mb-20 px-7" : "w-full flex flex-row justify-center sideBarIconInActive mb-20 px-7"} onClick={() => props.setTabIndex(2)}>
                     <BeatPackLogo />
                 </div>
             </div>
