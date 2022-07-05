@@ -30,9 +30,9 @@ const MarketPlace = () => {
     function buildList() {
         if (genreBp[0] === undefined) return <p>No beatpacks found</p>
         if (genreBp[0].genre === 'none') {
-            return beatPack.map((u, i) => <Link to={`/beatpack/${u.objectId}`}><ul key={i}><div  ><SmallArtistCard url={u.imageUrl} artistName={`${u.artistName} - ${u.beatPackName}`} verified={false} /></div></ul></Link>)
+            return beatPack.map((u, i) => <Link key={i} to={`/beatpack/${u.objectId}`}><ul key={i}><div  ><SmallArtistCard url={u.imageUrl} artistName={`${u.artistName} - ${u.beatPackName}`} verified={false} /></div></ul></Link>)
         } else {
-            return (genreBp as BeatPack[]).map((u, i) => <Link to={`/beatpack/${u.objectId}`}><ul key={i}><div  ><SmallArtistCard url={u.imageUrl} artistName={`${u.artistName} - ${u.beatPackName}`} verified={false} /></div></ul></Link>)
+            return (genreBp as BeatPack[]).map((u, i) => <Link key={i} to={`/beatpack/${u.objectId}`}><ul key={i}><div  ><SmallArtistCard url={u.imageUrl} artistName={`${u.artistName} - ${u.beatPackName}`} verified={false} /></div></ul></Link>)
         }
     }
     //BUild marketplace based up search
@@ -76,7 +76,7 @@ const MarketPlace = () => {
                         <div className="flex flex-col gap-2">
                             <h1>Search results</h1>
                             <div className='grid grid-cols-2  lg:grid-cols-3 gap-5'>
-                                {searchedBp.map((u, i) => <Link to={`/beatpack/${u.objectId}`}><ul key={i}><div ><SmallArtistCard url={u.imageUrl} artistName={`${u.artistName} - ${u.beatPackName}`} verified={false} /></div></ul></Link>
+                                {searchedBp.map((u, i) => <Link to={`/beatpack/${u.objectId}`} key={i}><ul key={i}><div ><SmallArtistCard url={u.imageUrl} artistName={`${u.artistName} - ${u.beatPackName}`} verified={false} /></div></ul></Link>
                                 )}
                             </div>
                         </div> : <div>
@@ -85,11 +85,11 @@ const MarketPlace = () => {
                                 <div className='grid grid-cols-3 gap-5'>
                                     {shrineBeatPack.map((u, i) => {
                                         if (window.innerWidth > 800) {
-                                            return <Link to={`/beatpack/${u.objectId}`}> <ul key={i}><div  ><BigArtistCard url={u.imageUrl} /></div></ul></Link>
+                                            return <Link to={`/beatpack/${u.objectId}`} key={i}> <ul key={i}><div  ><BigArtistCard url={u.imageUrl} /></div></ul></Link>
                                         } else {
                                             if (i > 1) return
 
-                                            return <Link to={`/beatpack/${u.objectId}`}> <ul key={i}><div  ><BigArtistCard url={u.imageUrl} /></div></ul></Link>
+                                            return <Link to={`/beatpack/${u.objectId}`} key={i}> <ul key={i}><div  ><BigArtistCard url={u.imageUrl} /></div></ul></Link>
 
                                         }
 

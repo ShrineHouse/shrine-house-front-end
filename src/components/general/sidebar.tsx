@@ -20,7 +20,10 @@ const Sidebar = (props: { tabIndex: Number, setTabIndex: Function, className: st
                     <NftLogo />
                 </div>
                 <div className={props.tabIndex === 2 ? "sideBarIcon  w-full flex flex-row justify-center py-5 mb-20 px-7" : "w-full flex flex-row justify-center sideBarIconInActive mb-20 px-7"} onClick={() => props.setTabIndex(2)}>
+                    <div className='h-10'>
                     <BeatPackLogo />
+
+                    </div>
                 </div>
             </div>
 
