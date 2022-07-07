@@ -56,7 +56,7 @@ const SearchBar = (props: { search: Function, marketplace: boolean }) => {
                         <h1 className='text-2xl mt-1 font-semibold'>Shrine House</h1>
                     </div>
                 </div>
-                <div className='py-5'>
+                <div className='py-5 flex-1'>
                     <input placeholder='Search name, genre, ...' className='textInput justify-center w-full' onChange={(e) => props.search(e.target.value)} />
                 </div>
                 <div className='flex flex-row items-center gap-3 justify-end '>
@@ -71,12 +71,12 @@ const SearchBar = (props: { search: Function, marketplace: boolean }) => {
                         <Profile active={dropdownActive} wrapperRef={wrapperRef} type={user === null ? 'user' : user.attributes.type} />
                     </div>}
                     <div className='hidden lg:block'>
-                        {!isAuthenticated && <div className='primaryButton  mr-5'>
+                        {!isAuthenticated && <div className='primaryButton mr-5'>
                             <button className='flex flex-row gap-3' onClick={() => setPopup(true)} ><MdAccountBalanceWallet size={25} />Sign in</button>
                         </div>}
                     </div>
 
-                    <div className='block lg:hidden mr-5'>
+                    <div className='block lg:hidden'>
                         {!isAuthenticated &&
                             <div className='iconColorInactive' onClick={() => setPopup(true)} ><MdAccountBalanceWallet size={25} /></div>
                         }

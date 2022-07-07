@@ -21,7 +21,7 @@ export const PopUp: React.FC<Props> = ({ isOpen, close, children }) => {
 
                 <div className='z-50 flex flex-col relative '>
                     <CloseButton close={close} />
-                    <div className='flex flex-col p-24'>
+                    <div className='flex flex-col px-10 py-24 md:p-24'>
                         {children}
                     </div>
                 </div>
