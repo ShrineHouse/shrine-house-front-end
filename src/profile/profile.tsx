@@ -26,6 +26,9 @@ const Profile = (props: { wrapperRef: React.MutableRefObject<null>, active: bool
                 <p className="profileLink">General</p>
                 <p className="profileLink">Socials</p>
                 <p className="profileLink">Push Notifications</p>
+                {props.type !== 'user' && <Link to='/signup'>
+                    <p className="profileLink">Edit Profile</p>
+                </Link>}
                 <div className='h-5'></div>
                 {props.type === 'user' && <Link to='/signup'>
                     <p className="profileLink">Signup as an artist/producer</p>
