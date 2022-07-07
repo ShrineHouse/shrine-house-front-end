@@ -79,7 +79,8 @@ const Home = () => {
                                             return <ul key={i}><a target='_blank' href={`https://ethbarcelona.com/`}>{u}</a></ul>
                                         }
                                     }
-                                    )}
+                                    )
+                                    }
                                 </div>
                             </div>
                             <div className="flex flex-col">

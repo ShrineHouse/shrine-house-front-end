@@ -108,14 +108,14 @@ label{
     border-top-right-radius: 20px;
     border-bottom-right-radius: 20px;
     margin-top: 20% !important;
-
+    position: fixed;
 }
 
 .sideBarTool{
     width: 96px;
     opacity: 0;
     transition: 300ms;
-
+    position: absolute;
 }
 
 .modalHeight{

@@ -23,13 +23,28 @@ export const EthBCNCard = (props: { url: string }) => {
 export const SmallArtistCard = (props: { url: string, artistName: string, verified: boolean }) => {
     return (
         <div className='w-full flex flex-col gap-2'>
-            <div className='w-full  bg-white borderRadiusComponents shadow bigCard smallCard' style={{'backgroundImage':`url("${props.url}")`, 'backgroundSize':'cover', 'backgroundPosition':'center'}}>
+            <div className='w-full  bg-white borderRadiusComponents shadow bigCard smallCard' style={{ 'backgroundImage': `url("${props.url}")`, 'backgroundSize': 'cover', 'backgroundPosition': 'center' }}>
             </div>
             <div className='flex flex-row justify-between'> <p>{props.artistName}</p> {props.verified && <div className="primaryColor"><AiFillCheckCircle size={24} /></div>} </div>
         </div>
 
     );
 }
+
+export const BeatPackCard = (props: { url: string, artistName: string, verified: boolean, beatPackName: string }) => {
+    return (
+        <div className='w-full flex flex-col gap-2'>
+            <div className='w-full  bg-white borderRadiusComponents shadow bigCard smallCard' style={{ 'backgroundImage': `url("${props.url}")`, 'backgroundSize': 'cover', 'backgroundPosition': 'center' }}>
+            </div>
+            <div className='flex flex-col'>
+                <div className='flex flex-row justify-between'> <p>{props.beatPackName}</p> {props.verified && <div className="primaryColor"><AiFillCheckCircle size={24} /></div>} </div>
+                <div className='primaryGray'>{props.artistName}</div>
+            </div>
+        </div>
+
+    );
+}
+
 
 export const MuseCard = (props: { muse: Muse }) => {
     const muse = props.muse;

@@ -33,7 +33,7 @@ const SearchBar = (props: { search: Function, marketplace: boolean }) => {
                         <Logo />
                     </div>
                     <div className='self-center'>
-                        <h1 className='text-2xl'>Shrine House</h1>
+                        <h1 className='text-2xl mt-1 font-semibold'>Shrine House</h1>
                     </div>
                 </div>
                 <div className='py-5'>

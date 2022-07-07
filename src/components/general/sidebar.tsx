@@ -8,7 +8,7 @@ import NftLogo from '../icons/NftDisplayLogo';
 const Sidebar = (props: { tabIndex: Number, setTabIndex: Function, className: string, classNameTool: string }) => {
     return (
         <>
-            <div className={`absolute top-0 mt-24 py-5 left-0 z-30 bg-gray-500 bg-opacity-25 ${props.classNameTool}`}>
+            <div className={`top-0 mt-24 py-5 left-0 z-30 bg-gray-300 bg-opacity-25 ${props.classNameTool}`}>
                 <IoIosArrowForward size={24} color="#F07735" />
             </div>
             <div className={`h-screen overflow-hidden transition-all bg-white py-10 flex flex-col gap-5 items-center justify-center shadow-md fixed z-20 ${props.className}`}>

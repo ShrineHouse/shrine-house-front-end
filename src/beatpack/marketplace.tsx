@@ -3,7 +3,7 @@ import { useMoralisCloudFunction } from 'react-moralis';
 import { useQuery } from 'react-query';
 
 import { dataToBeatPack, searchBeatpack } from '../helpers/database';
-import { SmallArtistCard } from '../components/general/cards';
+import { BeatPackCard, SmallArtistCard } from '../components/general/cards';
 import BeatPack from '../interfaces/beats';
 import { Link } from 'react-router-dom';
 
@@ -30,7 +30,7 @@ const MarketPlace = () => {
 
     //Build marketplace based upon genre
     function buildList() {
-        return beatPack.slice(0, 5).map((u, i) => <Link key={i} to={`/beatpack/${u.objectId}`}><ul key={i}><div  ><SmallArtistCard url={u.imageUrl} artistName={`${u.artistName} - ${u.beatPackName}`} verified={false} /></div></ul></Link>)
+        return beatPack.slice(0, 5).map((u, i) => <Link key={i} to={`/beatpack/${u.objectId}`}><ul key={i}><div  ><BeatPackCard beatPackName={u.beatPackName} url={u.imageUrl} artistName={u.artistName} verified={false} /></div></ul></Link>)
     }
     //BUild marketplace based up search
     function search(value: string) {

@@ -1,17 +1,23 @@
-
-.primaryColor{
+.primaryColor {
     color: #F07735
 }
-.primaryColorBlack{
+
+.primaryColorBlack {
     color: #231F20;
 }
-.primaryColorBg{
+
+.primaryColorBg {
     background-color: #F07735;
 }
-.backgroundCol{
+
+.backgroundCol {
     background-color: #fefefe;
 }
 
-.primaryColorLightBg{
+.primaryColorLightBg {
     background-color: #f0763541
+}
+
+.primaryGray {
+    color: #9E9E9E;
 }
