@@ -79,15 +79,15 @@
     font-weight: 700;
 }
 
-label{
+label {
     font-weight: bold;
 }
 
-.imageAspectRatioEqual{
+.imageAspectRatioEqual {
     aspect-ratio: 1/1 !important;
 }
 
-.sideBarHover{
+.sideBarHover {
     width: 30px;
     transition: 300ms;
     opacity: 0;
@@ -95,13 +95,13 @@ label{
 }
 
 
-.sideBarHoverEnabled{
+.sideBarHoverEnabled {
     width: 56px !important;
     transition: 300ms;
     opacity: 1;
 }
 
-.sideBarToolActive{
+.sideBarToolActive {
     width: 30px;
     opacity: 1;
     transition: 300ms;
@@ -111,20 +111,85 @@ label{
     position: fixed;
 }
 
-.sideBarTool{
+.sideBarTool {
     width: 55px;
     opacity: 0;
     transition: 300ms;
     position: absolute;
 }
 
-.modalHeight{
+.modalHeight {
     height: 600px;
 }
 
-.divider{
+.divider {
     height: 1px;
     width: 100%;
     background-color: rgb(238, 236, 234);
 
+}
+
+
+.popupOverlay {
+    background-color: rgba(0, 0, 0, 0.132);
+    opacity: 0;
+    visibility: hidden;
+    transition-duration: 300ms;
+}
+
+.popupOverlayActive {
+    background-color: rgba(0, 0, 0, 0.122);
+    opacity: 1;
+    transition-duration: 300ms;
+}
+
+.popUp {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, 100vh);
+    width: 542px;
+    background: white;
+    min-height: 200px;
+    transition: 300ms;
+}
+
+.popUpActive {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 542px;
+    background: white;
+    min-height: 200px;
+    transition: 300ms;
+    z-index: 9999;
+    border-radius: 12px;
+    padding-bottom: 20px;
+}
+
+.ellipse1 {
+    /* Ellipse 1 */
+    position: absolute;
+    width: 414px;
+    height: 414px;
+    right: -30%;
+    top: -20%;
+    background: radial-gradient(50% 50% at 50% 50%, rgba(242, 148, 97, 0.3) 0%, rgba(241, 118, 52, 0) 100%);
+
+
+
+}
+
+.ellipse2 {
+    /* Ellipse 2 */
+
+
+    position: absolute;
+    width: 541px;
+    height: 541px;
+    left: -30%;
+    bottom: -20%;
+
+    background: radial-gradient(50% 50% at 50% 50%, rgba(242, 148, 97, 0.3) 0%, rgba(241, 118, 52, 0) 100%);
 }
