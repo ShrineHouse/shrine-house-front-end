@@ -28,7 +28,7 @@ function ProducerInfo(props: { producer: DbUser }) {
                 
                 <button className='primaryButton w-max'>Go to producer page</button></Link>
             </div>
-            <img src={props.producer.image} className='hidden md:block w-auto h-full object-cover rounded-xl' />
+            <img src={props.producer.image} className='hidden md:block w-auto h-full object-cover rounded-xl imageAspectRatioEqual' />
         </div>
 
     );

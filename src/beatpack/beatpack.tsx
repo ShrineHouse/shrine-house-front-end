@@ -17,12 +17,14 @@ import { Link, useParams } from "react-router-dom";
 import LoadingWidget from "../components/general/loadingwidget";
 import { PopUp } from "../components/general/PopUpModal";
 import { CheckoutModal } from "./CheckoutModal";
+import Heading1 from "../components/general/Heading1";
+import { Heading2 } from "../components/general/Heading2";
 
 
 ///Beatpack page
 const BeatPackPage = () => {
   const { Moralis } = useMoralis();
-  const [modalIsOpen, setIsOpen] = useState(true);
+  const [modalIsOpen, setIsOpen] = useState(false);
   const { id } = useParams();
   const [bp, setBp] = useState(emptyBp);
   const getBp = useMoralisCloudFunction("getBeatpack", { id: id });
@@ -119,10 +121,8 @@ const BeatPackPage = () => {
                   />
                 </div>
                 <div className="flex flex-col gap-2">
-                  <div className="text-4xl font-bold">{bp.beatPackName}</div>
-                  <div className="text-4xl font-bold primaryColor">
-                    {producer.fullName}
-                  </div>
+                  <Heading1 text={bp.beatPackName} />
+                  <Heading1 className="primaryColor" text={producer.fullName} />
                   <div className="text-xl text-gray-400">{bp.genre}</div>
                 </div>
               </div>
@@ -130,22 +130,22 @@ const BeatPackPage = () => {
                 <div
                   className={
                     activeTab === "beat"
-                      ? "transition-all underline text-2xl md:text-3xl font-bold"
-                      : "transition-all text-2xl md:text-3xl font-bold text-gray-500"
+                      ? "transition-all underline   "
+                      : "transition-all    text-gray-500"
                   }
                   onClick={() => setActiveTab("beat")}
                 >
-                  Beatpack
+                  <Heading2 text='Beatpack' />
                 </div>
                 <div
                   className={
                     activeTab !== "beat"
-                      ? "transition-all underline text-2xl md:text-3xl font-bold"
-                      : "transition-all text-2xl md:text-3xl font-bold text-gray-500"
+                      ? "transition-all underline font-bold"
+                      : "transition-all  text-gray-500"
                   }
                   onClick={() => setActiveTab("producer")}
                 >
-                  Producer info
+                  <Heading2 text='Producer Info' />
                 </div>
               </div>
               <div className="w-full">
