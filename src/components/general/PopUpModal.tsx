@@ -10,7 +10,7 @@ type Props = {
 export const PopUp: React.FC<Props> = ({ isOpen, close, children }) => {
     return (
         <>
-            <div className={isOpen ? 'popupOverlayActive h-screen w-screen fixed z-50' : 'popupOverlay h-screen w-screen fixed z-50'} />
+            <div className={isOpen ? 'popupOverlayActive h-screen w-screen fixed z-50 top-0 left-0' : 'popupOverlay top-0 left-0 h-screen w-screen fixed z-50'} />
 
 
             <div className={isOpen ? 'popUpActive shadow-md' : 'popUp'}>
