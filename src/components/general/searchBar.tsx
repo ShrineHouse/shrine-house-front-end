@@ -66,7 +66,7 @@ const SearchBar = (props: { search: Function, marketplace: boolean }) => {
                     <div className='iconColorInactive'>
                         <MdNotifications size={25} />
                     </div>
-                    {isAuthenticated && <div className={dropdownActive ? 'iconColorActive mr-5' : 'iconColorInactive relative mr-5'}>
+                    {isAuthenticated && <div className={dropdownActive ? 'iconColorActive md:mr-5' : 'iconColorInactive relative md:mr-5'}>
                         <MdPerson size={25} onClick={() => setDropdown(!dropdownActive)} />
                         <Profile active={dropdownActive} wrapperRef={wrapperRef} type={user === null ? 'user' : user.attributes.type} />
                     </div>}
