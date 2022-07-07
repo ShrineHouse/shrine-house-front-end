@@ -107,6 +107,7 @@ input:focus {
 
 .sideBarIconInActive {
     transition: 300ms;
+    height: 20px;
     cursor: pointer;
     color: var(--bgPrimary);
 

@@ -13,17 +13,15 @@ const Sidebar = (props: { tabIndex: Number, setTabIndex: Function, className: st
             </div>
             <div className={`h-screen overflow-hidden transition-all bg-white py-10 flex flex-col gap-5 items-center justify-center shadow-md fixed z-20 ${props.className}`}>
 
-                <div className={props.tabIndex === 0 ? "sideBarIcon w-full flex flex-row justify-center py-5 px-7" : " w-full flex flex-row justify-center sideBarIconInActive px-7"} onClick={() => props.setTabIndex(0)}>
+                <div className={props.tabIndex === 0 ? "sideBarIcon w-full flex flex-row justify-center h-10 py-2  px-2" : " w-full flex flex-row justify-center sideBarIconInActive px-2"} onClick={() => props.setTabIndex(0)}>
                     <HomeIcon />
                 </div>
-                <div className={props.tabIndex === 1 ? "sideBarIcon  w-full flex flex-row justify-center py-5 px-7" : " w-full flex flex-row justify-center sideBarIconInActive px-7"} onClick={() => props.setTabIndex(1)}>
+                <div className={props.tabIndex === 1 ? "sideBarIcon  w-full flex flex-row justify-center h-10 py-2  px-2" : " w-full flex flex-row justify-center sideBarIconInActive px-2"} onClick={() => props.setTabIndex(1)}>
                     <NftLogo />
                 </div>
-                <div className={props.tabIndex === 2 ? "sideBarIcon  w-full flex flex-row justify-center py-5 mb-20 px-7" : "w-full flex flex-row justify-center sideBarIconInActive mb-20 px-7"} onClick={() => props.setTabIndex(2)}>
-                    <div className='h-10'>
+                <div className={props.tabIndex === 2 ? "sideBarIcon  w-full flex flex-row justify-center h-10 py-2 mb-20 px-2" : "w-full flex flex-row justify-center sideBarIconInActive mb-20 px-2"} onClick={() => props.setTabIndex(2)}>
                     <BeatPackLogo />
 
-                    </div>
                 </div>
             </div>
 

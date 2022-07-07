@@ -76,16 +76,13 @@ const App = () => {
             }}>
               <div className='lg:block hidden'>
                 <Sidebar className={isShown ? 'sideBarHoverEnabled' : 'sideBarHover'} tabIndex={tabIndex} setTabIndex={setTabIndex} classNameTool={isShown ? 'sideBarTool' : 'sideBarToolActive'} />
-
               </div>
               <div className='block lg:hidden'>
                 <BottomBar tabIndex={tabIndex} setTabIndex={setTabIndex} />
-
               </div>
             </div>
             <div className='lg:block hidden'>
               <div className={isShown ? 'sideBarHoverEnabled' : 'sideBarHover'}></div>
-
             </div>
             <div className='w-full flex flex-row md:justify-center h-full'>
               {tabIndex === 0 && <div className='px-5 h-full'><Home /></div>}

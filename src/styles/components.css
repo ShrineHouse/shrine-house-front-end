@@ -96,7 +96,7 @@ label{
 
 
 .sideBarHoverEnabled{
-    width: 96px !important;
+    width: 56px !important;
     transition: 300ms;
     opacity: 1;
 }
@@ -112,7 +112,7 @@ label{
 }
 
 .sideBarTool{
-    width: 96px;
+    width: 55px;
     opacity: 0;
     transition: 300ms;
     position: absolute;
