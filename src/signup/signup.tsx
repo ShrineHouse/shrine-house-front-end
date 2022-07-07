@@ -38,9 +38,7 @@ function StepOne(props: { setStep: Function, setData: Function }) {
 
     }
     return (<div className='flex flex-col items-center justify-center h-full gap-5 p-10 px-20'>
-        <div className='h-20 w-20'>
-            <Logo />
-        </div>
+
         <div className='titleText -mt-7 text-center'>Create your account</div>
         <form className='formLol flex flex-col gap-5 w-full' onSubmit={(e) => handleSubmit(e)}>
             <input className='inputFieldText' name="legal" placeholder='Legal name' type='text' />
@@ -96,9 +94,9 @@ const SignupPage = () => {
 
     return (
         <div>
-            <div className='backgroundCol min-h-screen min-w-screen flex flex-row relative '>
-                <div className='grid grid-cols-2 gap-10 m-10 mx-auto'>
-                    <div className='wizardWrapper shadow z-20 relative '>
+            <div className='backgroundCol min-h-screen min-w-screen flex flex-col lg:flex-row relative '>
+                <div className='grid grid-cols-1 lg:grid-cols-2 gap-10 m-10 mx-auto'>
+                    <div className='wizardWrapper w-auto lg:w-full order-2 lg:order-1 shadow z-20 relative mx-5 lg:mx-0 '>
                         {step === 0 && <StepOne setStep={setStep} setData={setData} />}
 
                         {step === 1 && <StepTwo setStep={setStep} setSocialsData={setSocialsData} />}
@@ -106,7 +104,8 @@ const SignupPage = () => {
                         {step === 2 && <StepThree data={data} dataSocials={dataSocials} />}
 
                     </div>
-                    <div className='flex flex-col justify-center  gap-5 z-10'>
+                    <div className='flex pl-5 lg:pl-0 flex-col justify-center order-1 lg:order-2  gap-5 z-10'>
+
                         <div className='whiteHeading w-8/12'>
                             Join the Shrine
                         </div>

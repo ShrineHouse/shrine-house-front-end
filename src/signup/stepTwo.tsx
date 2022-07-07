@@ -32,9 +32,6 @@ const StepTwo = (props: { setStep: Function, setSocialsData:Function }) => {
     return (
 
         <div className='flex flex-col items-center justify-center   h-full gap-5 p-10 px-20'>
-            <div className='h-20 w-20'>
-                <Logo />
-            </div>
             <div className='titleText -mt-7 text-center'>Complete your profile</div>
             <form className='formLol flex flex-col gap-5 w-full' onSubmit={handleSubmit}>
                 <>
