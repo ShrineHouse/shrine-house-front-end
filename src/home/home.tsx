@@ -55,7 +55,7 @@ const Home = () => {
                     <NavbarSpacer />
                     {isSearching !== false ?
                         <div className="flex flex-col gap-2">
-                            <Heading1 text="Search Results" />
+                            <Heading2 text="Search Results" className='mt-10' />
                             <div className='grid grid-cols-5 gap-10 gap-y-20'>
                                 {searchedUsers.map((u, i) => <ul key={i}>
                                     <Link to={`/${u.id}`}>

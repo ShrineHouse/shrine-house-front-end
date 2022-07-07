@@ -50,7 +50,7 @@ const MarketPlace = () => {
                     <NavbarSpacer />
                     {isSearching !== false ?
                         <div className="flex flex-col gap-2">
-                            <Heading1 text="Search Results" />
+                            <Heading2 text="Search Results" className='mt-10' />
                             <div className='grid grid-cols-5 gap-10 gap-y-20'>
                                 {searchedBp.map((u, i) => <Link to={`/beatpack/${u.objectId}`} key={i}><ul key={i}><div ><SmallArtistCard url={u.imageUrl} artistName={`${u.artistName} - ${u.beatPackName}`} verified={false} /></div></ul></Link>
                                 )}

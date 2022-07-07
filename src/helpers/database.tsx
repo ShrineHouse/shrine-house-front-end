@@ -128,6 +128,14 @@ export function searchBeatpack(beatpacks: BeatPack[], searchResult: string) {
     return result;
 }
 
+export function searchMuse(muses: Muse[], searchResult: string) {
+    let result: Muse[] = [];
+    muses.map(u => {
+        if (u.nftName.toLowerCase().includes(searchResult.toLowerCase())) return result.push(u);
+    })
+    return result;
+}
+
 export function artistGenreFilter(users: DbUser[], genre: string) {
     const genres: DbUser[] = []
     users.forEach((u) => {
