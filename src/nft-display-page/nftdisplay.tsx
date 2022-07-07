@@ -3,12 +3,10 @@ import { useMoralisCloudFunction } from 'react-moralis';
 import SearchBar from '../components/general/searchBar';
 import { useQuery } from 'react-query';
 
-import { dataToMuses, dataToUsers } from '../helpers/database';
+import { dataToMuses } from '../helpers/database';
 import { MuseCard, } from '../components/general/cards';
-import { DbUser } from '../interfaces/users'
 
 import LoadingWidget from '../components/general/loadingwidget';
-import Chip from '../components/general/chip';
 import { Link } from 'react-router-dom';
 
 
@@ -41,12 +39,7 @@ const NftDisplay = () => {
                     <div className=' h-24 w-full'></div>
                     <div className="flex flex-col gap-5">
                         <div className='text-4xl  font-bold'>Muse Feed</div>
-                        <div className='flex flex-row gap-5'>
-                            <Chip text='Fresh' />
-                            <Chip text='Sale' />
-                            <Chip text='Growing' />
-                        </div>
-                        <div className='flex flex-col md:grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5'>
+                        <div className='flex flex-col md:grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-10 gap-y-20'>
                             {buildList()}
                         </div>
                         <div className='h-20 w-full' />

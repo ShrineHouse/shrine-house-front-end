@@ -2,16 +2,16 @@ import React, { useState } from 'react'
 import { useMoralisCloudFunction } from 'react-moralis';
 import SearchBar from '../components/general/searchBar';
 import { useQuery } from 'react-query';
-
-import { artistGenreFilter, dataToShrineUsers, dataToUsers, searchArtists } from '../helpers/database';
-import { BigArtistCard, EthBCNCard, SmallArtistCard } from '../components/general/cards';
+import { dataToUsers, searchArtists } from '../helpers/database';
+import { EthBCNCard, SmallArtistCard } from '../components/general/cards';
 import { DbUser } from '../interfaces/users'
-import Chip from '../components/general/chip';
 import { Link } from 'react-router-dom';
 import LoadingWidget from '../components/general/loadingwidget';
-
-
-
+import Heading1 from '../components/general/Heading1';
+import { Heading2 } from '../components/general/Heading2';
+import { NavbarSpacer } from '../components/general/NavbarSpacer';
+import { Divider } from '../components/general/Divider';
+import { BodyLink } from '../components/general/BodyLink';
 
 ////Home page - artists live here
 const Home = () => {
@@ -19,15 +19,11 @@ const Home = () => {
     const [searchedUsers, setUsers] = useState(emptyUser)
     const [isSearching, setSearch] = useState(false)
     const { fetch } = useMoralisCloudFunction('getArtists');
-
     const { isLoading, error, data } = useQuery('usersData', () => fetch())
-    const [genreArtist, setGenre] = useState([{ genre: 'none' }])
-
     if (isLoading || data === undefined) return <LoadingWidget />
 
     if (error) return <div>'WOOPS ERROR...'</div>
     const users = dataToUsers(data as any);
-    const shrineUsers = dataToShrineUsers(data as any);
 
     /////Build artist list based upon search
     function search(value: string) {
@@ -41,16 +37,7 @@ const Home = () => {
     }
     /////Build artist list with genre filters applied
     function buildList() {
-        if (genreArtist[0] === undefined) return <p>No artists found</p>
-        if (genreArtist[0].genre === 'none') {
-            {
-                return users.map((u, i) => <ul key={i}><Link to={`/${u.id}`}><SmallArtistCard url={u.image} artistName={`${u.fullName}`} verified={false} /> </Link></ul>)
-            }
-        } else {
-            {
-                return (genreArtist as DbUser[]).map((u, i) => <ul key={i}><Link to={`/${u.id}`}><SmallArtistCard url={u.image} artistName={`${u.fullName}`} verified={false} /> </Link></ul>)
-            }
-        }
+        return users.slice(0, 5).map((u, i) => <ul key={i}><Link to={`/${u.id}`}><SmallArtistCard url={u.image} artistName={`${u.fullName}`} verified={false} /> </Link></ul>)
     }
 
     const ethBcnCard = [
@@ -58,63 +45,71 @@ const Home = () => {
         , <EthBCNCard url='https://novobrief.com/wp-content/uploads/2022/05/FS-ECuBVsAMKLFC-810x456.jpeg' />,
         <EthBCNCard url='https://ethbarcelona.com/assets/Image.png' />
     ]
+
+    ///// RENDER THE HOMEPAGE
     return (
         <div className='backgroundCol w-full'>
             <div className='md:min-h-screen  container mx-auto'>
-                <div className='flex flex-col mx-5 gap-10'>
+                <div className='flex flex-col'>
                     <SearchBar search={search} marketplace={false} />
-                    <div className=' h-24 w-full'></div>
-                    <div className='flex max-w-full flex-row justify-between items-center'>
-                        <div className='flex flex-row gap-2'>
-                            <Chip text='Trending' />
-                            <Chip text='Liked' />
-                            <Chip text='New' />
-                        </div>
-                        <select id="genres" name="genres" className='genreSelect hidden md:block' onChange={(e) => {
-                            if (e.target.value === 'allgenres') return setGenre([{ genre: 'none' }])
-                            const filteredData = artistGenreFilter(users, e.target.value)
-                            setGenre(filteredData)
-                        }} >
-                            <option value="allgenres">All genres</option>
-                            <option value="altrock">Alt Rock</option>
-                            <option value="rap">Rap</option>
-                            <option value="trap">Trap</option>
-                            <option value="edm">EDM</option>
-                        </select>
-                    </div>
+                    <NavbarSpacer />
                     {isSearching !== false ?
                         <div className="flex flex-col gap-2">
-                            <h1>Search results</h1>
-                            <div className='grid grid-cols-3 gap-5'>
-                                {searchedUsers.map((u, i) => <ul key={i}>                    <Link to={`/${u.id}`}>
-                                    <SmallArtistCard url={u.image} artistName={u.fullName} verified={u.verified} /> </Link></ul>
+                            <Heading1 text="Search Results" />
+                            <div className='grid grid-cols-5 gap-10 gap-y-20'>
+                                {searchedUsers.map((u, i) => <ul key={i}>
+                                    <Link to={`/${u.id}`}>
+                                        <SmallArtistCard url={u.image} artistName={u.fullName} verified={u.verified} />
+                                    </Link>
+                                </ul>
                                 )}
                             </div>
                         </div> : <div>
-                            <div className="flex flex-col gap-5">
-                                <div className=' text-5xl -mb-2 font-bold'>
-                                    News
+                            <div className="flex flex-col">
+                                <Heading1 text="Welcome" className=' mt-10' />
+                                <Divider className='mt-4' />
+                                <div className='flex flex-row justify-between items-center mt-3'>
+                                    <Heading2 text='News' />
+                                    <BodyLink text='See All' />
                                 </div>
-                                <div className='grid grid-cols-2 md:grid-cols-3 gap-5 '>
+                                <div className='grid grid-cols-2 md:grid-cols-3 gap-10 mt-3  '>
                                     {ethBcnCard.map((u, i) => {
                                         if (window.innerWidth > 800) { return <ul key={i}><a target='_blank' href={`https://ethbarcelona.com/`}>{u}</a></ul> } else {
                                             if (i > 1) return
                                             return <ul key={i}><a target='_blank' href={`https://ethbarcelona.com/`}>{u}</a></ul>
-
                                         }
                                     }
                                     )}
                                 </div>
                             </div>
-                            <div className="flex flex-col gap-5 mt-10">
-                                <div className='text-4xl -mb-2'>Trending</div>
-                                <div className='flex flex-col md:grid md:grid-cols-5 gap-5 h-full'>
+                            <div className="flex flex-col">
+                                <Divider className='mt-10' />
+                                <div className='flex flex-row justify-between items-center mt-3'>
+                                    <Heading2 text='Trending' />
+                                    <BodyLink text='See All' />
+                                </div>
+                                <div className='flex flex-col md:grid md:grid-cols-5 gap-10 h-full mt-3'>
+                                    {buildList()}
+                                </div>
+                                <Divider className='mt-10' />
+                                <div className='flex flex-row justify-between items-center mt-3'>
+                                    <Heading2 text='New' />
+                                    <BodyLink text='See All' />
+                                </div>
+                                <div className='flex flex-col md:grid md:grid-cols-5 gap-10 h-full mt-3'>
+                                    {buildList()}
+                                </div>
+                                <Divider className='mt-10' />
+                                <div className='flex flex-row justify-between items-center mt-3'>
+                                    <Heading2 text='Recommended' />
+                                    <BodyLink text='See All' />
+                                </div>
+                                <div className='flex flex-col md:grid md:grid-cols-5 gap-10 h-full mt-3'>
                                     {buildList()}
                                 </div>
                                 <div className='h-20 w-full' />
                             </div>
                         </div>}
-
                 </div>
             </div>
         </div>

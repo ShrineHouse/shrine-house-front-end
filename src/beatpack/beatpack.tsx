@@ -125,7 +125,7 @@ const BeatPackPage = () => {
           </Link>
           <div className="flex flex-row gap-20">
             <div className="hidden lg:block">
-            <SimilarEntities bp={bp} setLoaded={setSimilarLoaded} />
+              <SimilarEntities bp={bp} setLoaded={setSimilarLoaded} />
 
             </div>
             <VStack w="100%" gap={10}>

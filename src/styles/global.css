@@ -8,6 +8,7 @@
 @import "./wizard.css";
 @import "./switch.css";
 @import "./beatpack.css";
+@import url('http://fonts.cdnfonts.com/css/neue-haas-grotesk-display-pro');
 
 :root {
     --primary: #F07735;
@@ -23,8 +24,8 @@ html,
 body {
     margin: 0;
     overflow-x: hidden;
-    background-color: #F0F2F3;
-
+    background-color: #fefefe;
+    font-family: 'Neue Haas Grotesk Display Pro', sans-serif;
 }
 
 .borderRadiusComponents {
@@ -34,6 +35,8 @@ body {
 h1 {
     font-size: 24px;
     font-weight: 700;
+    font-family: 'Neue Haas Grotesk Display Pro', sans-serif;
+
 }
 
 .textInput {

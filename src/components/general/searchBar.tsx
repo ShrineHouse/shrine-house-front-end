@@ -33,11 +33,11 @@ const SearchBar = (props: { search: Function, marketplace: boolean }) => {
                         <Logo />
                     </div>
                     <div className='self-center'>
-                        <h1 className='text-2xl'>SHRINE HOUSE</h1>
+                        <h1 className='text-2xl'>Shrine House</h1>
                     </div>
                 </div>
                 <div className='py-5'>
-                    <input placeholder='Search shrine' className='textInput justify-center w-full' onChange={(e) => props.search(e.target.value)} />
+                    <input placeholder='Search name, genre, ...' className='textInput justify-center w-full' onChange={(e) => props.search(e.target.value)} />
                 </div>
                 <div className='flex flex-row items-center gap-3 justify-end '>
                     {(user !== null && props.marketplace) && <>
