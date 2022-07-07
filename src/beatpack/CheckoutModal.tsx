@@ -15,6 +15,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { AiOutlineCheckCircle } from 'react-icons/ai'
 import Heading1 from "../components/general/Heading1";
 import { Divider } from "../components/general/Divider";
+import { FirstCheckout } from "./checkout-steps/First";
 
 //checkout modal
 export function CheckoutModal(props: {
@@ -76,10 +77,13 @@ export function CheckoutModal(props: {
             const artistWallet = user.attributes.wallet;
             const producerWallet = props.producer.wallet;
             const producerRoyalties = props.bp.royaltyIndex;
-            const artistRoyalties = (event.target as any)[0].value;
-            const nftName = (event.target as any)[1].value;
+            const nftName = (event.target as any)[0].value;
+
+            const artistRoyalties = (event.target as any)[1].value;
             const nftPrice = (event.target as any)[2].value;
             const nftEditions = (event.target as any)[3].value;
+
+            console.log('roy', artistRoyalties, 'price', nftPrice, 'edit', nftEditions)
             const ticker = "Shrine";
             const URI = `ipfs://QmQdPYTY8yArgVmMJK319e75rsi91bwtUF5JsSF9CLnEYe/`;
 
@@ -160,37 +164,20 @@ export function CheckoutModal(props: {
 
     if (transferDone && user !== null) {
         return (
-            <div className=" modalWidth modalHeight my-5">
-                <div
-                    className="top-0 right-0 text-xl absolute z-50 text-gray-600 pt-5 pr-5 cursor-pointer"
-                    onClick={() => props.closeModal()}
-                >
-                    close
-                </div>
+            <div>
+
                 <form
                     onSubmit={(event) => {
                         mintNft(event);
                     }}
                 >
                     <div className="flex flex-col gap-3">
-                        <h2 className="text-3xl text-center font-bold">Mint your NFT</h2>
-                        <div className="divider  mb-10"></div>
+                        <Heading1 text='Mint Your NFT' />
+                        <Divider />
                         <div className="mx-auto">
                             <img
                                 src={props.bp.imageUrl}
-                                className=" object-cover h-32 w-32 rounded-xl"
-                            />
-                        </div>
-                        <div className="flex flex-col">
-                            <label>Your royalty percentage</label>
-                            <input
-                                type="number"
-                                max={12}
-                                min={0}
-                                id="royalty"
-                                required={true}
-                                placeholder="Royalty split"
-                                className="inputFieldText"
+                                className=" object-cover h-24 w-24 rounded-xl"
                             />
                         </div>
                         <div className="flex flex-col">
@@ -205,43 +192,60 @@ export function CheckoutModal(props: {
                                 value={nameValue}
                             />
                         </div>
-                        <div className="flex flex-col">
-                            <label>NFT price</label>
-                            <input
-                                type="number"
-                                id="nftprice"
-                                required={true}
-                                placeholder="Price in USD"
-                                className="inputFieldText"
-                            />
+
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                            <div className="flex flex-col">
+                                <label>Your royalty percentage</label>
+                                <input
+                                    type="number"
+                                    max={12}
+                                    min={0}
+                                    id="royalty"
+                                    required={true}
+                                    placeholder="Royalty split"
+                                    className="inputFieldText"
+                                />
+                            </div>
+                            <div className="flex flex-col">
+                                <label>NFT price</label>
+                                <input
+                                    type="number"
+                                    id="nftprice"
+                                    required={true}
+                                    placeholder="Price in USD"
+                                    className="inputFieldText"
+                                />
+                            </div>
+                            <div className="flex flex-col">
+                                <label>NFT editions</label>
+                                <input
+                                    type="number"
+                                    id="nfteditions"
+                                    required={true}
+                                    placeholder="Amount of editions"
+                                    className="inputFieldText"
+                                />
+                            </div>
                         </div>
-                        <div className="flex flex-col">
-                            <label>NFT editions</label>
-                            <input
-                                type="number"
-                                id="nfteditions"
-                                required={true}
-                                placeholder="Amount of editions"
-                                className="inputFieldText"
-                            />
-                        </div>
-                        <div className="flex flex-row justify-between w-full items-center">
-                            <div className="flex flex-row gap-5">
+
+                        <Divider />
+                        <div className="flex flex-col md:flex-row justify-between w-full items-start md:items-center">
+                            <div className="flex flex-col md:flex-row gap-5">
                                 <div className="flex flex-col justify-center">
                                     <div className="font-bold primaryColor text-2xl">
-                                        {props.producer.fullName}
-                                    </div>
-                                    <div className="font-bold text-xl">
                                         {props.bp.beatPackName}
+                                    </div>
+                                    <div className="font-semibold text-xl">
+                                        {props.producer.fullName}
                                     </div>
                                     <div className=" text-gray-400">
                                         royalties: {props.bp.royaltyIndex}%
                                     </div>
                                 </div>
                             </div>
-                            <div className="flex flex-col justify-center items-end">
+                            <div className="flex flex-col w-full md:justify-center md:items-end">
                                 <div
-                                    className="primaryButton bg-gray-500 text-white cursor-pointer"
+                                    className="primaryButton bg-gray-500 text-white text-center cursor-pointer"
                                     onClick={() => {
                                         onDownload();
                                     }}
@@ -259,52 +263,5 @@ export function CheckoutModal(props: {
         );
     }
 
-    return (
-        <div className="flex flex-col">
-            <Heading1 text='Complete Checkout' />
-            <div className="flex flex-row w-full justify-between mt-10">
-                <div className="font-semibold">Item</div>
-                <div className="font-semibold">Total</div>
-            </div>
-            <Divider />
-            <div className="flex flex-row justify-between w-full items-center mt-3">
-                <div className="flex flex-row gap-5">
-                    <img
-                        src={props.bp.imageUrl}
-                        className=" object-cover h-24 w-24 rounded-xl"
-                    />
-                    <div className="flex flex-col justify-center">
-                        <div className="font-bold primaryColor text-xl">
-                            {props.bp.beatPackName}
-                        </div>
-                        <div className="font-semibold text-lg">
-                            {props.producer.fullName}
-                        </div>
-                        <div className=" text-gray-400">
-                            royalties: {props.bp.royaltyIndex}%
-                        </div>
-                    </div>
-                </div>
-                <div className="flex flex-col justify-center items-end">
-                    <div className="font-bold text-2xl">${props.bp.beatPackPrice}</div>
-                    <div className="text-gray-400">
-                        Matic:{" "}
-                        {props.matic.data === null
-                            ? 0
-                            : Math.round(props.bp.beatPackPrice / props.matic.data.usdPrice)}
-                    </div>
-                </div>
-            </div>
-            <Divider />
-            <button
-                className="primaryButton mt-10"
-                onClick={() => {
-                    //Authenticate, if complete init transfer of funds
-
-                    setTransferStatus(true);
-                }}>
-                Confirm checkout
-            </button>
-        </div>
-    );
+    return (<FirstCheckout bp={props.bp} matic={props.matic} producer={props.producer} setTransferStatus={setTransferStatus} />)
 }

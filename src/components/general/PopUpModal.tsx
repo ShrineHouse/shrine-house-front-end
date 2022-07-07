@@ -14,15 +14,21 @@ export const PopUp: React.FC<Props> = ({ isOpen, close, children }) => {
 
 
             <div className={isOpen ? 'popUpActive shadow-md' : 'popUp'}>
-                <div className='h-full w-full absolute overflow-hidden rounded-xl'>
-                    <div className='ellipse1' />
-                    <div className='ellipse2' />
-                </div>
+
 
                 <div className='z-50 flex flex-col relative '>
                     <CloseButton close={close} />
-                    <div className='flex flex-col px-10 py-24 md:p-24'>
-                        {children}
+                    <div className='px-10 py-10 md:p-10 relative   overflow-hidden'>
+
+                        <div className='h-full w-full fixed z-0 top-0 left-0 '>
+                            <div className='ellipse1' />
+                            <div className='ellipse2' />
+                        </div>
+                        <div className='flex flex-col relative z-50'>
+                            {children}
+
+                        </div>
+
                     </div>
                 </div>
             </div>

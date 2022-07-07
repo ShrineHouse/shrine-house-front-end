@@ -59,14 +59,14 @@ const SearchBar = (props: { search: Function, marketplace: boolean }) => {
                 <div className='py-5 flex-1'>
                     <input placeholder='Search name, genre, ...' className='textInput justify-center w-full' onChange={(e) => props.search(e.target.value)} />
                 </div>
-                <div className='flex flex-row items-center gap-3 justify-end '>
+                <div className='flex flex-row items-center gap-3 justify-end'>
                     {(user !== null && props.marketplace) && <>
                         {(user.attributes.fullName !== undefined) && <div className='primaryButton'><Link to={'/createbeatpack'} className='flex flex-row gap-2' ><MdMusicNote size={25} />Upload beatpack</Link></div>}
                     </>}
                     <div className='iconColorInactive'>
                         <MdNotifications size={25} />
                     </div>
-                    {isAuthenticated && <div className={dropdownActive ? 'iconColorActive md:mr-5' : 'iconColorInactive relative md:mr-5'}>
+                    {isAuthenticated && <div className={dropdownActive ? 'iconColorActive' : 'iconColorInactive relative'}>
                         <MdPerson size={25} onClick={() => setDropdown(!dropdownActive)} />
                         <Profile active={dropdownActive} wrapperRef={wrapperRef} type={user === null ? 'user' : user.attributes.type} />
                     </div>}
@@ -76,11 +76,11 @@ const SearchBar = (props: { search: Function, marketplace: boolean }) => {
                         </div>}
                     </div>
 
-                    <div className='block lg:hidden'>
-                        {!isAuthenticated &&
-                            <div className='iconColorInactive' onClick={() => setPopup(true)} ><MdAccountBalanceWallet size={25} /></div>
-                        }
-                    </div>
+                    {!isAuthenticated && <div className='block lg:hidden'>
+
+                        <div className='iconColorInactive' onClick={() => setPopup(true)} ><MdAccountBalanceWallet size={25} /></div>                    </div>
+
+                    }
 
                 </div>
             </div>
