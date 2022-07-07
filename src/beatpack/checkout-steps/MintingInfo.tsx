@@ -21,8 +21,6 @@ export const MintingInfo = (props: { bp: BeatPack, producer: DbUser, setMinted: 
             filename: `${props.bp.beatPackName}.zip`
         });
     }
-
-
     const myAsync = async (
         name: string,
         symbol: string,

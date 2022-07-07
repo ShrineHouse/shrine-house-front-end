@@ -29,7 +29,7 @@ export default function MusePage() {
                 </Link>
 
             </div>
-            <div className="flex flex-col md:flex-row justify-between min-h-screen">
+            <div className="flex flex-col md:flex-row justify-between min-h-screen bg-gray-100">
                 <div className='hidden md:block h-full md:fixed '>
                     <div className='fixed md:w-2/6 md:h-screen  flex flex-col  justify-center items-center'>
                         <div className='relative'>
