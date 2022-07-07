@@ -65,7 +65,7 @@ export const MuseCard = (props: { muse: Muse }) => {
                     <div className='flex flex-row justify-between'>
                         <div className='flex flex-row gap-2 items-center'>
                             <img src={muse.minterImage} className="rounded-full object-cover h-6 w-6" />
-                            <div className='font-bold text-md'>
+                            <div className='font-semibold text-md'>
                                 @{muse.minter}</div>
                         </div>
 
@@ -78,7 +78,7 @@ export const MuseCard = (props: { muse: Muse }) => {
                     <div className='flex flex-row justify-between items-center'>
                         <div className='flex flex-col'>
                             <div className='text-md text-gray-300'>Price</div>
-                            <div className='text-md font-bold black'>${muse.nftData.nftPrice}</div>
+                            <div className='text-md font-semibold black'>${muse.nftData.nftPrice}</div>
                         </div>
                         {isNew && <div className='flex flex-row primaryColor items-center gap-2'>Fresh <IoSparklesSharp size={16} /></div>}
                     </div>
